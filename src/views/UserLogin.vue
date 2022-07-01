@@ -53,7 +53,7 @@ import {ElLoading, ElMessage} from "element-plus";
 import http from "@/common/utils/http.js";
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
-import avatar from "@/assets/images/icons/avatar-default.png";
+import defaultAvatar from "@/assets/images/icons/avatar-default.png";
 import {cleanAuthorization, writeAuthorization} from "@/common/utils/authorize.js";
 import {httpErrorHandler} from "@/common/utils/error.js";
 import setting from "@/setting.js";
@@ -156,7 +156,7 @@ const submitLogin = async () => {
         store.commit('user/UPDATE', {
             authorization: authorization,
             nickname: data.name,
-            avatar: data.avatar,
+            avatar: data.avatar ?? defaultAvatar,
             permissions: data.permissions
         });
         //加载用户数据（如果需要额外调用接口的话）
@@ -187,7 +187,7 @@ const loadUser = () => {
         const data = response.data.data;
         store.commit('user/UPDATE', {
             nickname: data.name,
-            avatar: avatar,
+            avatar: defaultAvatar,
             permissions: [],
         })
         router.push('/').catch((err) => {
@@ -213,7 +213,7 @@ const mockLogin = () => {
         store.commit('user/UPDATE', {
             authorization: authorization,
             nickname: '超级管理员',
-            avatar: avatar,
+            avatar: defaultAvatar,
             permissions: [],
         });
         router.push('/').catch((err) => {
