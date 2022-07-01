@@ -1,0 +1,35 @@
+@use "~element-plus/theme-chalk/src/index.scss" as *;
+
+:root {
+    --el-color-primary: #2f77eb;
+    --el-font-weight-primary: normal;
+    --el-border-radius-base: 2px;
+    --el-table-header-bg-color: '#eee';
+}
+
+.el-table {
+    --el-border-color-lighter: #dee2e7;
+    --el-table-border-color: var(--el-border-color-lighter);
+    --el-table-border: 1px solid var(--el-table-border-color);
+    --el-table-text-color: #333;
+    --el-table-header-text-color: #222;
+    --el-table-row-hover-bg-color: var(--el-bg-color);
+    --el-table-current-row-bg-color: var(--el-color-primary-light-9);
+    --el-table-header-bg-color: #f1f4f5;
+    --el-table-fixed-box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
+    --el-table-bg-color: var(--el-color-white);
+    --el-table-tr-bg-color: var(--el-color-white);
+    --el-table-expanded-cell-bg-color: var(--el-color-white);
+}
+
+.el-menu {
+    --el-menu-text-color: rgba(255, 255, 255, 0.7);
+    --el-menu-hover-text-color: #ffffff;
+    --el-menu-bg-color: var(--base-navigator-bg-color);
+    --el-menu-hover-bg-color: #333333;
+    --el-menu-active-color: #729bff;
+    --el-menu-item-height: 46px;
+}
+
+.el-dialog {
+}

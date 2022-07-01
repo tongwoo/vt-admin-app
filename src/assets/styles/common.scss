@@ -1,0 +1,167 @@
+/**
+ *  边距
+ *  上 = mt
+ *  右 = mr
+ *  下 = mb
+ *  左 = ml
+ *  上下 = mtb
+ *  左右 = mlr
+ *  全部 = mall
+ */
+
+@each $position in mt, mr, mb, ml, mtb, mlr, mall {
+    $property: null;
+    @if $position == mt {
+        $property: margin-top;
+    } @else if $position == mr {
+        $property: margin-right;
+    } @else if $position == mb {
+        $property: margin-bottom;
+    } @else if $position == ml {
+        $property: margin-left;
+    } @else if $position == mtb {
+        $property: margin;
+    } @else if $position == mlr {
+        $property: margin;
+    } @else if $position == mall {
+        $property: margin;
+    }
+    @for $i from -10 through 10 {
+        $line: '-';
+        @if $i < 0 {
+            $line: '-neg'
+        }
+        .#{$position}#{$line}#{$i*5} {
+            @if $position == mtb {
+                #{$property}: $i*5px 0;
+            } @else if $position == mlr {
+                #{$property}: 0 $i*5px;
+            } @else if $position == mall {
+                #{$property}: $i*5px;
+            } @else {
+                #{$property}: $i*5px;
+            }
+        }
+    }
+}
+
+/**
+ *  间距
+ *  上 = pt
+ *  右 = pr
+ *  下 = pb
+ *  左 = pl
+ *  上下 = ptb
+ *  左右 = plr
+ *  全部 = pall
+ */
+
+@each $position in pt, pr, pb, pl, ptb, plr, pall {
+    $property: null;
+    @if $position == pt {
+        $property: padding-top;
+    } @else if $position == pr {
+        $property: padding-right;
+    } @else if $position == pb {
+        $property: padding-bottom;
+    } @else if $position == pl {
+        $property: padding-left;
+    } @else if $position == ptb {
+        $property: padding;
+    } @else if $position == plr {
+        $property: padding;
+    } @else if $position == pall {
+        $property: padding;
+    }
+    @for $i from 0 through 6 {
+        .#{$position}-#{$i*5} {
+            @if $position == ptb {
+                #{$property}: $i*5px 0;
+            } @else if $position == plr {
+                #{$property}: 0 $i*5px;
+            } @else if $position == pall {
+                #{$property}: $i*5px;
+            } @else {
+                #{$property}: $i*5px;
+            }
+        }
+    }
+}
+
+/**
+ * 文字对齐
+ */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/**
+ * 文字颜色
+ */
+.text-dark-blue {
+    color: #4482FF;
+}
+
+.text-light-blue {
+    color: #21BDDE;
+}
+
+.text-cyan {
+    color: #29FFE3;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-primary {
+    color: #303133;
+}
+
+.text-success {
+    color: #67C23A;
+}
+
+.text-warning {
+    color: #E6A23C;
+}
+
+.text-yellow {
+    color: #FFFF00;
+}
+
+.text-dark-yellow {
+    color: #C1C300;
+}
+
+.text-danger {
+    color: #F56C6C;
+}
+
+.text-info {
+    color: #909399;
+}
+
+.text-brand {
+    color: #409EFF;
+}
+
+.text-purple {
+    color: #F555FF;
+}
+
+.text-dark {
+    color: #8FA8BC;
+}
+
+.text-green {
+    color: #32C26F;
+}

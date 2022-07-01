@@ -1,0 +1,89 @@
+/**
+ * 弹框
+ */
+.el-dialog__header {
+    padding-bottom: var(--el-dialog-padding-primary);
+    border-bottom: 1px solid #ededed;
+}
+
+/**
+ * 下拉框
+ */
+.el-select-long {
+    width: 100%;
+}
+
+/**
+ * 表格
+ */
+.el-table--small .el-table__cell {
+    padding: 6px 0;
+}
+
+.table-header-row {
+}
+
+/**
+ * 按钮
+ */
+.el-button {
+    font-size: 12px;
+}
+
+.el-button + .el-button {
+    margin-left: 6px;
+}
+
+.el-button--small {
+    --el-button-size: 26px;
+}
+
+.table-operation .el-button--text {
+    padding: 2px 5px !important;
+}
+
+//表格右侧操作栏的文字按钮
+.table-operation {
+    .el-button--text {
+        height: auto;
+        padding: 4px 10px;
+    }
+}
+
+
+/**
+ * 菜单
+ */
+.el-sub-menu .el-menu {
+    background-color: #12131a;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.52);
+}
+
+.el-menu-item.is-active {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+    background-image: linear-gradient(90deg, #5095f3 3px, transparent 3px);
+}
+
+.el-sub-menu .el-menu-item {
+    height: var(--el-menu-item-height);
+    line-height: var(--el-menu-item-height);
+}
+
+/**
+ * 表单
+ */
+.el-form--inline .el-form-item {
+    margin-right: 6px;
+}
+
+/**
+ * 消息提示
+ */
+.el-message--error {
+    --el-message-bg-color: white;
+    --el-message-border-color: white;
+    --el-message-text-color: var(--el-color-error);
+    border-radius: 3px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .07);
+}

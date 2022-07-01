@@ -1,0 +1,11 @@
+node_modules
+/package-lock.json
+.DS_Store
+dist
+dist-ssr
+*.local
+/.idea/
+/.vscode/
+/dist.zip
+/app
+/app.zip

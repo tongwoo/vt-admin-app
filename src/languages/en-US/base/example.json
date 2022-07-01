@@ -1,0 +1,18 @@
+{
+    "example": "i18n Example",
+    "select_language": "Language",
+    "select_language_tip": "Please select the language switch button in the upper right corner",
+    "real_name": "Name",
+    "id_number": "ID",
+    "birthday": "Birthday",
+    "calendar": "Calendar",
+    "address": "Address",
+    "address_placeholder": "Details to the house number",
+    "profile": "Profile",
+    "region": "Region",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female"
+}

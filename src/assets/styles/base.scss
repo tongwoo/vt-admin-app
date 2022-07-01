@@ -1,0 +1,16 @@
+:root {
+    //主色
+    --base-primary-color: #2F53EB;
+    //顶栏背景色
+    --base-header-bg-color: white;
+    //顶栏高度
+    --base-header-height: 60px;
+    //顶栏标题(Logo)背景色
+    --base-header-logo-bg-color: #191a23;
+    //导航栏背景色
+    --base-navigator-bg-color: var(--base-header-logo-bg-color);
+    //导航栏宽度
+    --base-navigator-width: 236px;
+    //导航栏折叠后宽度
+    --base-navigator-collapse-width: 64px;
+}

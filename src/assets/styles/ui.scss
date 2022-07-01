@@ -1,0 +1,122 @@
+body, div, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+//页面容器
+.page-container {
+    padding: 10px;
+
+    //页面分段，一个容器中可以有多个分段
+    .page-segment {
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: white;
+        border-radius: 2px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        //分段头部
+        .segment-header {
+            padding: 0 0 10px 0;
+            margin-bottom: 10px;
+
+            &.with-bordered {
+                border-bottom: 1px solid #eee;
+            }
+
+            &.with-bg {
+                background-color: white;
+            }
+
+            //头部标题
+            .header-title {
+                font-weight: bold;
+                font-size: 14px;
+                color: #333;
+
+                &:before {
+                    content: '';
+                    width: 3px;
+                    height: 14px;
+                    background-color: var(--base-primary-color);
+                    display: inline-block;
+                    margin-right: 5px;
+                    position: relative;
+                    top: 2px;
+                }
+
+            }
+
+            //头部布局
+            .header-flex {
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+
+                .header-flexible {
+                    flex: 1;
+                }
+
+                .header-buttons {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+
+        //分段主体
+        .segment-body {
+        }
+    }
+}
+
+//查询容器
+.query-container {
+
+}
+
+//表格容器
+.table-container {
+
+}
+
+//分页容器
+.pagination-container {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+//表单容器
+.form-container {
+
+    //抵消表单项边距，用于搜索
+    &.margin-none {
+        margin-bottom: -18px;
+    }
+
+    //错误消息容器，用于数据表单
+    .error-container {
+        margin-bottom: 10px;
+    }
+
+    //表单底部容器，用于数据表单
+    .footer-container {
+        text-align: center;
+    }
+}
+
+//常量样式
+.constant-bg {
+    border-radius: 30px;
+    font-size: 12px;
+    padding: 1px 5px;
+    transform: scale(.8);
+    color: white;
+}
