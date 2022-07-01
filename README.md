@@ -10,11 +10,11 @@ vt-admin 即 vue template for admin，一个用于管理后台的 vue3 模板，
 
 ## 演示
 
-[http://demo.duckpear.com](http://demo.duckpear.com) 搭建中
+[查看](http://demo.duckpear.com)   用户名与密码皆是：admin
 
 ## 文档
 
-[http://doc.duckpear.com](http://doc.duckpear.com) 编写中
+[查看](http://doc.duckpear.com/guide/index.html)
 
 ## 安装依赖
 
