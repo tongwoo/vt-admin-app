@@ -1,7 +1,6 @@
 import {createApp} from 'vue';
 import router from './routes/Index.js';
 import vuex from './store/Index.js';
-import CKEditor from '@ckeditor/ckeditor5-vue';
 import i18n from "@/languages/Index.js";
 import App from './App.vue';
 import ElementPlus from 'element-plus';
@@ -9,7 +8,6 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import HasPermission from "@/directives/HasPermission.js";
 import 'nprogress/nprogress.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'ckeditor5-custom-build/build/ckeditor.css';
 import './assets/styles/element.scss';
 import './assets/styles/element-patch.scss';
 import './assets/styles/app.scss';
@@ -20,8 +18,6 @@ const app = createApp(App);
 app.use(router);
 //状态存储
 app.use(vuex);
-//编辑器
-app.use(CKEditor);
 //国际化
 app.use(i18n);
 //饿了么UI

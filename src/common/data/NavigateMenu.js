@@ -16,14 +16,6 @@ function fetchNavigateMenus() {
             show: true,
         },
         {
-            name: '编辑器示例',
-            path: '/example/editor',
-            icon: 'bi bi-pencil',
-            show: true,
-            permission: null,
-            children: [],
-        },
-        {
             name: '多语言示例',
             path: '/example/i18n',
             icon: 'bi bi-translate',

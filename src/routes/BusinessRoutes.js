@@ -25,14 +25,6 @@ export default [
         },
         children: [
             {
-                path: 'editor',
-                component: () => import('@/views/example/ContentEditor.vue'),
-                meta: {
-                    title: '编辑器',
-                    cache: true
-                }
-            },
-            {
                 path: 'i18n',
                 component: () => import('@/views/example/I18n.vue'),
                 meta: {
