@@ -11,7 +11,7 @@ export default [
                 path: 'dashboard',
                 component: () => import('@/views/Dashboard.vue'),
                 meta: {
-                    title: '首页',
+                    title: '仪表盘',
                 }
             },
         ]

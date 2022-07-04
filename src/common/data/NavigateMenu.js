@@ -10,9 +10,9 @@ import {checkAccess} from "@/common/utils/authorize.js";
 function fetchNavigateMenus() {
     return [
         {
-            name: '首页',
+            name: '仪表板',
             path: '/dashboard',
-            icon: 'bi bi-house-fill',
+            icon: 'bi bi-grid-fill',
             show: true,
         },
         {

@@ -9,19 +9,23 @@
                 <ul class="total-items">
                     <li class="total-item">
                         <div class="label">总用户数</div>
-                        <div class="value">
+                        <div class="value up">
                             <div class="number">3234</div>
-                            <div class="flow"></div>
-                            <div class="percent up">2%</div>
+                            <div class="flow">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+                            <div class="percent">2%</div>
                         </div>
                     </li>
                     <li class="separator"></li>
                     <li class="total-item">
                         <div class="label">新用户数</div>
-                        <div class="value">
+                        <div class="value up">
                             <div class="number">56</div>
-                            <div class="flow"></div>
-                            <div class="percent up">8%</div>
+                            <div class="flow">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+                            <div class="percent">8%</div>
                         </div>
                     </li>
                     <li class="separator"></li>
@@ -29,26 +33,28 @@
                         <div class="label">昨日销售额</div>
                         <div class="value">
                             <div class="number">39123</div>
-                            <div class="flow"></div>
-                            <div class="percent up">3%</div>
                         </div>
                     </li>
                     <li class="separator"></li>
                     <li class="total-item">
                         <div class="label">今日销售额</div>
-                        <div class="value">
+                        <div class="value down">
                             <div class="number">49051</div>
-                            <div class="flow"></div>
-                            <div class="percent up">5%</div>
+                            <div class="flow">
+                                <i class="bi bi-graph-down-arrow"></i>
+                            </div>
+                            <div class="percent">5%</div>
                         </div>
                     </li>
                     <li class="separator"></li>
                     <li class="total-item">
                         <div class="label">用户在线时长</div>
-                        <div class="value">
+                        <div class="value up">
                             <div class="number">39103</div>
-                            <div class="flow"></div>
-                            <div class="percent up">32%</div>
+                            <div class="flow">
+                                <i class="bi bi-graph-down-arrow"></i>
+                            </div>
+                            <div class="percent">32%</div>
                         </div>
                     </li>
                     <li class="separator"></li>
@@ -56,17 +62,193 @@
                         <div class="label">用户活跃程度</div>
                         <div class="value">
                             <div class="number">234</div>
-                            <div class="flow"></div>
-                            <div class="percent up">3%</div>
                         </div>
                     </li>
                 </ul>
+            </div>
+        </div>
+        <el-row :gutter="10">
+            <el-col :span="9">
+                <div class="page-segment">
+                    <div class="segment-body">
+                        <ul class="total-items">
+                            <li class="total-item">
+                                <div class="label">昨日销售额</div>
+                                <div class="value">
+                                    <div class="number">39123</div>
+                                </div>
+                            </li>
+                            <li class="separator"></li>
+                            <li class="total-item">
+                                <div class="label">今日销售额</div>
+                                <div class="value down">
+                                    <div class="number">49051</div>
+                                </div>
+                            </li>
+                            <li class="separator"></li>
+                            <li class="total-item">
+                                <div class="label">用户在线时长</div>
+                                <div class="value up">
+                                    <div class="number">39103</div>
+                                </div>
+                            </li>
+                            <li class="separator"></li>
+                            <li class="total-item">
+                                <div class="label">用户活跃程度</div>
+                                <div class="value">
+                                    <div class="number">234</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div style="height: 250px">
+                            <easy-chart :option="DashboardUserLine"></easy-chart>
+                        </div>
+                    </div>
+                </div>
+            </el-col>
+            <el-col :span="9">
+                <div class="page-segment">
+                    <div class="segment-body">
+                        <ul class="total-items">
+                            <li class="total-item">
+                                <div class="label">昨日销售额</div>
+                                <div class="value">
+                                    <div class="number">39123</div>
+                                </div>
+                            </li>
+                            <li class="separator"></li>
+                            <li class="total-item">
+                                <div class="label">今日销售额</div>
+                                <div class="value down">
+                                    <div class="number">49051</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div style="height: 250px">
+                            <easy-chart :option="DashboardSeasonLine"></easy-chart>
+                        </div>
+                    </div>
+                </div>
+            </el-col>
+            <el-col :span="6">
+                <div class="page-segment">
+                    <div class="segment-header with-bordered">
+                        <div class="header-title">用户任务进度</div>
+                    </div>
+                    <div class="segment-body">
+                        <ul class="user-items">
+                            <li class="user-item">
+                                <div class="info">
+                                    <div class="name">冯诺依曼</div>
+                                    <div class="percent">99%</div>
+                                </div>
+                                <div class="progress">
+                                    <el-progress :percentage="99" :format="percentFormat"></el-progress>
+                                </div>
+                            </li>
+                            <li class="user-item">
+                                <div class="info">
+                                    <div class="name">图灵</div>
+                                    <div class="percent">88%</div>
+                                </div>
+                                <div class="progress">
+                                    <el-progress :percentage="88" :format="percentFormat"></el-progress>
+                                </div>
+                            </li>
+                            <li class="user-item">
+                                <div class="info">
+                                    <div class="name">爱因斯坦</div>
+                                    <div class="percent">78%</div>
+                                </div>
+                                <div class="progress">
+                                    <el-progress :percentage="78" :format="percentFormat"></el-progress>
+                                </div>
+                            </li>
+                            <li class="user-item">
+                                <div class="info">
+                                    <div class="name">福尔摩斯</div>
+                                    <div class="percent">55%</div>
+                                </div>
+                                <div class="progress">
+                                    <el-progress :percentage="55" :format="percentFormat"></el-progress>
+                                </div>
+                            </li>
+                            <li class="user-item">
+                                <div class="info">
+                                    <div class="name">张麻子</div>
+                                    <div class="percent">75%</div>
+                                </div>
+                                <div class="progress">
+                                    <el-progress :percentage="75" :format="percentFormat"></el-progress>
+                                </div>
+                            </li>
+                            <li class="user-item">
+                                <div class="info">
+                                    <div class="name">黄四郎</div>
+                                    <div class="percent">33%</div>
+                                </div>
+                                <div class="progress">
+                                    <el-progress :percentage="33" :format="percentFormat"></el-progress>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </el-col>
+        </el-row>
+        <div class="page-segment mt-10">
+            <div class="segment-header with-bordered">
+                <div class="header-flex">
+                    <div class="header-title">最新订单记录</div>
+                    <div class="header-flexible"></div>
+                    <div class="header-buttons">
+                        <el-button type="primary" size="small">查看更多</el-button>
+                    </div>
+                </div>
+            </div>
+            <div class="segment-body">
+                <!--数据列表-->
+                <div class="data-container">
+                    <div class="data-table">
+                        <el-table border size="small" row-key="id" :data="orders">
+                            <el-table-column prop="no" label="订单号" align="center" min-width="100" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="user" label="用户" align="center" min-width="100" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="name" label="商品名称" align="center" min-width="100" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="price" label="单价" align="center" min-width="100" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="number" label="数量" align="center" min-width="100" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="time" label="下单时间" align="center" min-width="160" show-overflow-tooltip></el-table-column>
+                        </el-table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import EasyChart from "@/components/EasyChart";
+import DashboardUserLine from "@/charts/examples/DashboardUserLine";
+import DashboardSeasonLine from "@/charts/examples/DashboardSeasonLine";
+import moment from "moment";
+
+/**
+ * 百分比格式化
+ */
+const percentFormat = () => {
+    return '';
+};
+
+//订单
+const orders = [...new Array(10)].map((item) => {
+    return {
+        no: moment().format('YYYYMMDD') + Math.ceil(Math.random() * 100000),
+        user: '东哥',
+        name: 'PlayStation 5 耳机套装',
+        price: (Math.random() * 1000).toFixed(2),
+        number: Math.ceil(Math.random() * 10),
+        time: moment().format('YYYY-MM-DD HH:mm:ss')
+    };
+})
 </script>
 
 <style lang="scss" scoped>
@@ -75,7 +257,7 @@
     justify-content: space-around;
     padding: 10px 0;
 
-    .separator{
+    .separator {
         border-right: 1px solid #eee;
     }
 
@@ -96,23 +278,59 @@
             gap: 20px;
             align-items: center;
 
+
+            &.up {
+                color: #12b252;
+            }
+
+            &.down {
+                color: red;
+            }
+
             .number {
                 font-size: 20px;
                 font-weight: bold;
-                color: #65768b;
+                color: #2f3a47;
+            }
+
+            .flow {
+                font-size: 12px;
             }
 
             .percent {
                 font-size: 14px;
                 font-weight: bold;
+            }
+        }
+    }
+}
 
-                &.up {
-                    color: #2f71eb;
-                }
+.user-items {
+    margin: 0;
+    padding: 10px;
 
-                &.down {
-                    color: red;
-                }
+    .user-item {
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: bold;
+            color: #5F6364;
+        }
+
+        .progress {
+            margin-top: 8px;
+
+            :deep(.el-progress__text) {
+                flex: none;
+                min-width: auto;
             }
         }
     }
