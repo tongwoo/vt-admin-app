@@ -66,7 +66,7 @@
         <div class="header-col header-col-btn">
             <el-dropdown @command="userDropdownCommand">
                 <div class="user-panel">
-                    <el-avatar :size="32" shape="circle" :src="store.state.user.avatar"></el-avatar>
+                    <img :src="store.state.user.avatar" @error="avatarError"/>
                     <div class="nickname">{{ store.state.user.nickname }}</div>
                     <i class="bi bi-caret-down-fill"></i>
                 </div>
@@ -104,6 +104,7 @@ import setting from "@/setting.js";
 import ChangePassword from "@/views/ChangePassword.vue";
 import AvatarSetting from "@/views/AvatarSetting.vue";
 import mitter from "@/common/utils/mitter.js";
+import defaultAvatar from "@/assets/images/icons/avatar-default.png";
 
 
 const store = useStore();
@@ -243,6 +244,14 @@ const avatar = {
 };
 
 /**
+ * 头像加载失败
+ */
+const avatarError = (error) => {
+    console.info(error);
+    error.target.src = defaultAvatar;
+};
+
+/**
  * 语言改变
  */
 const languageChange = (lang) => {
@@ -327,6 +336,12 @@ const languageChange = (lang) => {
         align-items: center;
         gap: 10px;
         font-size: 14px;
+
+        img{
+            width: 32px;
+            height:32px;
+            border-radius: 32px;
+        }
 
         i {
             font-size: 14px;

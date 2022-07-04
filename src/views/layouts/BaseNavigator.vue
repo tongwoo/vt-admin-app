@@ -9,7 +9,7 @@
         <!--用户面板-->
         <div class="user-panel">
             <div class="user-logo">
-                <img :src="store.state.user.avatar">
+                <img :src="store.state.user.avatar" @error="avatarError">
             </div>
             <div class="user-name" v-show="!isCollapsed">
                 {{ store.state.user.nickname }}
@@ -38,6 +38,7 @@ import {fetchMenus, fetchNavigateMenus} from '@/common/data/NavigateMenu.js';
 import MenuItem from '@/components/MenuItem.vue';
 import {useRoute} from "vue-router";
 import VirtualDrag from "@/components/VirtualDrag.vue";
+import defaultAvatar from "@/assets/images/icons/avatar-default.png";
 
 const store = useStore();
 const route = useRoute();
@@ -49,6 +50,13 @@ const menus = fetchMenus(fetchNavigateMenus());
 const isCollapsed = computed(() => {
     return store.state.setting.navigator.collapse;
 });
+
+/**
+ * 头像加载失败
+ */
+const avatarError = (error) => {
+    error.target.src = defaultAvatar;
+};
 
 /**
  * 导航切换按钮点击

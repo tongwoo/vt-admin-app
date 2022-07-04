@@ -135,6 +135,7 @@ onMounted(() => {
             background-image: linear-gradient(180deg,white 50%, #F4F5F7);
             position: relative;
             bottom: -1px;
+            padding: 7px 10px 8px;
         }
 
         .item-name {
