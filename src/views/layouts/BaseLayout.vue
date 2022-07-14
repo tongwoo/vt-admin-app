@@ -144,6 +144,7 @@ onUnmounted(() => {
         left: var(--base-navigator-width);
         right: 0;
         transition: all .3s;
+        z-index: 10;
     }
 
     .base-content {
