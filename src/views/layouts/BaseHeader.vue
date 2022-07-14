@@ -4,7 +4,7 @@
 -->
 <template>
     <div class="base-header">
-        <!--标题-->
+        <!--标题 因设计稿可能头部是独立的位置，此标题没有放在侧边栏-->
         <div class="header-title" :class="isCollapsed ? 'collapsed' : null" :style="navigatorWidth">
             <transition name="el-fade-in" mode="out-in">
                 <div v-if="isCollapsed" key="image">
@@ -181,7 +181,7 @@ const toggleFullScreenBtnClick = () => {
  * 文档按钮点击
  */
 const docBtnClick = () => {
-    window.location = '/';
+    window.location = 'http://doc.duckpear.com/guide/index.html';
 };
 
 /**

@@ -8,11 +8,11 @@
         <base-header></base-header>
         <!--左侧导航-->
         <base-navigator></base-navigator>
-        <div class="base-content" :style="paddingLeft">
-            <!--路由Tab切换，不需要请删除此Div-->
-            <div class="route-tab-bar">
-                <route-tab-switcher></route-tab-switcher>
-            </div>
+        <!--路由Tab切换，不需要请删除此Div-->
+        <div class="route-tab-bar" :style="navigatorLeftStyle">
+            <route-tab-switcher></route-tab-switcher>
+        </div>
+        <div class="base-content" :style="navigatorPaddingLeftStyle">
             <router-view v-slot="{ Component, route }">
                 <transition name="el-fade-in" mode="out-in">
                     <keep-alive :include="keepAliveComponents">
@@ -51,18 +51,34 @@ const navigatorShow = computed(() => {
 });
 
 /**
- * 导航间距
+ * 侧边栏尺寸
  */
-const paddingLeft = computed(() => {
+const navigatorWidth = computed(() => {
     if (
         store.state.setting.navigator.width.current === null ||
         store.state.setting.navigator.collapse
     ) {
         return null;
     }
-    return {
-        paddingLeft: store.state.setting.navigator.width.current + 'px'
-    };
+    return store.state.setting.navigator.width.current;
+});
+
+/**
+ * 距离侧边栏间距
+ */
+const navigatorPaddingLeftStyle = computed(() => {
+    return navigatorWidth.value ? {
+        paddingLeft: navigatorWidth.value + 'px'
+    } : null;
+});
+
+/**
+ * 距离侧边栏距离
+ */
+const navigatorLeftStyle = computed(() => {
+    return navigatorWidth.value ? {
+        left: navigatorWidth.value + 'px'
+    } : null;
 });
 
 /**
@@ -123,12 +139,16 @@ onUnmounted(() => {
     }
 
     .route-tab-bar {
+        position: fixed;
+        top: var(--base-header-height);
+        left: var(--base-navigator-width);
+        right: 0;
         transition: all .3s;
     }
 
     .base-content {
         padding-left: var(--base-navigator-width);;
-        padding-top: var(--base-header-height);
+        padding-top: calc(var(--base-header-height) + 39px);
         transition: all .3s;
     }
 
