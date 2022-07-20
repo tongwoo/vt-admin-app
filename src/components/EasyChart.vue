@@ -4,6 +4,7 @@
 变更：
      2022-04-17 模块切换图表消失问题、配置参数不使用合并行为
      2022-05-08 增加显示表格、下载图片功能
+     2022-07-20 修复在使用其他类型series无法重置尺寸的问题
 -->
 <template>
     <div v-show="showTable===false" class="chart-container" ref="dom" :style="style"></div>
@@ -36,12 +37,12 @@ const props = defineProps({
         type: Object,
         default() {
             return {};
-        }
+        },
     },
     //是否显示表格
     showTable: {
         type: Boolean,
-        default: false
+        default: false,
     },
 });
 
@@ -60,7 +61,7 @@ const position = reactive({
     top: 0,
     right: 0,
     bottom: 0,
-    left: 0
+    left: 0,
 });
 
 //表格
@@ -68,7 +69,7 @@ const table = reactive({
     size: 'small',
     columns: [],
     rows: [],
-    height: null
+    height: null,
 });
 
 //在图表选项变化的时候更新图表
@@ -80,8 +81,8 @@ watch(
         }
     },
     {
-        deep: true
-    }
+        deep: true,
+    },
 );
 
 //显示表格监测
@@ -95,7 +96,7 @@ watch(
                 instance.resize();
             }
         });
-    }
+    },
 );
 
 /**
@@ -123,7 +124,7 @@ const updateTable = () => {
             table.rows = item.data.map((i) => {
                 return [i.name, i.value];
             });
-        } else {
+        } else if (item.type === 'line' || item.type === 'bar') {
             table.rows.push([item.name, ...item.data]);
         }
     });
@@ -180,7 +181,7 @@ onMounted(() => {
             };
             if (props.showTable) {
                 updateTable();
-            }else{
+            } else {
                 instance.resize(option);
             }
         });
