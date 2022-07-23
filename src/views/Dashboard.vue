@@ -319,6 +319,7 @@ const orders = [...new Array(8)].map((item) => {
             }
 
             .number {
+                font-family: din;
                 font-size: 20px;
                 font-weight: bold;
                 color: #2f3a47;
