@@ -205,7 +205,11 @@
                             <el-table-column prop="no" label="订单号" align="center" min-width="100" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="user" label="用户" align="center" min-width="100" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="name" label="商品名称" align="center" min-width="100" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="price" label="单价" align="center" min-width="100" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="price" label="单价" align="center" min-width="100" show-overflow-tooltip>
+                                <template v-slot="{row}">
+                                    <span class="amount">{{ row.price }}</span>
+                                </template>
+                            </el-table-column>
                             <el-table-column prop="number" label="数量" align="center" min-width="100" show-overflow-tooltip></el-table-column>
                             <el-table-column prop="time" label="下单时间" align="center" min-width="160" show-overflow-tooltip></el-table-column>
                         </el-table>
@@ -254,7 +258,7 @@ const orders = [...new Array(8)].map((item) => {
         name: 'PlayStation 5 耳机套装',
         price: (Math.random() * 1000).toFixed(2),
         number: Math.ceil(Math.random() * 10),
-        time: moment().format('YYYY-MM-DD HH:mm:ss')
+        time: moment().format('YYYY-MM-DD HH:mm:ss'),
     };
 })
 </script>
@@ -365,5 +369,10 @@ const orders = [...new Array(8)].map((item) => {
             }
         }
     }
+}
+
+.amount {
+    font-family: din;
+    font-weight: bold
 }
 </style>
