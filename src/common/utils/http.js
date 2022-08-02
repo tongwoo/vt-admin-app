@@ -55,15 +55,15 @@ http.interceptors.response.use(
     },
     (error) => {
         //如果是非响应错误
-        if (!error.hasOwnProperty('response') || error.response === undefined) {
+        if (error.isAxiosError || !error.hasOwnProperty('response') || error.response === undefined) {
             throw error;
         }
         //页面不存在、未登录、无权限直接抛出，其他的错误转给业务层处理
         const codes = [401, 403, 404];
-        if (codes.indexOf(error.response.status) === -1) {
-            return normalize(error.response);
+        if (codes.indexOf(error.response.status) !== -1) {
+            throw error;
         }
-        throw error;
+        return normalize(error.response);
     }
 );
 

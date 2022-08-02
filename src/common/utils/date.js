@@ -40,6 +40,14 @@ function currentDateText() {
 }
 
 /**
+ * 当前格式化好的日期时间
+ * @return {string}
+ */
+function currentTimeText() {
+    return moment().format('YYYY-MM-DD HH:mm:ss');
+}
+
+/**
  * 获得给定日期所在月的天数
  * @param {Date|string} date 日期,可为Date实例、日期字符串,不传则使用当前时间
  * @return {number}
@@ -172,6 +180,7 @@ export {
     ONE_WEEK,
     ONE_MONTH,
     currentDateText,
+    currentTimeText,
     dateDays,
     dateDayItems,
     hourItems,
