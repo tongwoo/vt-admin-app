@@ -15,7 +15,7 @@ const props = defineProps({
     text: {
         type: [String, Number],
         default: '-'
-    },
+    }
 });
 
 const content = computed(() => {
@@ -24,4 +24,5 @@ const content = computed(() => {
     }
     return props.modelValue;
 });
+
 </script>

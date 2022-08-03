@@ -23,7 +23,7 @@ import {useRoute, useRouter} from "vue-router";
 const route = useRoute();
 const router = useRouter();
 const routes = ref([]);
-const current = ref(null)
+const current = ref(null);
 
 /**
  * 观察路由，在变更的时候处理tab列表
@@ -31,7 +31,7 @@ const current = ref(null)
 watch(route, (target) => {
     current.value = {
         title: target.meta.title,
-        fullPath: target.fullPath,
+        fullPath: target.fullPath
     };
     const index = routes.value.findIndex((item) => {
         return item.fullPath === target.fullPath;
@@ -47,7 +47,7 @@ watch(route, (target) => {
  */
 const tabItemClick = (route) => {
     router.push(route.fullPath);
-}
+};
 
 /**
  * 关闭按钮点击
@@ -73,12 +73,12 @@ const closeBtnClick = (index, event) => {
         current.value = routes.value[index - 1];
         router.push(current.value.fullPath);
     }
-}
+};
 
 onMounted(() => {
     current.value = {
         title: route.meta.title,
-        fullPath: route.fullPath,
+        fullPath: route.fullPath
     };
     routes.value.push(current.value);
 });
@@ -101,6 +101,7 @@ onMounted(() => {
     background: white;
     border-bottom: 1px solid #ddd;
     padding: 5px 5px 0 5px;
+    position: relative;
 }
 
 .tab-items {
@@ -132,7 +133,7 @@ onMounted(() => {
             font-weight: bold;
             color: #2d8cf0;
             border-top: 1px solid #2d8cf0;
-            background-image: linear-gradient(180deg,white 50%, #F4F5F7);
+            background-image: linear-gradient(180deg, white 50%, #F4F5F7);
             position: relative;
             bottom: -1px;
             padding: 7px 10px 8px;

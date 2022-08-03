@@ -10,7 +10,9 @@
                     <li class="total-item">
                         <div class="label">总用户数</div>
                         <div class="value up">
-                            <div class="number">3234</div>
+                            <div class="number">
+                                <count-up :model-value="15434"></count-up>
+                            </div>
                             <div class="flow">
                                 <i class="bi bi-graph-up-arrow"></i>
                             </div>
@@ -21,7 +23,9 @@
                     <li class="total-item">
                         <div class="label">新用户数</div>
                         <div class="value up">
-                            <div class="number">56</div>
+                            <div class="number">
+                                <count-up :model-value="34"></count-up>
+                            </div>
                             <div class="flow">
                                 <i class="bi bi-graph-up-arrow"></i>
                             </div>
@@ -32,14 +36,18 @@
                     <li class="total-item">
                         <div class="label">昨日销售额</div>
                         <div class="value">
-                            <div class="number">39123</div>
+                            <div class="number">
+                                <count-up :model-value="12324"></count-up>
+                            </div>
                         </div>
                     </li>
                     <li class="separator"></li>
                     <li class="total-item">
                         <div class="label">今日销售额</div>
                         <div class="value down">
-                            <div class="number">49051</div>
+                            <div class="number">
+                                <count-up :model-value="35343"></count-up>
+                            </div>
                             <div class="flow">
                                 <i class="bi bi-graph-down-arrow"></i>
                             </div>
@@ -50,7 +58,9 @@
                     <li class="total-item">
                         <div class="label">用户在线时长</div>
                         <div class="value up">
-                            <div class="number">39103</div>
+                            <div class="number">
+                                <count-up :model-value="23434"></count-up>
+                            </div>
                             <div class="flow">
                                 <i class="bi bi-graph-down-arrow"></i>
                             </div>
@@ -61,7 +71,9 @@
                     <li class="total-item">
                         <div class="label">用户活跃程度</div>
                         <div class="value">
-                            <div class="number">234</div>
+                            <div class="number">
+                                <count-up :model-value="3214"></count-up>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -73,28 +85,36 @@
                     <li class="total-item">
                         <div class="label">昨日销售额</div>
                         <div class="value">
-                            <div class="number">39123</div>
+                            <div class="number">
+                                <count-up :model-value="23124"></count-up>
+                            </div>
                         </div>
                     </li>
                     <li class="separator"></li>
                     <li class="total-item">
                         <div class="label">今日销售额</div>
                         <div class="value down">
-                            <div class="number">49051</div>
+                            <div class="number">
+                                <count-up :model-value="13124"></count-up>
+                            </div>
                         </div>
                     </li>
                     <li class="separator"></li>
                     <li class="total-item">
                         <div class="label">用户在线时长</div>
                         <div class="value up">
-                            <div class="number">39103</div>
+                            <div class="number">
+                                <count-up :model-value="3434"></count-up>
+                            </div>
                         </div>
                     </li>
                     <li class="separator"></li>
                     <li class="total-item">
                         <div class="label">用户活跃程度</div>
                         <div class="value">
-                            <div class="number">234</div>
+                            <div class="number">
+                                <count-up :model-value="23234"></count-up>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -242,6 +262,11 @@ import DashboardUserLine from "@/charts/examples/DashboardUserLine";
 import DashboardSeasonLine from "@/charts/examples/DashboardSeasonLine";
 import DashboardUserWherePie from "../charts/examples/DashboardUserWherePie";
 import moment from "moment";
+import OptionalText from '@/components/OptionalText.vue';
+import {ref} from 'vue';
+import CountUp from '@/components/CountUp.vue';
+
+const testNumber = ref(3333);
 
 /**
  * 百分比格式化

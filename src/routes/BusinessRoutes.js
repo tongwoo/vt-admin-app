@@ -12,8 +12,9 @@ export default [
                 component: () => import('@/views/Dashboard.vue'),
                 meta: {
                     title: '仪表盘',
+                    cache: true
                 }
-            },
+            }
         ]
     },
 
@@ -28,7 +29,7 @@ export default [
                 path: 'i18n',
                 component: () => import('@/views/example/I18n.vue'),
                 meta: {
-                    title: '多语言',
+                    title: '多语言'
                 }
             },
             {
@@ -38,7 +39,7 @@ export default [
                     title: '图表示例',
                     cache: true
                 }
-            },
+            }
         ]
     },
     {
@@ -53,7 +54,7 @@ export default [
                 path: 'user',
                 component: () => import('@/views/user/UserList.vue'),
                 meta: {
-                    title: '用户管理',
+                    title: '用户管理'
                 }
             },
             {
@@ -75,9 +76,9 @@ export default [
                 component: () => import('@/views/route/RouteList.vue'),
                 meta: {
                     title: '后台路由',
-                    permission: Permission.USER_DELETE,
+                    permission: Permission.USER_DELETE
                 }
-            },
+            }
         ]
     }
 ];

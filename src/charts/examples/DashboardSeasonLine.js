@@ -17,6 +17,7 @@ export default {
     },
     tooltip: {
         show: true,
+        appendToBody: true,
         trigger: "axis",
         axisPointer: {
             type: "shadow"
