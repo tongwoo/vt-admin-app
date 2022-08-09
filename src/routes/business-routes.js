@@ -1,5 +1,5 @@
-import BaseLayout from "@/views/layouts/BaseLayout.vue";
-import * as Permission from "@/constants/permission.js";
+import BaseLayout from "@/views/layouts/BaseLayout.vue"
+import * as Permission from "@/constants/permission.js"
 
 export default [
     {
@@ -75,10 +75,9 @@ export default [
                 path: 'route',
                 component: () => import('@/views/route/RouteList.vue'),
                 meta: {
-                    title: '后台路由',
-                    permission: Permission.USER_DELETE
+                    title: '后台路由'
                 }
             }
         ]
     }
-];
+]

@@ -35,7 +35,7 @@ import mapper from "@/utils/mapper.js";
 import {httpErrorHandler} from "@/utils/error.js";
 import moment from "moment";
 import {getConfirms} from "@/constants/confirm.js";
-import {createRole, updateRole, fetchRole} from "@/modules/Role.js";
+import {createRole, updateRole, fetchRole} from "@/modules/role.js";
 
 //属性
 const props = defineProps({

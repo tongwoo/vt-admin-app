@@ -41,8 +41,8 @@ import {cloneObject, updateObject} from "@/utils/object.js";
 import mapper from "@/utils/mapper.js";
 import {httpErrorHandler} from "@/utils/error.js";
 import moment from "moment";
-import {createPermission, updatePermission, fetchPermission, fetchPermissionTree} from "@/modules/Permission.js";
-import {fetchRules} from "@/modules/Rbac.js";
+import {createPermission, updatePermission, fetchPermission, fetchPermissionTree} from "@/modules/permission.js";
+import {fetchRules} from "@/modules/rbac.js";
 
 //属性
 const props = defineProps({

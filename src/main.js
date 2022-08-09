@@ -5,7 +5,7 @@ import i18n from "@/languages/index.js";
 import App from './App.vue';
 import ElementPlus from 'element-plus';
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import HasPermission from "@/directives/v-has.js";
+import vHas from "@/directives/v-has.js";
 import 'nprogress/nprogress.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/styles/element.scss';
@@ -25,6 +25,6 @@ app.use(ElementPlus, {
     locale: zhCn,
 });
 //权限检测指令
-app.directive('has', HasPermission);
+app.directive('has', vHas);
 
 app.mount('#app');

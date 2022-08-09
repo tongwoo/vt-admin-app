@@ -1,6 +1,5 @@
 /**
  * 功能：角色
- * 作者：tongwoo
  * 日期：2022-03-17
  */
 import http from '@/utils/http';

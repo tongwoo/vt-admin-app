@@ -103,7 +103,7 @@ import {ElLoading, ElMessage as messageTip, ElMessageBox as messageBox} from "el
 import {updateObject, cloneObject} from "@/utils/object.js";
 import {httpErrorHandler} from "@/utils/error.js";
 import setting from "@/setting.js";
-import {removePermission, fetchPagePermissions, fetchPermissionTree} from "@/modules/Permission.js";
+import {removePermission, fetchPagePermissions, fetchPermissionTree} from "@/modules/permission.js";
 
 //权限表单
 const PermissionForm = defineAsyncComponent(() => import('@/views/permission/PermissionForm.vue'));

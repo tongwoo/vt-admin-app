@@ -45,8 +45,8 @@ import mapper from "@/utils/mapper.js";
 import {httpErrorHandler} from "@/utils/error.js";
 import moment from "moment";
 import {getUserStates} from "@/constants/user-state.js";
-import {createUser, updateUser, fetchUser} from "@/modules/User.js";
-import {fetchPairRoles} from "@/modules/Role.js";
+import {createUser, updateUser, fetchUser} from "@/modules/user.js";
+import {fetchPairRoles} from "@/modules/role.js";
 
 //属性
 const props = defineProps({

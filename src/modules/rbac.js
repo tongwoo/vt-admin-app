@@ -1,6 +1,5 @@
 /**
  * 功能：RBAC
- * 作者：tongwoo
  * 日期：2022-06-14
  */
 import http from "@/utils/http.js";

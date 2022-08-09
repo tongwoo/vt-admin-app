@@ -262,11 +262,7 @@ import DashboardUserLine from "@/charts/examples/DashboardUserLine";
 import DashboardSeasonLine from "@/charts/examples/DashboardSeasonLine";
 import DashboardUserWherePie from "../charts/examples/DashboardUserWherePie";
 import moment from "moment";
-import OptionalText from '@/components/OptionalText.vue';
-import {ref} from 'vue';
 import CountUp from '@/components/CountUp.vue';
-
-const testNumber = ref(3333);
 
 /**
  * 百分比格式化

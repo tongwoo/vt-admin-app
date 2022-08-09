@@ -115,7 +115,7 @@ import {updateObject, cloneObject} from "@/utils/object.js";
 import {httpErrorHandler} from "@/utils/error.js";
 import setting from "@/setting.js";
 import {getConfirms} from "@/constants/confirm.js";
-import {removeRole, fetchPageRoles} from "@/modules/Role.js";
+import {removeRole, fetchPageRoles} from "@/modules/role.js";
 
 //角色表单
 const RoleForm = defineAsyncComponent(() => import('@/views/role/RoleForm.vue'));

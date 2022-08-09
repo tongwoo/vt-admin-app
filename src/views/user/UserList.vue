@@ -131,7 +131,7 @@ import {updateObject, cloneObject} from "@/utils/object.js";
 import {httpErrorHandler} from "@/utils/error.js";
 import setting from "@/setting.js";
 import {getUserStates, getUserStateClassByValue} from "@/constants/user-state.js";
-import {removeUser, fetchPageUsers} from "@/modules/User.js";
+import {removeUser, fetchPageUsers} from "@/modules/user.js";
 import moment from "moment";
 
 //用户表单

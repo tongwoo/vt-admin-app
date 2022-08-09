@@ -104,8 +104,8 @@ import {ElLoading, ElMessage as messageTip, ElMessageBox as messageBox} from "el
 import {updateObject, cloneObject} from "@/utils/object.js";
 import {httpErrorHandler} from "@/utils/error.js";
 import setting from "@/setting.js";
-import {fetchPermissions} from "@/modules/Permission.js";
-import {removeRoute, fetchPageRoutes, truncateRoutes, generateRoutes} from "@/modules/Route.js";
+import {fetchPermissions} from "@/modules/permission.js";
+import {removeRoute, fetchPageRoutes, truncateRoutes, generateRoutes} from "@/modules/route.js";
 
 //路由表单
 const RouteForm = defineAsyncComponent(() => import('@/views/route/RouteForm.vue'));

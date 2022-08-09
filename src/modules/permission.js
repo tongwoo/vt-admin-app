@@ -1,18 +1,17 @@
 /**
- * 功能：用户
- * 作者：tongwoo
+ * 功能：权限
  * 日期：2022-06-14
  */
 import http from '@/utils/http';
 
 /**
- * 新增用户
+ * 新增权限
  * @param {Object} data 数据
  * @return {Promise<{success:boolean,message:string}>}
  */
-function createUser(data) {
+function createPermission(data) {
     return http.post(
-        '/user/create',
+        '/permission/create',
         data
     ).then((response) => {
         const body = response.data;
@@ -24,13 +23,13 @@ function createUser(data) {
 }
 
 /**
- * 更新用户
+ * 更新权限
  * @param {Object} data 数据
  * @return {Promise<{success:boolean,message:string}>}
  */
-function updateUser(data) {
+function updatePermission(data) {
     return http.post(
-        '/user/update',
+        '/permission/update',
         data
     ).then((response) => {
         const body = response.data;
@@ -42,13 +41,13 @@ function updateUser(data) {
 }
 
 /**
- * 删除用户
+ * 删除权限
  * @param {string|string[]|int|int[]} ids 数据ID,可为单个数值或数值数组
  * @return {Promise<{success:boolean,message:string}>}
  */
-function removeUser(ids) {
+function removePermission(ids) {
     return http.post(
-        '/user/delete',
+        '/permission/delete',
         {
             ids
         }
@@ -62,13 +61,13 @@ function removeUser(ids) {
 }
 
 /**
- * 获取用户详情
+ * 获取权限详情
  * @param {string|int} id 主键ID
  * @return {Promise<{success:boolean,message:string,data:Object}>}
  */
-function fetchUser(id) {
+function fetchPermission(id) {
     return http.get(
-        '/user/detail?id=' + id,
+        '/permission/detail?id=' + id,
     ).then((response) => {
         const body = response.data;
         return {
@@ -80,13 +79,13 @@ function fetchUser(id) {
 }
 
 /**
- * 获取用户列表
+ * 获取权限列表
  * @param {Object} params 参数
  * @return {Promise<Array>}
  */
-function fetchUsers(params = {}) {
+function fetchPermissions(params = {}) {
     return http.get(
-        '/user/items',
+        '/permission/items',
         {
             params
         }
@@ -97,13 +96,13 @@ function fetchUsers(params = {}) {
 }
 
 /**
- * 获取分页之后的用户列表
+ * 获取分页之后的权限列表
  * @param {Object} params 参数
  * @return {Promise<{items:Array,total:int}>}
  */
-function fetchPageUsers(params = {}) {
+function fetchPagePermissions(params = {}) {
     return http.get(
-        '/user/page-items',
+        '/permission/page-items',
         {
             params
         }
@@ -122,12 +121,12 @@ function fetchPageUsers(params = {}) {
 }
 
 /**
- * 获取用户键值对列表
+ * 获取权限键值对列表
  * @param {Object} params 参数
  * @return {Promise<Array<{name:string,value:string|int,origin:Object}>>}
  */
-function fetchPairUsers(params = {}) {
-    return fetchUsers(params).then((items) => {
+function fetchPairPermissions(params = {}) {
+    return fetchPermissions(params).then((items) => {
         return items.map((item) => {
             return {
                 name: item.name,
@@ -138,13 +137,31 @@ function fetchPairUsers(params = {}) {
     });
 }
 
+/**
+ * 获取权限数
+ * @return {Promise<Array>}
+ */
+function fetchPermissionTree(params = {}) {
+    return http.get(
+        '/permission/tree',
+        {
+            params
+        }
+    ).then((response) => {
+        if (!response.isOk) {
+            return [];
+        }
+        return response.data.data.items;
+    });
+}
 
 export {
-    createUser,
-    updateUser,
-    removeUser,
-    fetchUser,
-    fetchUsers,
-    fetchPageUsers,
-    fetchPairUsers,
+    createPermission,
+    updatePermission,
+    removePermission,
+    fetchPermission,
+    fetchPermissions,
+    fetchPagePermissions,
+    fetchPairPermissions,
+    fetchPermissionTree,
 }
