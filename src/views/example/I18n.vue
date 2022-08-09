@@ -56,16 +56,16 @@
 </template>
 
 <script setup>
-import {ref, reactive} from "vue";
-import {useStore} from "vuex";
+import {ref, reactive} from "vue"
+import {useStore} from "vuex"
 
-const store = useStore();
+const store = useStore()
 
 const model = reactive({
     name: null,
     idNumber: null,
     birthday: null,
-    calendar: null,
+    calendar: null
 })
 
 /**
@@ -75,7 +75,7 @@ const languageChange = (lang) => {
     store.commit('setting/UPDATE_LANGUAGE', {
         language: lang
     })
-};
+}
 </script>
 
 <style lang="scss" scoped>

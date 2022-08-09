@@ -6,7 +6,7 @@
 export default {
     tooltip: {
         trigger: 'item',
-        formatter: '<strong>{b}</strong>: {c} 占比: {d}%',
+        formatter: '<strong>{b}</strong>: {c} 占比: {d}%'
     },
     title: {
         left: 'center',
@@ -23,42 +23,42 @@ export default {
             data: [
                 {
                     name: '第1季度',
-                    value: 365,
+                    value: 365
                 },
                 {
                     name: '第2季度',
-                    value: 295,
+                    value: 295
                 },
                 {
                     name: '第3季度',
-                    value: 483,
+                    value: 483
                 },
                 {
                     name: '第4季度',
-                    value: 586,
-                },
+                    value: 586
+                }
             ],
             radius: [
                 '40%',
-                '60%',
+                '60%'
             ],
             center: [
                 '50%',
-                '50%',
+                '50%'
             ],
             roseType: false,
             label: {
                 show: true,
-                position: 'outside',
+                position: 'outside'
             },
             labelLine: {
                 show: true,
                 length: 6,
-                length2: 13,
+                length2: 13
             },
             itemStyle: {
-                borderRadius: 0,
-            },
-        },
-    ],
+                borderRadius: 0
+            }
+        }
+    ]
 }

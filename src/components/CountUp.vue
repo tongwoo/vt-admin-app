@@ -7,11 +7,11 @@
 </template>
 
 <script setup>
-import {onMounted, ref, watch} from 'vue';
-import {CountUp} from 'countup.js';
+import {onMounted, ref, watch} from 'vue'
+import {CountUp} from 'countup.js'
 
-let countUp = null;
-const el = ref(null);
+let countUp = null
+const el = ref(null)
 //属性
 const props = defineProps({
     modelValue: {
@@ -21,10 +21,10 @@ const props = defineProps({
     option: {
         type: Object,
         default() {
-            return {};
+            return {}
         }
     }
-});
+})
 
 //默认配置
 const defaultOption = {
@@ -46,18 +46,18 @@ const defaultOption = {
     enableScrollSpy: false, // start animation when target is in view
     scrollSpyDelay: 0, // delay (ms) after target comes into view
     scrollSpyOnce: true // run only once
-};
+}
 
 watch(
     () => props.modelValue,
     () => {
-        countUp.update(props.modelValue);
+        countUp.update(props.modelValue)
     }
-);
+)
 
 onMounted(() => {
-    const option = Object.assign(defaultOption, props.option);
-    countUp = new CountUp(el.value, props.modelValue, option);
-    countUp.start();
-});
+    const option = Object.assign(defaultOption, props.option)
+    countUp = new CountUp(el.value, props.modelValue, option)
+    countUp.start()
+})
 </script>

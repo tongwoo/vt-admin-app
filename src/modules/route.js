@@ -2,7 +2,7 @@
  * 功能：路由
  * 日期：2022-06-16
  */
-import http from '@/utils/http';
+import http from '@/utils/http'
 
 /**
  * 新增路由
@@ -14,12 +14,12 @@ function createRoute(data) {
         '/route/create',
         data
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -32,12 +32,12 @@ function updateRoute(data) {
         '/route/update',
         data
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -52,12 +52,12 @@ function removeRoute(ids) {
             ids
         }
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -67,15 +67,15 @@ function removeRoute(ids) {
  */
 function fetchRoute(id) {
     return http.get(
-        '/route/detail?id=' + id,
+        '/route/detail?id=' + id
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message,
             data: response.isOk ? body.data.item : null
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -90,9 +90,9 @@ function fetchRoutes(params = {}) {
             params
         }
     ).then((response) => {
-        const body = response.data;
-        return body.data.items;
-    });
+        const body = response.data
+        return body.data.items
+    })
 }
 
 /**
@@ -107,17 +107,17 @@ function fetchPageRoutes(params = {}) {
             params
         }
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         const data = {
             items: [],
             total: 0
-        };
-        if (response.isOk) {
-            data.items = body.data.items;
-            data.total = body.data.total;
         }
-        return data;
-    });
+        if (response.isOk) {
+            data.items = body.data.items
+            data.total = body.data.total
+        }
+        return data
+    })
 }
 
 /**
@@ -132,9 +132,9 @@ function fetchPairRoutes(params = {}) {
                 name: item.name,
                 value: item.id,
                 origin: item
-            };
-        });
-    });
+            }
+        })
+    })
 }
 
 /**
@@ -145,8 +145,8 @@ function truncateRoutes() {
     return http.get(
         '/route/truncate'
     ).then((response) => {
-        return response.isOk;
-    });
+        return response.isOk
+    })
 }
 
 /**
@@ -157,8 +157,8 @@ function generateRoutes() {
     return http.get(
         '/route/generate'
     ).then((response) => {
-        return response.isOk;
-    });
+        return response.isOk
+    })
 }
 
 export {
@@ -170,5 +170,5 @@ export {
     fetchPageRoutes,
     fetchPairRoutes,
     truncateRoutes,
-    generateRoutes,
+    generateRoutes
 }

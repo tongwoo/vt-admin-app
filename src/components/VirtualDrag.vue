@@ -12,12 +12,12 @@
 </template>
 
 <script setup>
-import {reactive, ref, onMounted, onUnmounted} from "vue";
+import {reactive, ref, onMounted, onUnmounted} from "vue"
 
 //DOM
-const dom = ref(null);
+const dom = ref(null)
 //事件
-const emits = defineEmits(['drag-start', 'drag-move', 'drag-stop']);
+const emits = defineEmits(['drag-start', 'drag-move', 'drag-stop'])
 //属性
 const props = defineProps({
     //是否按住空格键才能拖动
@@ -53,85 +53,85 @@ const props = defineProps({
         type: Boolean,
         default: true
     }
-});
+})
 
 //位置
 const position = reactive({
     x: 0,
     y: 0
-});
+})
 
 //拖动距离
 const distance = reactive({
     x: 0,
     y: 0
-});
+})
 
 //是否正在按住空格
-const holding = ref(false);
+const holding = ref(false)
 
 defineExpose({
     position
-});
+})
 
 /**
  * 键盘按下
  */
 const documentKeyDown = (e) => {
-    holding.value = e.keyCode === 32;
-};
+    holding.value = e.keyCode === 32
+}
 
 /**
  * 键盘弹起
  */
 const documentKeyUp = () => {
-    holding.value = false;
-};
+    holding.value = false
+}
 
 onMounted(() => {
-    document.addEventListener('keydown', documentKeyDown);
-    document.addEventListener('keyup', documentKeyUp);
-});
+    document.addEventListener('keydown', documentKeyDown)
+    document.addEventListener('keyup', documentKeyUp)
+})
 
 onUnmounted(() => {
-    document.removeEventListener('keydown', documentKeyDown);
-    document.removeEventListener('keyup', documentKeyUp);
-});
+    document.removeEventListener('keydown', documentKeyDown)
+    document.removeEventListener('keyup', documentKeyUp)
+})
 
 /**
  * 鼠标按下
  * @param {MouseEvent} e 事件
  */
 const mouseDown = (e) => {
-    e.stopPropagation();
+    e.stopPropagation()
     if (props.keep) {
-        distance.x = e.pageX - position.x;
-        distance.y = e.pageY - position.y;
+        distance.x = e.pageX - position.x
+        distance.y = e.pageY - position.y
     } else {
-        distance.x = e.pageX;
-        distance.y = e.pageY;
+        distance.x = e.pageX
+        distance.y = e.pageY
     }
-    document.body.style.userSelect = 'none';
-    document.addEventListener('mousemove', documentMouseMove);
-    document.addEventListener('mouseup', documentMouseUp);
-    emits('drag-start', distance);
-};
+    document.body.style.userSelect = 'none'
+    document.addEventListener('mousemove', documentMouseMove)
+    document.addEventListener('mouseup', documentMouseUp)
+    emits('drag-start', distance)
+}
 
 /**
  * 鼠标移动
  * @param {MouseEvent} e 事件
  */
 const documentMouseMove = (e) => {
-    e.stopPropagation();
+    e.stopPropagation()
     if (props.holdSpace) {
         if (!holding.value) {
-            return;
+            return
         }
     }
-    let x, y;
+    let x, y
     if (props.keep) {
-        x = position.x = e.pageX - distance.x;
-        y = position.y = e.pageY - distance.y;
+        x = position.x = e.pageX - distance.x
+        y = position.y = e.pageY - distance.y
         //限制仅在keep下生效
         if (props.xmin !== undefined && x < props.xmin) {
             x = props.xmin
@@ -146,24 +146,24 @@ const documentMouseMove = (e) => {
             y = props.ymax - dom.value.offsetHeight
         }
     } else {
-        x = e.pageX - distance.x;
-        y = e.pageY - distance.y;
+        x = e.pageX - distance.x
+        y = e.pageY - distance.y
     }
     emits('drag-move', {
         x,
         y
-    });
-};
+    })
+}
 
 /**
  * 鼠标松开
  * @param {MouseEvent} e 事件
  */
 const documentMouseUp = (e) => {
-    e.stopPropagation();
-    document.body.style.removeProperty('user-select');
-    document.removeEventListener('mousemove', documentMouseMove);
-    document.removeEventListener('mouseup', documentMouseUp);
-    emits('drag-stop');
-};
+    e.stopPropagation()
+    document.body.style.removeProperty('user-select')
+    document.removeEventListener('mousemove', documentMouseMove)
+    document.removeEventListener('mouseup', documentMouseUp)
+    emits('drag-stop')
+}
 </script>

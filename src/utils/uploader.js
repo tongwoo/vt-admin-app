@@ -1,6 +1,6 @@
-import http from "./http.js";
-import {readAuthorization} from "./authorize.js";
-import {API_PATH_DEFAULT} from "@/constants/api-path.js";
+import http from "./http.js"
+import {readAuthorization} from "./authorize.js"
+import {API_PATH_DEFAULT} from "@/constants/api-path.js"
 
 /**
  * 上传组件绑定的属性(用于elementui上传组件)
@@ -10,7 +10,7 @@ import {API_PATH_DEFAULT} from "@/constants/api-path.js";
 function attributes() {
     let headers = {
         Authorization: readAuthorization()
-    };
+    }
     return {
         //上传的地址
         action: API_PATH_DEFAULT + '/upload/common',
@@ -33,7 +33,7 @@ function attributes() {
         //是否禁用
         disabled: false,
         //最大允许上传个数
-        limit: 1,
+        limit: 1
     }
 }
 
@@ -69,13 +69,13 @@ function upload(file, params = {}) {
          * 上传处理进度事件
          */
         onProgress: function () {
-        },
-    };
-    let options = {...defaults, ...params};
-    let form = new FormData();
+        }
+    }
+    let options = {...defaults, ...params}
+    let form = new FormData()
     Object.keys(options.data).forEach((key) => {
-        form.append(key, options.data[key]);
-    });
+        form.append(key, options.data[key])
+    })
     form.append(options.name, file, file.name)
     return http.post(
         options.action,
@@ -85,7 +85,7 @@ function upload(file, params = {}) {
             onUploadProgress: options.onProgress,
             timeout: 3600000
         }
-    );
+    )
 }
 
 /**
@@ -111,8 +111,8 @@ async function chunkUpload(file, params = {}) {
             return {
                 success: false,
                 message: '上传分片失败',
-                response: response,
-            };
+                response: response
+            }
         },
 
         /**
@@ -133,30 +133,30 @@ async function chunkUpload(file, params = {}) {
          */
         onSuccess: function () {
         }
-    };
-    let options = {...defaults, ...params};
+    }
+    let options = {...defaults, ...params}
     //共计上传多少次
-    let chunkTotal = Math.ceil(file.size / options.chunkSize);
+    let chunkTotal = Math.ceil(file.size / options.chunkSize)
     //分片上传返回的响应数据
-    let response = null;
+    let response = null
     //循环上传分片内容
     for (let i = 0; i < chunkTotal; i++) {
         //此次分片内容
-        let chunkFile = file.slice(i * options.chunkSize, (i + 1) * options.chunkSize);
-        chunkFile.name = file.name;
+        let chunkFile = file.slice(i * options.chunkSize, (i + 1) * options.chunkSize)
+        chunkFile.name = file.name
         //分片上传是否成功
         let result = await upload(chunkFile, options).then((res) => {
-            response = res;
-            return options.validate(res);
+            response = res
+            return options.validate(res)
         }).catch((err) => {
-            options.onChunkError(err);
-        });
+            options.onChunkError(err)
+        })
         if (!result?.success) {
-            options.onChunkFailed(result);
-            break;
+            options.onChunkFailed(result)
+            break
         }
         if (i === chunkTotal - 1) {
-            options.onSuccess(response);
+            options.onSuccess(response)
         }
     }
 }
@@ -164,5 +164,5 @@ async function chunkUpload(file, params = {}) {
 export default {
     attributes,
     upload,
-    chunkUpload,
+    chunkUpload
 }

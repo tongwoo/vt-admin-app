@@ -48,30 +48,30 @@
     </div>
 </template>
 <script setup>
-import {ref, reactive, onMounted} from "vue";
-import {ElLoading, ElMessage} from "element-plus";
-import http from "@/utils/http.js";
-import {useStore} from "vuex";
-import {useRouter} from "vue-router";
-import defaultAvatar from "@/assets/images/icons/avatar-default.png";
-import {cleanAuthorization, writeAuthorization} from "@/utils/authorize.js";
-import {httpErrorHandler} from "@/utils/error.js";
-import setting from "@/setting.js";
-import {API_PATH_DEFAULT} from "@/constants/api-path.js";
+import {ref, reactive, onMounted} from "vue"
+import {ElLoading, ElMessage} from "element-plus"
+import http from "@/utils/http.js"
+import {useStore} from "vuex"
+import {useRouter} from "vue-router"
+import defaultAvatar from "@/assets/images/icons/avatar-default.png"
+import {cleanAuthorization, writeAuthorization} from "@/utils/authorize.js"
+import {httpErrorHandler} from "@/utils/error.js"
+import setting from "@/setting.js"
+import {API_PATH_DEFAULT} from "@/constants/api-path.js"
 
-const store = useStore();
-const router = useRouter();
+const store = useStore()
+const router = useRouter()
 
 //系统名
-const name = setting.name;
+const name = setting.name
 //表单
-const form = ref(null);
+const form = ref(null)
 //验证码
-const captcha = ref(null);
+const captcha = ref(null)
 //错误信息
-const errorMessage = ref(null);
+const errorMessage = ref(null)
 //加载中
-const loading = ref(false);
+const loading = ref(false)
 //模型
 const model = reactive({
     //用户名
@@ -80,7 +80,7 @@ const model = reactive({
     password: null,
     //验证码
     captcha: null
-});
+})
 //规则
 const rules = {
     //用户名
@@ -110,64 +110,64 @@ const rules = {
             type: 'string',
             len: 4,
             message: '验证码必须是4位'
-        },
-    ],
-};
+        }
+    ]
+}
 
 /**
  * 刷新验证码
  */
 const refreshCaptcha = () => {
-    captcha.value.src = API_PATH_DEFAULT + '/login/captcha?v=' + Math.random();
+    captcha.value.src = API_PATH_DEFAULT + '/login/captcha?v=' + Math.random()
 }
 
 /**
  * 提交登录
  */
 const submitLogin = async () => {
-    errorMessage.value = null;
+    errorMessage.value = null
     //表单是否有效
-    const success = await form.value.validate().catch(() => false);
+    const success = await form.value.validate().catch(() => false)
     if (!success) {
-        return;
+        return
     }
     //登录参数
     const params = {
         username: model.username,
         password: model.password,
-        captcha: model.captcha,
-    };
-    loading.value = true;
+        captcha: model.captcha
+    }
+    loading.value = true
     http.post(
         '/login',
         params
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         if (!response.isOk) {
-            errorMessage.value = body.message ?? '网络错误';
-            return false;
+            errorMessage.value = body.message ?? '网络错误'
+            return false
         }
-        const data = body.data;
+        const data = body.data
         //授权数据
-        const authorization = data.token;
+        const authorization = data.token
         //保存授权数据
-        writeAuthorization(authorization);
+        writeAuthorization(authorization)
         //填充用户信息
         store.commit('user/UPDATE', {
             authorization: authorization,
             nickname: data.name,
             avatar: data.avatar ?? defaultAvatar,
             permissions: data.permissions
-        });
+        })
         //加载用户数据（如果需要额外调用接口的话）
         //loadUser();
         router.push('/').catch((err) => {
-            console.error('跳转出现异常：', err);
-        });
+            console.error('跳转出现异常：', err)
+        })
     }).catch(httpErrorHandler).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 /**
  * 载入用户信息
@@ -175,58 +175,58 @@ const submitLogin = async () => {
 const loadUser = () => {
     const loading = ElLoading.service({
         lock: true,
-        text: '初始化中',
-    });
+        text: '初始化中'
+    })
     http.get(
         '/user/info'
     ).then((response) => {
         if (!response.isOk) {
-            errorMessage.value = response.message;
-            return false;
+            errorMessage.value = response.message
+            return false
         }
-        const data = response.data.data;
+        const data = response.data.data
         store.commit('user/UPDATE', {
             nickname: data.name,
             avatar: defaultAvatar,
-            permissions: [],
+            permissions: []
         })
         router.push('/').catch((err) => {
-            console.error('跳转出现异常：', err);
-        });
+            console.error('跳转出现异常：', err)
+        })
     }).catch(httpErrorHandler).finally(() => {
-        loading.close();
-    });
-};
+        loading.close()
+    })
+}
 
 /**
  * 模拟成功登录
  */
 const mockLogin = () => {
-    loading.value = true;
+    loading.value = true
     window.setTimeout(() => {
-        loading.value = false;
+        loading.value = false
         //授权数据
-        const authorization = 'token-data';
+        const authorization = 'token-data'
         //保存授权数据
-        writeAuthorization(authorization);
+        writeAuthorization(authorization)
         //填充用户信息
         store.commit('user/UPDATE', {
             authorization: authorization,
             nickname: '超级管理员',
             avatar: defaultAvatar,
-            permissions: [],
-        });
+            permissions: []
+        })
         router.push('/').catch((err) => {
-            console.error('跳转出现异常：', err);
-        });
-    }, 1000);
+            console.error('跳转出现异常：', err)
+        })
+    }, 1000)
 }
 
 onMounted(() => {
-    store.commit('CLEANUP');
-    cleanAuthorization();
+    store.commit('CLEANUP')
+    cleanAuthorization()
     //refreshCaptcha();
-});
+})
 </script>
 
 <style lang="scss" scoped>

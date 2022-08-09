@@ -18,9 +18,9 @@ export default {
          */
         ADD(state, name) {
             if (state.componentNames.indexOf(name) !== -1) {
-                return;
+                return
             }
-            state.componentNames.push(name);
+            state.componentNames.push(name)
         },
         /**
          * 移除缓存组件
@@ -28,10 +28,10 @@ export default {
          * @param {string} name 组件名
          */
         REMOVE(state, name) {
-            const index = state.componentNames.indexOf(name);
+            const index = state.componentNames.indexOf(name)
             if (index !== -1) {
-                state.componentNames.splice(index, 1);
+                state.componentNames.splice(index, 1)
             }
         }
-    },
+    }
 }

@@ -17,13 +17,13 @@
 
 <script setup>
 
-import {onMounted, ref, watch} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import {onMounted, ref, watch} from "vue"
+import {useRoute, useRouter} from "vue-router"
 
-const route = useRoute();
-const router = useRouter();
-const routes = ref([]);
-const current = ref(null);
+const route = useRoute()
+const router = useRouter()
+const routes = ref([])
+const current = ref(null)
 
 /**
  * 观察路由，在变更的时候处理tab列表
@@ -32,22 +32,22 @@ watch(route, (target) => {
     current.value = {
         title: target.meta.title,
         fullPath: target.fullPath
-    };
-    const index = routes.value.findIndex((item) => {
-        return item.fullPath === target.fullPath;
-    });
-    if (index === -1) {
-        routes.value.push(current.value);
     }
-});
+    const index = routes.value.findIndex((item) => {
+        return item.fullPath === target.fullPath
+    })
+    if (index === -1) {
+        routes.value.push(current.value)
+    }
+})
 
 /**
  * Tab点击
  * @param {RouteLocationNormalized} route 路由对象
  */
 const tabItemClick = (route) => {
-    router.push(route.fullPath);
-};
+    router.push(route.fullPath)
+}
 
 /**
  * 关闭按钮点击
@@ -55,33 +55,33 @@ const tabItemClick = (route) => {
  * @param {PointerEvent} event 事件对象
  */
 const closeBtnClick = (index, event) => {
-    event.stopPropagation();
-    const target = routes.value[index];
-    routes.value.splice(index, 1);
+    event.stopPropagation()
+    const target = routes.value[index]
+    routes.value.splice(index, 1)
     //如果删除的tab不是当前页面则直接返回不处理
     if (target.fullPath !== route.fullPath) {
-        return;
+        return
     }
     //如果后面还有tab则使用后面的tab
     if (routes.value.length > index) {
-        current.value = routes.value[index];
-        router.push(current.value.fullPath);
-        return;
+        current.value = routes.value[index]
+        router.push(current.value.fullPath)
+        return
     }
     //如果前面还有tab则使用前面的tab
     if (routes.value.length > (index - 1)) {
-        current.value = routes.value[index - 1];
-        router.push(current.value.fullPath);
+        current.value = routes.value[index - 1]
+        router.push(current.value.fullPath)
     }
-};
+}
 
 onMounted(() => {
     current.value = {
         title: route.meta.title,
         fullPath: route.fullPath
-    };
-    routes.value.push(current.value);
-});
+    }
+    routes.value.push(current.value)
+})
 
 
 </script>

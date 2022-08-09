@@ -1,13 +1,13 @@
 /**
  * 功能：状态存储
  */
-import {createStore} from "vuex";
-import user from "./user.js";
-import setting from "./app.js";
-import keepalive from "./keepalive.js";
-import {readAuthorization} from "@/utils/authorize.js";
-import i18n from "@/languages/index.js";
-import {updateObject} from "@/utils/object.js";
+import {createStore} from "vuex"
+import user from "./user.js"
+import setting from "./app.js"
+import keepalive from "./keepalive.js"
+import {readAuthorization} from "@/utils/authorize.js"
+import i18n from "@/languages/index.js"
+import {updateObject} from "@/utils/object.js"
 
 const store = createStore({
     state() {
@@ -21,7 +21,7 @@ const store = createStore({
                 //总数
                 total: 0
             }
-        };
+        }
     },
     getters: {
         /**
@@ -30,7 +30,7 @@ const store = createStore({
          * @returns {boolean}
          */
         isLogin(state) {
-            return state.user.authorization !== null;
+            return state.user.authorization !== null
         }
     },
     mutations: {
@@ -40,7 +40,7 @@ const store = createStore({
          * @param {int} number 未读数量
          */
         MESSAGE_UPDATE_UNREAD(state, number) {
-            state.message.unread = number;
+            state.message.unread = number
         },
         /**
          * 读取本地存储的信息同步到Store
@@ -48,44 +48,44 @@ const store = createStore({
          */
         LOCAL_SYNC(state) {
             //设置为已同步，路由守卫不会再次进行同步处理
-            state.synced = true;
+            state.synced = true
             //本地信息
-            const localData = localStorage.getItem('localStore');
+            const localData = localStorage.getItem('localStore')
             if (localData === null) {
-                return;
+                return
             }
-            const localState = JSON.parse(localData);
+            const localState = JSON.parse(localData)
             if (localState instanceof Object) {
                 updateObject(state, localState)
             }
             //恢复语言设置
             if (store.state.setting.language !== null) {
-                i18n.global.locale = store.state.setting.language;
+                i18n.global.locale = store.state.setting.language
             }
             //恢复授权信息
-            store.state.user.authorization = readAuthorization();
+            store.state.user.authorization = readAuthorization()
         },
         /**
          * 清空
          * @param {Object} state
          */
         CLEANUP(state) {
-            localStorage.removeItem('localStore');
+            localStorage.removeItem('localStore')
             //用户
-            state.user.authorization = null;
-            state.user.nickname = null;
-            state.user.avatar = null;
-            state.user.permissions = [];
+            state.user.authorization = null
+            state.user.nickname = null
+            state.user.avatar = null
+            state.user.permissions = []
             //组件缓存
-            state.keepalive.componentNames = [];
+            state.keepalive.componentNames = []
         }
     },
     modules: {
         user,
         setting,
-        keepalive,
+        keepalive
     }
-});
+})
 
 /**
  * 在每次提交Mutation后保存到localStorage
@@ -94,12 +94,12 @@ store.subscribe((mutation, state) => {
     //忽略的Mutation列表，有些Mutation是不需要处理的
     const ignoreMutations = [
         'LOCAL_SYNC',
-        'CLEANUP',
-    ];
+        'CLEANUP'
+    ]
     if (ignoreMutations.indexOf(mutation.type) !== -1) {
-        return;
+        return
     }
-    localStorage.setItem('localStore', JSON.stringify(state));
-});
+    localStorage.setItem('localStore', JSON.stringify(state))
+})
 
-export default store;
+export default store

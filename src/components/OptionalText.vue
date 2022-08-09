@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import {computed} from "vue";
+import {computed} from "vue"
 
 const props = defineProps({
     modelValue: [String, Number],
@@ -16,13 +16,13 @@ const props = defineProps({
         type: [String, Number],
         default: '-'
     }
-});
+})
 
 const content = computed(() => {
     if (props.modelValue === null || props.modelValue === undefined) {
-        return props.text;
+        return props.text
     }
-    return props.modelValue;
-});
+    return props.modelValue
+})
 
 </script>

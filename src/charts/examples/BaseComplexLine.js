@@ -21,17 +21,17 @@ export default {
         bottom: 30,
         left: 70
     },
-    xAxis:     {
+    xAxis: {
         type: 'category',
         data: [
             '第1季度',
             '第2季度',
             '第3季度',
-            '第4季度',
-        ],
+            '第4季度'
+        ]
     },
-    yAxis:     {
-        type: 'value',
+    yAxis: {
+        type: 'value'
     },
     series: [
         {
@@ -40,21 +40,21 @@ export default {
                 422,
                 188,
                 523,
-                155,
+                155
             ],
             type: 'line',
             showSymbol: false,
             smooth: true,
-            lineStyle:             {
+            lineStyle: {
                 width: 1,
-                type: 'solid',
+                type: 'solid'
             },
-            itemStyle:             {
+            itemStyle: {
                 borderRadius: 0,
-                color: 'rgba(0, 132, 255, 1)',
+                color: 'rgba(0, 132, 255, 1)'
             },
-            areaStyle:             {
-                color:                 {
+            areaStyle: {
+                color: {
                     type: 'linear',
                     x: 0,
                     y: 0,
@@ -63,15 +63,15 @@ export default {
                     colorStops: [
                         {
                             offset: 0.1,
-                            color: 'rgba(0, 132, 255, 0.17)',
+                            color: 'rgba(0, 132, 255, 0.17)'
                         },
                         {
                             offset: 0.9,
-                            color: 'rgba(0, 132, 255, 1)',
-                        },
-                    ],
-                },
-            },
-        },
-    ],
+                            color: 'rgba(0, 132, 255, 1)'
+                        }
+                    ]
+                }
+            }
+        }
+    ]
 }

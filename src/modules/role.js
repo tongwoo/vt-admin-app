@@ -2,7 +2,7 @@
  * 功能：角色
  * 日期：2022-03-17
  */
-import http from '@/utils/http';
+import http from '@/utils/http'
 
 /**
  * 新增角色
@@ -17,8 +17,8 @@ function createRole(data) {
         return {
             success: body.isOk,
             message: body.data.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -34,8 +34,8 @@ function updateRole(data) {
         return {
             success: body.isOk,
             message: body.data.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -53,8 +53,8 @@ function removeRole(ids) {
         return {
             success: body.isOk,
             message: body.data.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -64,14 +64,14 @@ function removeRole(ids) {
  */
 function fetchRole(id) {
     return http.get(
-        '/role/detail?id=' + id,
+        '/role/detail?id=' + id
     ).then((body) => {
         return {
             success: body.isOk,
             message: body.data.message,
             data: body.data.data.item
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -86,8 +86,8 @@ function fetchRoles(params = {}) {
             params
         }
     ).then((body) => {
-        return body.data.data.items;
-    });
+        return body.data.data.items
+    })
 }
 
 /**
@@ -105,13 +105,13 @@ function fetchPageRoles(params = {}) {
         const data = {
             items: [],
             total: 0
-        };
-        if (body.isOk) {
-            data.items = body.data.data.items;
-            data.total = body.data.data.total;
         }
-        return data;
-    });
+        if (body.isOk) {
+            data.items = body.data.data.items
+            data.total = body.data.data.total
+        }
+        return data
+    })
 }
 
 /**
@@ -126,9 +126,9 @@ function fetchPairRoles(params = {}) {
                 name: item.description,
                 value: item.id,
                 origin: item
-            };
-        });
-    });
+            }
+        })
+    })
 }
 
 /**
@@ -141,10 +141,10 @@ function fetchRolePermissions(roleId) {
         '/role/permissions?id=' + roleId
     ).then((response) => {
         if (!response.isOk) {
-            return [];
+            return []
         }
-        return response.data.data.items;
-    });
+        return response.data.data.items
+    })
 }
 
 export {
@@ -155,5 +155,5 @@ export {
     fetchRoles,
     fetchPageRoles,
     fetchPairRoles,
-    fetchRolePermissions,
+    fetchRolePermissions
 }

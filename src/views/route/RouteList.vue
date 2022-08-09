@@ -97,22 +97,22 @@
     </div>
 </template>
 <script setup>
-import {ref, reactive, computed, onMounted, defineAsyncComponent} from "vue";
-import {useStore} from "vuex";
-import {useRouter, useRoute} from "vue-router";
-import {ElLoading, ElMessage as messageTip, ElMessageBox as messageBox} from "element-plus";
-import {updateObject, cloneObject} from "@/utils/object.js";
-import {httpErrorHandler} from "@/utils/error.js";
-import setting from "@/setting.js";
-import {fetchPermissions} from "@/modules/permission.js";
-import {removeRoute, fetchPageRoutes, truncateRoutes, generateRoutes} from "@/modules/route.js";
+import {ref, reactive, computed, onMounted, defineAsyncComponent} from "vue"
+import {useStore} from "vuex"
+import {useRouter, useRoute} from "vue-router"
+import {ElLoading, ElMessage as messageTip, ElMessageBox as messageBox} from "element-plus"
+import {updateObject, cloneObject} from "@/utils/object.js"
+import {httpErrorHandler} from "@/utils/error.js"
+import setting from "@/setting.js"
+import {fetchPermissions} from "@/modules/permission.js"
+import {removeRoute, fetchPageRoutes, truncateRoutes, generateRoutes} from "@/modules/route.js"
 
 //路由表单
-const RouteForm = defineAsyncComponent(() => import('@/views/route/RouteForm.vue'));
+const RouteForm = defineAsyncComponent(() => import('@/views/route/RouteForm.vue'))
 
-const store = useStore();
-const router = useRouter();
-const route = useRoute();
+const store = useStore()
+const router = useRouter()
+const route = useRoute()
 
 /**
  * 查询参数
@@ -125,32 +125,32 @@ const query = reactive({
     //名称
     name: null,
     //路径
-    path: null,
-});
+    path: null
+})
 
 onMounted(() => {
     //载入路由
-    loadRoutes();
-});
+    loadRoutes()
+})
 
 /**
  * 提交查询
  */
 const submitQuery = () => {
-    query.page = 1;
-    loadRoutes();
-};
+    query.page = 1
+    loadRoutes()
+}
 
 /**
  * 重置
  */
 const resetQuery = () => {
     Object.keys(query).forEach((key) => {
-        query[key] = null;
-    });
-    query.page = 1;
-    loadRoutes();
-};
+        query[key] = null
+    })
+    query.page = 1
+    loadRoutes()
+}
 
 /**
  * 构建查询参数
@@ -167,10 +167,10 @@ const buildQuery = () => {
         //名称
         name: query.name,
         //路径
-        path: query.path,
-    };
-    return params;
-};
+        path: query.path
+    }
+    return params
+}
 
 /**
  * 维护
@@ -182,38 +182,38 @@ const maintain = {
     dialog: reactive({
         show: false,
         title: null
-    }),
-};
+    })
+}
 
 /**
  * 弹框关闭
  * @param {string|number|null} payload 返回的数据
  */
 const maintainDialogClose = (payload) => {
-    maintain.dialog.show = false;
+    maintain.dialog.show = false
     if (payload === 'save') {
-        loadRoutes();
+        loadRoutes()
     }
-};
+}
 
 /**
  * 新增按钮点击
  */
 const createBtnClick = () => {
-    maintain.data = null;
-    maintain.dialog.show = true;
-    maintain.dialog.title = '新增路由';
-};
+    maintain.data = null
+    maintain.dialog.show = true
+    maintain.dialog.title = '新增路由'
+}
 
 /**
  * 编辑按钮点击
  * @param {Object} row 当前行数据
  */
 const modifyBtnClick = (row) => {
-    maintain.data = cloneObject(row);
-    maintain.dialog.show = true;
-    maintain.dialog.title = '编辑路由';
-};
+    maintain.data = cloneObject(row)
+    maintain.dialog.show = true
+    maintain.dialog.title = '编辑路由'
+}
 
 /**
  * 单个删除按钮点击
@@ -223,70 +223,70 @@ const removeBtnClick = (row) => {
     messageBox.confirm('确定删除吗？删除后无法恢复', '提示', {
         type: 'warning',
         confirmButtonText: '确定',
-        cancelButtonText: '取消',
+        cancelButtonText: '取消'
     }).then(() => {
-        submitRemove(row.id);
+        submitRemove(row.id)
     }).catch(() => {
         //...
-    });
-};
+    })
+}
 
 /**
  * 批量删除按钮点击
  */
 const batchRemoveBtnClick = () => {
     if (recordset.selected.length === 0) {
-        messageTip.error('请选择要删除的数据');
-        return;
+        messageTip.error('请选择要删除的数据')
+        return
     }
     messageBox.confirm('确定删除吗？删除后无法恢复', '提示', {
         type: 'warning',
         confirmButtonText: '确定',
-        cancelButtonText: '取消',
+        cancelButtonText: '取消'
     }).then(() => {
         const ids = recordset.selected.map((item) => {
-            return item.id;
-        }).join(',');
-        submitRemove(ids);
+            return item.id
+        }).join(',')
+        submitRemove(ids)
     }).catch(() => {
         //...
-    });
-};
+    })
+}
 
 /**
  * 清空路由按钮点击
  */
 const truncateBtnClick = () => {
     messageBox.confirm('确定清空吗？', '提示', {
-        type: 'warning',
+        type: 'warning'
     }).then(() => {
         truncateRoutes().then(() => {
             loadRoutes()
         }).catch(() => {
-            messageTip.error('清空失败');
+            messageTip.error('清空失败')
         })
     }).catch(() => {
         //...
-    });
-};
+    })
+}
 
 /**
  * 生成路由按钮点击
  */
 const generateBtnClick = () => {
     messageBox.confirm('确定生成所有路由吗？已经生成的则忽略', '提示', {
-        type: 'warning',
+        type: 'warning'
     }).then(() => {
         generateRoutes().then(() => {
-            query.page = 1;
+            query.page = 1
             loadRoutes()
         }).catch(() => {
-            messageTip.error('生成失败');
+            messageTip.error('生成失败')
         })
     }).catch(() => {
         //...
-    });
-};
+    })
+}
 
 /**
  * 提交删除
@@ -295,22 +295,22 @@ const generateBtnClick = () => {
 const submitRemove = (ids) => {
     const loading = ElLoading.service({
         lock: true,
-        text: '删除中',
-    });
+        text: '删除中'
+    })
     return removeRoute(ids).then(({success, message}) => {
         if (!success) {
-            messageTip.error(message);
+            messageTip.error(message)
         } else {
-            messageTip.success(message);
-            recordset.selected = [];
-            loadRoutes();
+            messageTip.success(message)
+            recordset.selected = []
+            loadRoutes()
         }
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.close();
-    });
-};
+        loading.close()
+    })
+}
 
 /**
  * 记录集
@@ -327,47 +327,47 @@ const recordset = reactive({
     //表格DOM
     table: null,
     //已选中的项目列表
-    selected: [],
-});
+    selected: []
+})
 
 /**
  * 表格复选框选中状态变更
  * @param {Object[]} records 已选中的复选框数据
  */
 const selectionChange = (records) => {
-    recordset.selected = records;
-};
+    recordset.selected = records
+}
 
 /**
  * 分页变更
  * @param {number} page 改变后的页码
  */
 const pageChange = (page) => {
-    query.page = page;
-    loadRoutes();
-};
+    query.page = page
+    loadRoutes()
+}
 
 /**
  * 加载路由列表
  * @return {Promise}
  */
 const loadRoutes = () => {
-    const params = buildQuery();
-    recordset.loading = true;
+    const params = buildQuery()
+    recordset.loading = true
     return fetchPageRoutes(params).then((data) => {
         if (data.items.length === 0 && query.page > 1) {
-            query.page -= 1;
-            loadRoutes();
-            return;
+            query.page -= 1
+            loadRoutes()
+            return
         }
-        recordset.total = data.total;
-        recordset.items = data.items;
+        recordset.total = data.total
+        recordset.items = data.items
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        recordset.loading = false;
-    });
-};
+        recordset.loading = false
+    })
+}
 </script>
 <style lang="scss" scope>
 </style>

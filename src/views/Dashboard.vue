@@ -257,19 +257,19 @@
 </template>
 
 <script setup>
-import EasyChart from "@/components/EasyChart";
-import DashboardUserLine from "@/charts/examples/DashboardUserLine";
-import DashboardSeasonLine from "@/charts/examples/DashboardSeasonLine";
-import DashboardUserWherePie from "../charts/examples/DashboardUserWherePie";
-import moment from "moment";
-import CountUp from '@/components/CountUp.vue';
+import EasyChart from "@/components/EasyChart"
+import DashboardUserLine from "@/charts/examples/DashboardUserLine"
+import DashboardSeasonLine from "@/charts/examples/DashboardSeasonLine"
+import DashboardUserWherePie from "../charts/examples/DashboardUserWherePie"
+import moment from "moment"
+import CountUp from '@/components/CountUp.vue'
 
 /**
  * 百分比格式化
  */
 const percentFormat = () => {
-    return '';
-};
+    return ''
+}
 
 //订单
 const orders = [...new Array(8)].map((item) => {
@@ -279,8 +279,8 @@ const orders = [...new Array(8)].map((item) => {
         name: 'PlayStation 5 耳机套装',
         price: (Math.random() * 1000).toFixed(2),
         number: Math.ceil(Math.random() * 10),
-        time: moment().format('YYYY-MM-DD HH:mm:ss'),
-    };
+        time: moment().format('YYYY-MM-DD HH:mm:ss')
+    }
 })
 </script>
 

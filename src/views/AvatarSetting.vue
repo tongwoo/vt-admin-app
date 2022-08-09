@@ -45,41 +45,41 @@
 
 <script setup>
 import 'vue-cropper/dist/index.css'
-import {VueCropper} from "vue-cropper";
-import {ref, reactive, computed} from "vue";
-import {useStore} from "vuex";
-import {ElMessage as messageTip, ElMessageBox as messageBox} from "element-plus";
-import http from "@/utils/http.js";
-import {httpErrorHandler} from "@/utils/error.js";
+import {VueCropper} from "vue-cropper"
+import {ref, reactive, computed} from "vue"
+import {useStore} from "vuex"
+import {ElMessage as messageTip, ElMessageBox as messageBox} from "element-plus"
+import http from "@/utils/http.js"
+import {httpErrorHandler} from "@/utils/error.js"
 
-const store = useStore();
+const store = useStore()
 
 //加载中
-const loading = ref(false);
+const loading = ref(false)
 
 //属性
 const props = defineProps({
     //用户ID
     id: Number
-});
+})
 
 //事件
-const emits = defineEmits(['close']);
+const emits = defineEmits(['close'])
 
 //剪裁DOM
-const cropper = ref(null);
+const cropper = ref(null)
 //文件浏览框DOM
-const fileInput = ref(null);
+const fileInput = ref(null)
 
 //模型
 const model = reactive({
     img: null
-});
+})
 
 const preview = reactive({
     data: null,
     style: null
-});
+})
 
 /**
  * 预览
@@ -92,24 +92,24 @@ const previewCallback = (data) => {
         margin: "0",
         zoom: 200 / Math.max(data.w, data.h)
     }
-    preview.data = data;
-};
+    preview.data = data
+}
 
 /**
  * 文件变更
  */
 const chooseFile = (e) => {
     if (e.target.files.length === 0) {
-        messageTip.error('请选择图片');
-        return;
+        messageTip.error('请选择图片')
+        return
     }
-    const file = e.target.files[0];
+    const file = e.target.files[0]
     if (file.size === 0) {
-        messageTip.error('图片异常');
-        return;
+        messageTip.error('图片异常')
+        return
     }
-    model.img = URL.createObjectURL(file);
-};
+    model.img = URL.createObjectURL(file)
+}
 
 /**
  * 保存头像
@@ -117,9 +117,9 @@ const chooseFile = (e) => {
 const saveAvatar = () => {
     try {
         cropper.value.getCropBlob((data) => {
-            const formData = new FormData();
-            formData.append('file', data, '头像.png');
-            loading.value = true;
+            const formData = new FormData()
+            formData.append('file', data, '头像.png')
+            loading.value = true
             http.post(
                 '/upload/avatar',
                 formData
@@ -127,17 +127,17 @@ const saveAvatar = () => {
                 if (response.isOk) {
                     store.commit('user/UPDATE', {
                         avatar: response.data.data.url
-                    });
-                    emits('close');
+                    })
+                    emits('close')
                 }
             }).catch(httpErrorHandler).finally(() => {
-                loading.value = false;
-            });
-        });
+                loading.value = false
+            })
+        })
     } catch (e) {
         messageBox.alert('图片有误', '提示')
     }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -161,7 +161,7 @@ const saveAvatar = () => {
                 width: 200px;
                 height: 200px;
 
-                img{
+                img {
                     width: 100%;
                 }
             }

@@ -1,7 +1,7 @@
 /**
  * 菜单
  */
-import {checkAccess} from "@/utils/authorize.js";
+import {checkAccess} from "@/utils/authorize.js"
 
 /**
  * 获取左侧导航菜单
@@ -13,7 +13,7 @@ function fetchNavigateMenus() {
             name: '仪表板',
             path: '/dashboard',
             icon: 'bi bi-grid-fill',
-            show: true,
+            show: true
         },
         {
             name: '多语言示例',
@@ -21,7 +21,7 @@ function fetchNavigateMenus() {
             icon: 'bi bi-translate',
             show: true,
             permission: null,
-            children: [],
+            children: []
         },
         {
             name: '图表示例',
@@ -29,7 +29,7 @@ function fetchNavigateMenus() {
             icon: 'bi bi-bar-chart',
             show: true,
             permission: null,
-            children: [],
+            children: []
         },
         {
             name: '系统管理',
@@ -44,7 +44,7 @@ function fetchNavigateMenus() {
                     icon: 'bi bi-people-fill',
                     show: true,
                     permission: null,
-                    children: [],
+                    children: []
                 },
                 {
                     name: '角色管理',
@@ -52,7 +52,7 @@ function fetchNavigateMenus() {
                     icon: 'bi bi-person-check-fill',
                     show: true,
                     permission: null,
-                    children: [],
+                    children: []
                 },
                 {
                     name: '权限管理',
@@ -60,7 +60,7 @@ function fetchNavigateMenus() {
                     icon: 'bi bi-card-list',
                     show: true,
                     permission: null,
-                    children: [],
+                    children: []
                 },
                 {
                     name: '后台路由',
@@ -68,11 +68,11 @@ function fetchNavigateMenus() {
                     icon: 'bi bi-diagram-3',
                     show: true,
                     permission: null,
-                    children: [],
-                },
-            ],
-        },
-    ];
+                    children: []
+                }
+            ]
+        }
+    ]
 }
 
 /**
@@ -81,29 +81,29 @@ function fetchNavigateMenus() {
  * @return {Array}
  */
 function fetchMenus(menus) {
-    const items = [];
+    const items = []
     for (let menu of menus) {
-        let item = null;
+        let item = null
         if (menu.hasOwnProperty('permission') && menu.permission !== null) {
             if (checkAccess(menu.permission)) {
-                item = menu;
+                item = menu
             }
         } else {
-            item = menu;
+            item = menu
         }
         if (item !== null) {
             if (menu.hasOwnProperty('children') && menu.children.length > 0) {
-                item.children = fetchMenus(menu.children);
+                item.children = fetchMenus(menu.children)
             } else {
-                item.children = [];
+                item.children = []
             }
-            items.push(item);
+            items.push(item)
         }
     }
-    return items;
+    return items
 }
 
 export {
     fetchNavigateMenus,
-    fetchMenus,
+    fetchMenus
 }

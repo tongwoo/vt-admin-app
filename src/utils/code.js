@@ -1,14 +1,14 @@
 //正常
-const CODE_OK = 200;
+const CODE_OK = 200
 
 //服务端错误
-const CODE_ERROR = 500;
+const CODE_ERROR = 500
 
 //未授权
-const CODE_UNAUTHORIZED = 401;
+const CODE_UNAUTHORIZED = 401
 
 //无权限
-const CODE_FORBIDDEN = 403;
+const CODE_FORBIDDEN = 403
 
 /**
  * 检测Code是否正常无错误
@@ -16,7 +16,7 @@ const CODE_FORBIDDEN = 403;
  * @return {boolean}
  */
 function isOk(code) {
-    return code === CODE_OK || code === String(CODE_OK);
+    return code === CODE_OK || code === String(CODE_OK)
 }
 
 /**
@@ -25,7 +25,7 @@ function isOk(code) {
  * @return {boolean}
  */
 function isUnauthorized(code) {
-    return code === CODE_UNAUTHORIZED;
+    return code === CODE_UNAUTHORIZED
 }
 
 export {
@@ -34,5 +34,5 @@ export {
     CODE_UNAUTHORIZED,
     CODE_FORBIDDEN,
     isOk,
-    isUnauthorized,
+    isUnauthorized
 }

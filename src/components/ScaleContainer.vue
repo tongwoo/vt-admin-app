@@ -10,13 +10,13 @@
 </template>
 
 <script setup>
-import {ref, onMounted, onUnmounted} from "vue";
+import {ref, onMounted, onUnmounted} from "vue"
 
 //容器
-const container = ref(null);
+const container = ref(null)
 
 //监听器
-let observer = null;
+let observer = null
 
 //属性
 const props = defineProps({
@@ -29,22 +29,22 @@ const props = defineProps({
         type: Number,
         default: 1
     }
-});
+})
 
 onMounted(() => {
-    const parent = container.value.parentElement;
+    const parent = container.value.parentElement
     observer = new ResizeObserver(() => {
-        const width = parent.offsetWidth / props.width;
-        const height = parent.offsetHeight / props.height;
-        const scale = Math.min(width, height) * props.percent;
-        container.value.style.transform = `scale(${scale})`;
-    });
-    observer.observe(parent);
-});
+        const width = parent.offsetWidth / props.width
+        const height = parent.offsetHeight / props.height
+        const scale = Math.min(width, height) * props.percent
+        container.value.style.transform = `scale(${scale})`
+    })
+    observer.observe(parent)
+})
 
 onUnmounted(() => {
-    observer.disconnect();
-});
+    observer.disconnect()
+})
 </script>
 
 <style lang="scss" scoped>

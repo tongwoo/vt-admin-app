@@ -32,38 +32,38 @@
 </template>
 
 <script setup>
-import {computed, reactive, ref} from "vue";
-import {useStore} from "vuex";
-import {fetchMenus, fetchNavigateMenus} from '@/data/navigate-menu.js';
-import MenuItem from '@/components/MenuItem.vue';
-import {useRoute} from "vue-router";
-import VirtualDrag from "@/components/VirtualDrag.vue";
-import defaultAvatar from "@/assets/images/icons/avatar-default.png";
+import {computed, reactive, ref} from "vue"
+import {useStore} from "vuex"
+import {fetchMenus, fetchNavigateMenus} from '@/data/navigate-menu.js'
+import MenuItem from '@/components/MenuItem.vue'
+import {useRoute} from "vue-router"
+import VirtualDrag from "@/components/VirtualDrag.vue"
+import defaultAvatar from "@/assets/images/icons/avatar-default.png"
 
-const store = useStore();
-const route = useRoute();
+const store = useStore()
+const route = useRoute()
 
 //菜单列表
-const menus = fetchMenus(fetchNavigateMenus());
+const menus = fetchMenus(fetchNavigateMenus())
 
 //菜单是否折叠
 const isCollapsed = computed(() => {
-    return store.state.setting.navigator.collapse;
-});
+    return store.state.setting.navigator.collapse
+})
 
 /**
  * 头像加载失败
  */
 const avatarError = (error) => {
-    error.target.src = defaultAvatar;
-};
+    error.target.src = defaultAvatar
+}
 
 /**
  * 导航切换按钮点击
  */
 const toggleNavigatorBtnClick = () => {
-    store.commit('setting/TOGGLE_NAVIGATOR');
-};
+    store.commit('setting/TOGGLE_NAVIGATOR')
+}
 
 /**
  * 导航宽度
@@ -73,25 +73,25 @@ const navigatorWidth = computed(() => {
         store.state.setting.navigator.width.current === null ||
         store.state.setting.navigator.collapse
     ) {
-        return null;
+        return null
     }
     return {
-        width: store.state.setting.navigator.width.current + 'px',
-    };
-});
+        width: store.state.setting.navigator.width.current + 'px'
+    }
+})
 
 //导航尺寸
-const navigatorSize = ref(0);
+const navigatorSize = ref(0)
 
 /**
  * 拖动开始
  */
 const dragStart = () => {
     const wrapper = document.querySelector('.base-navigator')
-    wrapper.style.transition = 'none';
-    document.querySelector('.header-title').style.transition = 'none';
-    navigatorSize.value = wrapper.offsetWidth;
-};
+    wrapper.style.transition = 'none'
+    document.querySelector('.header-title').style.transition = 'none'
+    navigatorSize.value = wrapper.offsetWidth
+}
 
 
 /**
@@ -99,22 +99,22 @@ const dragStart = () => {
  * @param {x:number,y:number} offset 偏移位置
  */
 const dragMove = (offset) => {
-    let newWidth = navigatorSize.value + offset.x;
+    let newWidth = navigatorSize.value + offset.x
     if (newWidth >= store.state.setting.navigator.width.max) {
-        newWidth = store.state.setting.navigator.width.max;
+        newWidth = store.state.setting.navigator.width.max
     } else if (newWidth <= store.state.setting.navigator.width.min) {
-        newWidth = store.state.setting.navigator.width.min;
+        newWidth = store.state.setting.navigator.width.min
     }
-    store.commit('setting/UPDATE_WIDTH', newWidth);
-};
+    store.commit('setting/UPDATE_WIDTH', newWidth)
+}
 
 /**
  * 拖动结束
  */
 const dragStop = () => {
-    document.querySelector('.base-navigator').style.removeProperty('transition');
-    document.querySelector('.header-title').style.removeProperty('transition');
-};
+    document.querySelector('.base-navigator').style.removeProperty('transition')
+    document.querySelector('.header-title').style.removeProperty('transition')
+}
 </script>
 
 <style lang="scss" scoped>

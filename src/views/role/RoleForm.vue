@@ -10,7 +10,8 @@
                 <template v-slot:label>
                     <el-tooltip content="需要英文、下划线字符">
                         <i class="bi bi-question-circle el-icon--left"></i>
-                    </el-tooltip>角色名称
+                    </el-tooltip>
+                    角色名称
                 </template>
                 <el-input v-model="model.name" maxlength="32"></el-input>
             </el-form-item>
@@ -28,14 +29,14 @@
     </div>
 </template>
 <script setup>
-import {ref, reactive, onMounted} from "vue";
-import {ElLoading, ElMessage as messageTip} from "element-plus";
-import {updateObject} from "@/utils/object.js";
-import mapper from "@/utils/mapper.js";
-import {httpErrorHandler} from "@/utils/error.js";
-import moment from "moment";
-import {getConfirms} from "@/constants/confirm.js";
-import {createRole, updateRole, fetchRole} from "@/modules/role.js";
+import {ref, reactive, onMounted} from "vue"
+import {ElLoading, ElMessage as messageTip} from "element-plus"
+import {updateObject} from "@/utils/object.js"
+import mapper from "@/utils/mapper.js"
+import {httpErrorHandler} from "@/utils/error.js"
+import moment from "moment"
+import {getConfirms} from "@/constants/confirm.js"
+import {createRole, updateRole, fetchRole} from "@/modules/role.js"
 
 //属性
 const props = defineProps({
@@ -43,17 +44,17 @@ const props = defineProps({
     payload: {
         type: Object
     }
-});
+})
 //事件
-const emits = defineEmits(['close']);
+const emits = defineEmits(['close'])
 //加载中
-const loading = ref(false);
+const loading = ref(false)
 //表单
-const form = ref(null);
+const form = ref(null)
 //错误信息
-const errorMessage = ref(null);
+const errorMessage = ref(null)
 //是否内置列表
-const isBuiltIns = ref(getConfirms());
+const isBuiltIns = ref(getConfirms())
 
 //模型
 const model = reactive({
@@ -62,12 +63,12 @@ const model = reactive({
     //角色名称
     name: null,
     //角色描述
-    description: null,
+    description: null
     //规则名称
     //ruleName: null,
     //是否内置
     //isBuiltIn: null,
-});
+})
 //规则
 const rules = {
     //角色名称
@@ -76,14 +77,14 @@ const rules = {
             type: 'string',
             required: true,
             trigger: 'blur',
-            message: '角色名称必须填写',
+            message: '角色名称必须填写'
         },
         {
             type: 'string',
             max: 32,
             trigger: 'blur',
-            message: '角色名称最多32个字符',
-        },
+            message: '角色名称最多32个字符'
+        }
     ],
     //角色描述
     description: [
@@ -91,14 +92,14 @@ const rules = {
             type: 'string',
             required: true,
             trigger: 'blur',
-            message: '角色描述必须填写',
+            message: '角色描述必须填写'
         },
         {
             type: 'string',
             max: 32,
             trigger: 'blur',
-            message: '角色描述最多32个字符',
-        },
+            message: '角色描述最多32个字符'
+        }
     ],
     //规则名称
     ruleName: [
@@ -106,14 +107,14 @@ const rules = {
             type: 'string',
             required: false,
             trigger: 'blur',
-            message: '规则名称必须填写',
+            message: '规则名称必须填写'
         },
         {
             type: 'string',
             max: 50,
             trigger: 'blur',
-            message: '规则名称最多50个字符',
-        },
+            message: '规则名称最多50个字符'
+        }
     ],
     //是否内置
     isBuiltIn: [
@@ -121,48 +122,48 @@ const rules = {
             type: 'integer',
             required: false,
             trigger: 'blur',
-            message: '是否内置必须填写',
+            message: '是否内置必须填写'
         },
         {
             type: 'integer',
             min: 0,
             max: 255,
             trigger: 'blur',
-            message: '是否内置必须介于0-255之间',
-        },
-    ],
-};
+            message: '是否内置必须介于0-255之间'
+        }
+    ]
+}
 
 /**
  * 保存按钮点击
  */
 const saveBtnClick = async () => {
-    errorMessage.value = null;
-    const success = await form.value.validate().catch(() => false);
+    errorMessage.value = null
+    const success = await form.value.validate().catch(() => false)
     if (!success) {
-        return;
+        return
     }
     const data = {
         id: model.id, //ID
         name: model.name, //角色名称
         description: model.description, //角色描述
         ruleName: model.ruleName, //规则名称
-        isBuiltIn: model.isBuiltIn, //是否内置
+        isBuiltIn: model.isBuiltIn //是否内置
     }
     //保存
     if (data?.id) {
-        submitUpdate(data);
+        submitUpdate(data)
     } else {
-        submitCreate(data);
+        submitCreate(data)
     }
-};
+}
 
 /**
  * 取消按钮点击
  */
 const cancelBtnClick = () => {
-    emits('close', 'cancel');
-};
+    emits('close', 'cancel')
+}
 
 /**
  * 角色新增
@@ -170,20 +171,20 @@ const cancelBtnClick = () => {
  * @return {Promise}
  */
 const submitCreate = (data) => {
-    loading.value = true;
+    loading.value = true
     return createRole(data).then(({success, message}) => {
         if (!success) {
-            errorMessage.value = message;
-            return;
+            errorMessage.value = message
+            return
         }
-        messageTip.success(message);
-        emits('close', 'save');
+        messageTip.success(message)
+        emits('close', 'save')
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 /**
  * 角色更新
@@ -191,20 +192,20 @@ const submitCreate = (data) => {
  * @return {Promise}
  */
 const submitUpdate = (data) => {
-    loading.value = true;
+    loading.value = true
     return updateRole(data).then(({success, message}) => {
         if (!success) {
-            errorMessage.value = message;
-            return;
+            errorMessage.value = message
+            return
         }
-        messageTip.success(message);
-        emits('close', 'save');
+        messageTip.success(message)
+        emits('close', 'save')
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 /**
  * 角色载入
@@ -212,14 +213,14 @@ const submitUpdate = (data) => {
  * @return {Promise}
  */
 const loadRole = (id) => {
-    loading.value = true;
+    loading.value = true
     return fetchRole(id).then((body) => {
         if (!body.success) {
-            messageTip.error(body.message);
-            return;
+            messageTip.error(body.message)
+            return
         }
-        const data = body.data;
-        updateObject(model, data);
+        const data = body.data
+        updateObject(model, data)
         /*
         //更新模型
         model.id = data.id; //ID
@@ -227,15 +228,15 @@ const loadRole = (id) => {
         model.female : data.female, //女
         */
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 onMounted(async () => {
     if (props.payload?.id) {
-        await loadRole(props.payload.id);
+        await loadRole(props.payload.id)
     }
-});
+})
 </script>

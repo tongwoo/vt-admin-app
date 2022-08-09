@@ -26,14 +26,14 @@
     </div>
 </template>
 <script setup>
-import {ref, reactive, onMounted, nextTick} from "vue";
-import {ElLoading, ElMessage as messageTip} from "element-plus";
-import {cloneObject, updateObject} from "@/utils/object.js";
-import mapper from "@/utils/mapper.js";
-import {httpErrorHandler} from "@/utils/error.js";
-import moment from "moment";
-import {createRoute, updateRoute, fetchRoute} from "@/modules/route.js";
-import {fetchPermissionTree} from "@/modules/permission.js";
+import {ref, reactive, onMounted, nextTick} from "vue"
+import {ElLoading, ElMessage as messageTip} from "element-plus"
+import {cloneObject, updateObject} from "@/utils/object.js"
+import mapper from "@/utils/mapper.js"
+import {httpErrorHandler} from "@/utils/error.js"
+import moment from "moment"
+import {createRoute, updateRoute, fetchRoute} from "@/modules/route.js"
+import {fetchPermissionTree} from "@/modules/permission.js"
 
 //属性
 const props = defineProps({
@@ -41,32 +41,32 @@ const props = defineProps({
     payload: {
         type: Object
     }
-});
+})
 //事件
-const emits = defineEmits(['close']);
+const emits = defineEmits(['close'])
 //加载中
-const loading = ref(false);
+const loading = ref(false)
 //表单
-const form = ref(null);
+const form = ref(null)
 //权限树
-const tree = ref(null);
+const tree = ref(null)
 //错误信息
-const errorMessage = ref(null);
+const errorMessage = ref(null)
 //权限列表
-const permissions = ref([]);
+const permissions = ref([])
 
 /**
  * 载入权限列表
  */
 const loadPermissions = () => {
     return fetchPermissionTree().then((items) => {
-        permissions.value = items;
-    });
-};
+        permissions.value = items
+    })
+}
 onMounted(() => {
     //权限列表
-    loadPermissions();
-});
+    loadPermissions()
+})
 
 //模型
 const model = reactive({
@@ -77,8 +77,8 @@ const model = reactive({
     //名称
     name: null,
     //路径
-    path: null,
-});
+    path: null
+})
 //规则
 const rules = {
     //名称
@@ -87,14 +87,14 @@ const rules = {
             type: 'string',
             required: true,
             trigger: 'blur',
-            message: '名称必须填写',
+            message: '名称必须填写'
         },
         {
             type: 'string',
             max: 128,
             trigger: 'blur',
-            message: '名称最多128个字符',
-        },
+            message: '名称最多128个字符'
+        }
     ],
     //路径
     path: [
@@ -102,46 +102,46 @@ const rules = {
             type: 'string',
             required: true,
             trigger: 'blur',
-            message: '路径必须填写',
+            message: '路径必须填写'
         },
         {
             type: 'string',
             max: 256,
             trigger: 'blur',
-            message: '路径最多256个字符',
-        },
-    ],
-};
+            message: '路径最多256个字符'
+        }
+    ]
+}
 
 /**
  * 保存按钮点击
  */
 const saveBtnClick = async () => {
-    errorMessage.value = null;
-    const success = await form.value.validate().catch(() => false);
+    errorMessage.value = null
+    const success = await form.value.validate().catch(() => false)
     if (!success) {
-        return;
+        return
     }
     const data = {
         id: model.id, //ID
         permissionId: model.permissionId, //权限
         name: model.name, //名称
-        path: model.path, //路径
+        path: model.path //路径
     }
     //保存
     if (data?.id) {
-        submitUpdate(data);
+        submitUpdate(data)
     } else {
-        submitCreate(data);
+        submitCreate(data)
     }
-};
+}
 
 /**
  * 取消按钮点击
  */
 const cancelBtnClick = () => {
-    emits('close', 'cancel');
-};
+    emits('close', 'cancel')
+}
 
 /**
  * 路由新增
@@ -149,20 +149,20 @@ const cancelBtnClick = () => {
  * @return {Promise}
  */
 const submitCreate = (data) => {
-    loading.value = true;
+    loading.value = true
     return createRoute(data).then(({success, message}) => {
         if (!success) {
-            errorMessage.value = message;
-            return;
+            errorMessage.value = message
+            return
         }
-        messageTip.success(message);
-        emits('close', 'save');
+        messageTip.success(message)
+        emits('close', 'save')
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 /**
  * 路由更新
@@ -170,20 +170,20 @@ const submitCreate = (data) => {
  * @return {Promise}
  */
 const submitUpdate = (data) => {
-    loading.value = true;
+    loading.value = true
     return updateRoute(data).then(({success, message}) => {
         if (!success) {
-            errorMessage.value = message;
-            return;
+            errorMessage.value = message
+            return
         }
-        messageTip.success(message);
-        emits('close', 'save');
+        messageTip.success(message)
+        emits('close', 'save')
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 /**
  * 路由载入
@@ -191,24 +191,24 @@ const submitUpdate = (data) => {
  * @return {Promise}
  */
 const loadRoute = (id) => {
-    loading.value = true;
+    loading.value = true
     return fetchRoute(id).then((body) => {
         if (!body.success) {
-            messageTip.error(body.message);
-            return;
+            messageTip.error(body.message)
+            return
         }
-        const data = body.data;
-        updateObject(model, data);
+        const data = body.data
+        updateObject(model, data)
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 onMounted(async () => {
     if (props.payload?.id) {
-        await loadRoute(props.payload.id);
+        await loadRoute(props.payload.id)
     }
-});
+})
 </script>

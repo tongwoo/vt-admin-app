@@ -8,13 +8,13 @@
  * 是
  * @type {string|int}
  */
-const CONFIRM_YES = 1;
+const CONFIRM_YES = 1
 
 /**
  * 否
  * @type {string|int}
  */
-const CONFIRM_NO = 0;
+const CONFIRM_NO = 0
 
 /**
  * 确认数据项列表
@@ -29,8 +29,8 @@ function getConfirms() {
         {
             name: '否',
             value: CONFIRM_NO
-        },
-    ];
+        }
+    ]
 }
 
 /**
@@ -39,8 +39,8 @@ function getConfirms() {
  * @return {string|null}
  */
 function getConfirmNameByValue(value) {
-    const item = getConfirms().find(item => item.value === value);
-    return item ? item.name : null;
+    const item = getConfirms().find(item => item.value === value)
+    return item ? item.name : null
 }
 
 /**
@@ -50,11 +50,11 @@ function getConfirmNameByValue(value) {
  */
 function getConfirmClassByValue(value) {
     if (value === CONFIRM_YES) {
-        return 'confirm-yes';
+        return 'confirm-yes'
     } else if (value === CONFIRM_NO) {
-        return 'confirm-no';
+        return 'confirm-no'
     } else {
-        return null;
+        return null
     }
 }
 
@@ -63,5 +63,5 @@ export {
     CONFIRM_NO,
     getConfirms,
     getConfirmNameByValue,
-    getConfirmClassByValue,
+    getConfirmClassByValue
 }

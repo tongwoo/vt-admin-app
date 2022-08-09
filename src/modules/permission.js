@@ -2,7 +2,7 @@
  * 功能：权限
  * 日期：2022-06-14
  */
-import http from '@/utils/http';
+import http from '@/utils/http'
 
 /**
  * 新增权限
@@ -14,12 +14,12 @@ function createPermission(data) {
         '/permission/create',
         data
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -32,12 +32,12 @@ function updatePermission(data) {
         '/permission/update',
         data
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -52,12 +52,12 @@ function removePermission(ids) {
             ids
         }
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -67,15 +67,15 @@ function removePermission(ids) {
  */
 function fetchPermission(id) {
     return http.get(
-        '/permission/detail?id=' + id,
+        '/permission/detail?id=' + id
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message,
             data: response.isOk ? body.data.item : null
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -90,9 +90,9 @@ function fetchPermissions(params = {}) {
             params
         }
     ).then((response) => {
-        const body = response.data;
-        return body.data.items;
-    });
+        const body = response.data
+        return body.data.items
+    })
 }
 
 /**
@@ -107,17 +107,17 @@ function fetchPagePermissions(params = {}) {
             params
         }
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         const data = {
             items: [],
             total: 0
-        };
-        if (response.isOk) {
-            data.items = body.data.items;
-            data.total = body.data.total;
         }
-        return data;
-    });
+        if (response.isOk) {
+            data.items = body.data.items
+            data.total = body.data.total
+        }
+        return data
+    })
 }
 
 /**
@@ -132,9 +132,9 @@ function fetchPairPermissions(params = {}) {
                 name: item.name,
                 value: item.id,
                 origin: item
-            };
-        });
-    });
+            }
+        })
+    })
 }
 
 /**
@@ -149,10 +149,10 @@ function fetchPermissionTree(params = {}) {
         }
     ).then((response) => {
         if (!response.isOk) {
-            return [];
+            return []
         }
-        return response.data.data.items;
-    });
+        return response.data.data.items
+    })
 }
 
 export {
@@ -163,5 +163,5 @@ export {
     fetchPermissions,
     fetchPagePermissions,
     fetchPairPermissions,
-    fetchPermissionTree,
+    fetchPermissionTree
 }

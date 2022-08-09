@@ -28,17 +28,17 @@
     </div>
 </template>
 <script setup>
-import {httpErrorHandler} from "@/utils/error.js";
-import {computed, reactive, ref} from "vue";
-import http from "@/utils/http.js";
-import {ElMessage} from "element-plus";
+import {httpErrorHandler} from "@/utils/error.js"
+import {computed, reactive, ref} from "vue"
+import http from "@/utils/http.js"
+import {ElMessage} from "element-plus"
 
 //相关属性
 const props = defineProps({
     //提交地址
     url: {
         type: String,
-        default: '/common/upload',
+        default: '/common/upload'
     },
     //模板路径
     templatePath: {
@@ -49,35 +49,35 @@ const props = defineProps({
     inputName: {
         type: String,
         default: 'file'
-    },
-});
+    }
+})
 //相关事件
-const emits = defineEmits(['close']);
+const emits = defineEmits(['close'])
 //模板名称
 const templateName = computed(() => {
     if (props.templatePath == null) {
-        return null;
+        return null
     }
-    const segments = props.templatePath.split('/');
-    return segments[segments.length - 1];
-});
+    const segments = props.templatePath.split('/')
+    return segments[segments.length - 1]
+})
 //是否加载中
-const loading = ref(false);
+const loading = ref(false)
 //表单DOM
-const form = ref(null);
+const form = ref(null)
 //上传框DOM
-const fileInput = ref(null);
+const fileInput = ref(null)
 //错误
 const error = reactive({
     show: false,
     message: null
-});
+})
 //表单数据
-const formData = new FormData();
+const formData = new FormData()
 //模型
 const model = reactive({
     fileName: null
-});
+})
 //规则
 const rules = {
     fileName: [
@@ -87,85 +87,85 @@ const rules = {
             message: '请选择文件'
         }
     ]
-};
+}
 
 /**
  * 选择文件
  */
 const chooseFile = () => {
-    fileInput.value.click();
-};
+    fileInput.value.click()
+}
 
 /**
  * 导入按钮点击
  */
 const importBtnClick = async () => {
-    error.show = false;
-    error.message = null;
-    const success = await form.value.validate().catch(() => false);
+    error.show = false
+    error.message = null
+    const success = await form.value.validate().catch(() => false)
     if (!success) {
-        return;
+        return
     }
-    submitImport();
-};
+    submitImport()
+}
 
 /**
  * 取消按钮点击
  */
 const cancelBtnClick = () => {
-    emits('close', 'cancel');
-};
+    emits('close', 'cancel')
+}
 
 /**
  * 选择的文件改变
  * @param {Event} event 事件
  */
 const fileChange = (event) => {
-    error.show = false;
-    error.message = null;
-    const files = event.target.files;
+    error.show = false
+    error.message = null
+    const files = event.target.files
     if (files.length === 0) {
-        return;
+        return
     }
-    const file = files[0];
+    const file = files[0]
     if (file.size === 0) {
-        error.show = true;
-        error.message = '文件大小不能为0';
-        return;
+        error.show = true
+        error.message = '文件大小不能为0'
+        return
     }
     //最大10M
     if (file.size > 1024 * 1024 * 10) {
-        error.show = true;
-        error.message = '文件体积过大';
-        return;
+        error.show = true
+        error.message = '文件体积过大'
+        return
     }
-    formData.set(props.inputName, file, file.name);
-    model.fileName = file.name;
-};
+    formData.set(props.inputName, file, file.name)
+    model.fileName = file.name
+}
 
 /**
  * 提交导入
  */
 const submitImport = () => {
-    loading.value = true;
+    loading.value = true
     http.post(
         props.url,
         formData
     ).then((response) => {
         if (!response.isOk) {
-            error.show = true;
-            error.message = response.data.message;
+            error.show = true
+            error.message = response.data.message
         } else {
-            ElMessage.success(response.data.message);
-            emits('close');
+            ElMessage.success(response.data.message)
+            emits('close')
         }
     }).catch((err) => {
-        error.show = true;
-        error.message = err.toString();
+        error.show = true
+        error.message = err.toString()
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 </script>
 <style lang="scss" scoped>
 //导入框容器

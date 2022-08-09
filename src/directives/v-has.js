@@ -1,7 +1,7 @@
 /**
  * 是否存在指定权限指令
  */
-import {checkAccess} from "@/utils/authorize.js";
+import {checkAccess} from "@/utils/authorize.js"
 
 export default {
     /**
@@ -11,7 +11,7 @@ export default {
     mounted(el, binding) {
         //如果没有权限则移除此元素
         if (!checkAccess(binding.value)) {
-            el.parentElement.removeChild(el);
+            el.parentElement.removeChild(el)
         }
     }
 }

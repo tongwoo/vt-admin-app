@@ -2,7 +2,7 @@
  * 功能：用户
  * 日期：2022-06-14
  */
-import http from '@/utils/http';
+import http from '@/utils/http'
 
 /**
  * 新增用户
@@ -14,12 +14,12 @@ function createUser(data) {
         '/user/create',
         data
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -32,12 +32,12 @@ function updateUser(data) {
         '/user/update',
         data
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -52,12 +52,12 @@ function removeUser(ids) {
             ids
         }
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -67,15 +67,15 @@ function removeUser(ids) {
  */
 function fetchUser(id) {
     return http.get(
-        '/user/detail?id=' + id,
+        '/user/detail?id=' + id
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         return {
             success: response.isOk,
             message: body.message,
             data: response.isOk ? body.data.item : null
-        };
-    });
+        }
+    })
 }
 
 /**
@@ -90,9 +90,9 @@ function fetchUsers(params = {}) {
             params
         }
     ).then((response) => {
-        const body = response.data;
-        return body.data.items;
-    });
+        const body = response.data
+        return body.data.items
+    })
 }
 
 /**
@@ -107,17 +107,17 @@ function fetchPageUsers(params = {}) {
             params
         }
     ).then((response) => {
-        const body = response.data;
+        const body = response.data
         const data = {
             items: [],
             total: 0
-        };
-        if (response.isOk) {
-            data.items = body.data.items;
-            data.total = body.data.total;
         }
-        return data;
-    });
+        if (response.isOk) {
+            data.items = body.data.items
+            data.total = body.data.total
+        }
+        return data
+    })
 }
 
 /**
@@ -132,9 +132,9 @@ function fetchPairUsers(params = {}) {
                 name: item.name,
                 value: item.id,
                 origin: item
-            };
-        });
-    });
+            }
+        })
+    })
 }
 
 
@@ -145,5 +145,5 @@ export {
     fetchUser,
     fetchUsers,
     fetchPageUsers,
-    fetchPairUsers,
+    fetchPairUsers
 }

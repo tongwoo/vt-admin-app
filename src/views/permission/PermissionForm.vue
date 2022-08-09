@@ -35,14 +35,14 @@
     </div>
 </template>
 <script setup>
-import {ref, reactive, onMounted} from "vue";
-import {ElLoading, ElMessage as messageTip} from "element-plus";
-import {cloneObject, updateObject} from "@/utils/object.js";
-import mapper from "@/utils/mapper.js";
-import {httpErrorHandler} from "@/utils/error.js";
-import moment from "moment";
-import {createPermission, updatePermission, fetchPermission, fetchPermissionTree} from "@/modules/permission.js";
-import {fetchRules} from "@/modules/rbac.js";
+import {ref, reactive, onMounted} from "vue"
+import {ElLoading, ElMessage as messageTip} from "element-plus"
+import {cloneObject, updateObject} from "@/utils/object.js"
+import mapper from "@/utils/mapper.js"
+import {httpErrorHandler} from "@/utils/error.js"
+import moment from "moment"
+import {createPermission, updatePermission, fetchPermission, fetchPermissionTree} from "@/modules/permission.js"
+import {fetchRules} from "@/modules/rbac.js"
 
 //属性
 const props = defineProps({
@@ -50,15 +50,15 @@ const props = defineProps({
     payload: {
         type: Object
     }
-});
+})
 //事件
-const emits = defineEmits(['close']);
+const emits = defineEmits(['close'])
 //加载中
-const loading = ref(false);
+const loading = ref(false)
 //表单
-const form = ref(null);
+const form = ref(null)
 //错误信息
-const errorMessage = ref(null);
+const errorMessage = ref(null)
 
 //模型
 const model = reactive({
@@ -74,7 +74,7 @@ const model = reactive({
     ruleName: null,
     //是否包含增删改查子权限
     include: false
-});
+})
 //规则
 const rules = {
     //父权限
@@ -83,8 +83,8 @@ const rules = {
             type: 'integer',
             required: true,
             trigger: 'blur',
-            message: '父权限必须选择',
-        },
+            message: '父权限必须选择'
+        }
     ],
     //权限名称
     name: [
@@ -92,14 +92,14 @@ const rules = {
             type: 'string',
             required: true,
             trigger: 'blur',
-            message: '权限名称必须填写',
+            message: '权限名称必须填写'
         },
         {
             type: 'string',
             max: 32,
             trigger: 'blur',
-            message: '权限名称最多32个字符',
-        },
+            message: '权限名称最多32个字符'
+        }
     ],
     //权限描述
     description: [
@@ -107,14 +107,14 @@ const rules = {
             type: 'string',
             required: true,
             trigger: 'blur',
-            message: '权限描述必须填写',
+            message: '权限描述必须填写'
         },
         {
             type: 'string',
             max: 32,
             trigger: 'blur',
-            message: '权限描述最多32个字符',
-        },
+            message: '权限描述最多32个字符'
+        }
     ],
     //规则名称
     ruleName: [
@@ -122,19 +122,19 @@ const rules = {
             type: 'string',
             required: false,
             trigger: 'blur',
-            message: '规则名称必须填写',
+            message: '规则名称必须填写'
         },
         {
             type: 'string',
             max: 50,
             trigger: 'blur',
-            message: '规则名称最多50个字符',
-        },
-    ],
-};
+            message: '规则名称最多50个字符'
+        }
+    ]
+}
 
 //父权限列表
-const parents = ref([]);
+const parents = ref([])
 
 /**
  * 载入父权限列表
@@ -142,37 +142,37 @@ const parents = ref([]);
 const loadParents = async () => {
     parents.value = await fetchPermissionTree({
         root: 1
-    });
-};
+    })
+}
 
 //规则列表
-const ruleNames = ref([]);
+const ruleNames = ref([])
 
 /**
  * 载入规则列表
  */
 const loadRuleNames = async () => {
-    ruleNames.value = await fetchRules();
-};
+    ruleNames.value = await fetchRules()
+}
 
 onMounted(async () => {
-    loadRuleNames();
-    loadParents();
+    loadRuleNames()
+    loadParents()
     if (props.payload?.id) {
-        await loadPermission(props.payload.id);
+        await loadPermission(props.payload.id)
     } else if (props.payload?.clone) {
-        model.parentId = props.payload.parentId;
+        model.parentId = props.payload.parentId
     }
-});
+})
 
 /**
  * 保存按钮点击
  */
 const saveBtnClick = async () => {
-    errorMessage.value = null;
-    const success = await form.value.validate().catch(() => false);
+    errorMessage.value = null
+    const success = await form.value.validate().catch(() => false)
     if (!success) {
-        return;
+        return
     }
     const data = {
         id: model.id, //ID
@@ -180,22 +180,22 @@ const saveBtnClick = async () => {
         name: model.name, //权限名称
         description: model.description, //权限描述
         ruleName: model.ruleName, //规则名称
-        include: model.include,
+        include: model.include
     }
     //保存
     if (data?.id) {
-        submitUpdate(data);
+        submitUpdate(data)
     } else {
-        submitCreate(data);
+        submitCreate(data)
     }
-};
+}
 
 /**
  * 取消按钮点击
  */
 const cancelBtnClick = () => {
-    emits('close', 'cancel');
-};
+    emits('close', 'cancel')
+}
 
 /**
  * 权限新增
@@ -203,20 +203,20 @@ const cancelBtnClick = () => {
  * @return {Promise}
  */
 const submitCreate = (data) => {
-    loading.value = true;
+    loading.value = true
     return createPermission(data).then(({success, message}) => {
         if (!success) {
-            errorMessage.value = message;
-            return;
+            errorMessage.value = message
+            return
         }
-        messageTip.success(message);
-        emits('close', 'save');
+        messageTip.success(message)
+        emits('close', 'save')
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 /**
  * 权限更新
@@ -224,20 +224,20 @@ const submitCreate = (data) => {
  * @return {Promise}
  */
 const submitUpdate = (data) => {
-    loading.value = true;
+    loading.value = true
     return updatePermission(data).then(({success, message}) => {
         if (!success) {
-            errorMessage.value = message;
-            return;
+            errorMessage.value = message
+            return
         }
-        messageTip.success(message);
-        emits('close', 'save');
+        messageTip.success(message)
+        emits('close', 'save')
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 /**
  * 权限载入
@@ -245,19 +245,19 @@ const submitUpdate = (data) => {
  * @return {Promise}
  */
 const loadPermission = (id) => {
-    loading.value = true;
+    loading.value = true
     return fetchPermission(id).then((body) => {
         if (!body.success) {
-            messageTip.error(body.message);
-            return;
+            messageTip.error(body.message)
+            return
         }
-        const data = body.data;
-        updateObject(model, data);
+        const data = body.data
+        updateObject(model, data)
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 </script>

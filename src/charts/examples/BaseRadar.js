@@ -30,7 +30,7 @@ export default {
                 {
                     value: [69, 56, 88, 46, 89, 45],
                     name: 'Allocated Budget'
-                },
+                }
             ]
         }
     ]

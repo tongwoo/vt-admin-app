@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import {ref, reactive, computed} from "vue";
+import {ref, reactive, computed} from "vue"
 
 //属性
 const props = defineProps({
@@ -31,9 +31,9 @@ const props = defineProps({
                 //默认
                 'default',
                 //暗黑
-                'dark',
-            ];
-            return types.indexOf(value) !== -1;
+                'dark'
+            ]
+            return types.indexOf(value) !== -1
         }
     },
     //标题
@@ -51,44 +51,44 @@ const props = defineProps({
         type: Boolean,
         default: false
     }
-});
+})
 
 /**
  * 面板Class
  * @type {string}
  */
 const panelClass = computed(() => {
-    const className = [];
-    className.push(props.type + '-panel');
-    return className.join(' ');
-});
+    const className = []
+    className.push(props.type + '-panel')
+    return className.join(' ')
+})
 
 /**
  * 头部Class
  * @type {string}
  */
 const headerClass = computed(() => {
-    const className = [];
-    className.push(props.type + '-header');
+    const className = []
+    className.push(props.type + '-header')
     console.info(props.headerAlign)
     if (props.headerAlign) {
-        className.push('header-center');
+        className.push('header-center')
     }
-    return className.join(' ');
-});
+    return className.join(' ')
+})
 
 /**
  * 内容部分Class
  * @type {string}
  */
 const bodyClass = computed(() => {
-    const className = [];
-    className.push(props.type + '-body');
+    const className = []
+    className.push(props.type + '-body')
     if (props.stretch) {
-        className.push('with-stretch');
+        className.push('with-stretch')
     }
-    return className.join(' ');
-});
+    return className.join(' ')
+})
 </script>
 
 <style lang="scss" scoped>

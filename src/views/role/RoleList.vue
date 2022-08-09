@@ -107,26 +107,26 @@
     </div>
 </template>
 <script setup>
-import {ref, reactive, computed, onMounted, defineAsyncComponent} from "vue";
-import {useStore} from "vuex";
-import {useRouter, useRoute} from "vue-router";
-import {ElLoading, ElMessage as messageTip, ElMessageBox as messageBox} from "element-plus";
-import {updateObject, cloneObject} from "@/utils/object.js";
-import {httpErrorHandler} from "@/utils/error.js";
-import setting from "@/setting.js";
-import {getConfirms} from "@/constants/confirm.js";
-import {removeRole, fetchPageRoles} from "@/modules/role.js";
+import {ref, reactive, computed, onMounted, defineAsyncComponent} from "vue"
+import {useStore} from "vuex"
+import {useRouter, useRoute} from "vue-router"
+import {ElLoading, ElMessage as messageTip, ElMessageBox as messageBox} from "element-plus"
+import {updateObject, cloneObject} from "@/utils/object.js"
+import {httpErrorHandler} from "@/utils/error.js"
+import setting from "@/setting.js"
+import {getConfirms} from "@/constants/confirm.js"
+import {removeRole, fetchPageRoles} from "@/modules/role.js"
 
 //角色表单
-const RoleForm = defineAsyncComponent(() => import('@/views/role/RoleForm.vue'));
-const RolePermissionForm = defineAsyncComponent(() => import('@/views/role/RolePermissionForm.vue'));
+const RoleForm = defineAsyncComponent(() => import('@/views/role/RoleForm.vue'))
+const RolePermissionForm = defineAsyncComponent(() => import('@/views/role/RolePermissionForm.vue'))
 
-const store = useStore();
-const router = useRouter();
-const route = useRoute();
+const store = useStore()
+const router = useRouter()
+const route = useRoute()
 
 //是否内置列表
-const isBuiltIns = ref(getConfirms());
+const isBuiltIns = ref(getConfirms())
 /**
  * 查询参数
  */
@@ -140,27 +140,27 @@ const query = reactive({
     //规则名称
     ruleName: null,
     //是否内置
-    isBuiltIn: null,
-});
+    isBuiltIn: null
+})
 
 /**
  * 提交查询
  */
 const submitQuery = () => {
-    query.page = 1;
-    loadRoles();
-};
+    query.page = 1
+    loadRoles()
+}
 
 /**
  * 重置
  */
 const resetQuery = () => {
     Object.keys(query).forEach((key) => {
-        query[key] = null;
-    });
-    query.page = 1;
-    loadRoles();
-};
+        query[key] = null
+    })
+    query.page = 1
+    loadRoles()
+}
 
 /**
  * 构建查询参数
@@ -179,10 +179,10 @@ const buildQuery = () => {
         //规则名称
         ruleName: query.ruleName,
         //是否内置
-        isBuiltIn: query.isBuiltIn,
-    };
-    return params;
-};
+        isBuiltIn: query.isBuiltIn
+    }
+    return params
+}
 
 /**
  * 权限
@@ -194,26 +194,26 @@ const permission = {
     dialog: reactive({
         show: false,
         title: null
-    }),
-};
+    })
+}
 
 /**
  * 权限按钮点击
  * @param {Object} row 当前行数据
  */
 const permissionBtnClick = (row) => {
-    permission.data = row;
-    permission.dialog.show = true;
-    permission.dialog.title = '权限';
-};
+    permission.data = row
+    permission.dialog.show = true
+    permission.dialog.title = '权限'
+}
 
 /**
  * 权限弹框关闭
  * @param {string|number|null} payload 返回的数据
  */
 const permissionDialogClose = (payload) => {
-    permission.dialog.show = false;
-};
+    permission.dialog.show = false
+}
 
 /**
  * 维护
@@ -225,38 +225,38 @@ const maintain = {
     dialog: reactive({
         show: false,
         title: null
-    }),
-};
+    })
+}
 
 /**
  * 弹框关闭
  * @param {string|number|null} payload 返回的数据
  */
 const maintainDialogClose = (payload) => {
-    maintain.dialog.show = false;
+    maintain.dialog.show = false
     if (payload === 'save') {
-        loadRoles();
+        loadRoles()
     }
-};
+}
 
 /**
  * 新增按钮点击
  */
 const createBtnClick = () => {
-    maintain.data = null;
-    maintain.dialog.show = true;
-    maintain.dialog.title = '新增角色';
-};
+    maintain.data = null
+    maintain.dialog.show = true
+    maintain.dialog.title = '新增角色'
+}
 
 /**
  * 编辑按钮点击
  * @param {Object} row 当前行数据
  */
 const modifyBtnClick = (row) => {
-    maintain.data = cloneObject(row);
-    maintain.dialog.show = true;
-    maintain.dialog.title = '编辑角色';
-};
+    maintain.data = cloneObject(row)
+    maintain.dialog.show = true
+    maintain.dialog.title = '编辑角色'
+}
 
 /**
  * 单个删除按钮点击
@@ -266,35 +266,35 @@ const removeBtnClick = (row) => {
     messageBox.confirm('确定删除吗？删除后无法恢复', '提示', {
         type: 'warning',
         confirmButtonText: '确定',
-        cancelButtonText: '取消',
+        cancelButtonText: '取消'
     }).then(() => {
-        submitRemove(row.id);
+        submitRemove(row.id)
     }).catch(() => {
         //...
-    });
-};
+    })
+}
 
 /**
  * 批量删除按钮点击
  */
 const batchRemoveBtnClick = () => {
     if (recordset.selected.length === 0) {
-        messageTip.error('请选择要删除的数据');
-        return;
+        messageTip.error('请选择要删除的数据')
+        return
     }
     messageBox.confirm('确定删除吗？删除后无法恢复', '提示', {
         type: 'warning',
         confirmButtonText: '确定',
-        cancelButtonText: '取消',
+        cancelButtonText: '取消'
     }).then(() => {
         const ids = recordset.selected.map((item) => {
-            return item.id;
-        }).join(',');
-        submitRemove(ids);
+            return item.id
+        }).join(',')
+        submitRemove(ids)
     }).catch(() => {
         //...
-    });
-};
+    })
+}
 
 /**
  * 提交删除
@@ -303,22 +303,22 @@ const batchRemoveBtnClick = () => {
 const submitRemove = (ids) => {
     const loading = ElLoading.service({
         lock: true,
-        text: '删除中',
-    });
+        text: '删除中'
+    })
     return removeRole(ids).then(({success, message}) => {
         if (!success) {
-            messageTip.error(message);
+            messageTip.error(message)
         } else {
-            messageTip.success(message);
-            recordset.selected = [];
-            loadRoles();
+            messageTip.success(message)
+            recordset.selected = []
+            loadRoles()
         }
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.close();
-    });
-};
+        loading.close()
+    })
+}
 
 
 /**
@@ -336,41 +336,41 @@ const recordset = reactive({
     //表格DOM
     table: null,
     //已选中的项目列表
-    selected: [],
-});
+    selected: []
+})
 
 /**
  * 表格复选框选中状态变更
  * @param {Object[]} records 已选中的复选框数据
  */
 const selectionChange = (records) => {
-    recordset.selected = records;
-};
+    recordset.selected = records
+}
 
 /**
  * 分页变更
  * @param {number} page 改变后的页码
  */
 const pageChange = (page) => {
-    query.page = page;
-    loadRoles();
-};
+    query.page = page
+    loadRoles()
+}
 
 /**
  * 加载角色列表
  * @return {Promise}
  */
 const loadRoles = () => {
-    const params = buildQuery();
-    recordset.loading = true;
+    const params = buildQuery()
+    recordset.loading = true
     return fetchPageRoles(params).then((data) => {
         if (data.items.length === 0 && query.page > 1) {
-            query.page -= 1;
-            loadRoles();
-            return;
+            query.page -= 1
+            loadRoles()
+            return
         }
-        recordset.total = data.total;
-        recordset.items = data.items;
+        recordset.total = data.total
+        recordset.items = data.items
         /*
         recordset.items = records.map((item) => {
             return {
@@ -384,34 +384,34 @@ const loadRoles = () => {
         });
         */
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        recordset.loading = false;
-    });
-};
+        recordset.loading = false
+    })
+}
 
 /**
  * 加载模拟角色列表
  * @return {Promise}
  */
 const loadMockRoles = () => {
-    recordset.total = 15;
+    recordset.total = 15
     recordset.items = [...new Array(15)].map((item, i) => {
         return {
             id: i,
             name: 'name', //角色名称
             description: 'description', //角色描述
             ruleName: 'ruleName', //规则名称
-            isBuiltInName: 'isBuiltIn', //是否内置
-        };
-    });
-};
+            isBuiltInName: 'isBuiltIn' //是否内置
+        }
+    })
+}
 
 onMounted(() => {
     //载入角色
     //loadMockRoles();
-    loadRoles();
-});
+    loadRoles()
+})
 </script>
 <style lang="scss" scope>
 /**

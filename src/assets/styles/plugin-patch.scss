@@ -4,6 +4,11 @@
 #nprogress .bar {
     background: #0071ff;
 }
+
 #nprogress .peg {
     box-shadow: 0 0 10px #0071ff, 0 0 5px #0071ff;
+}
+
+#nprogress .spinner {
+    display: none;
 }

@@ -21,10 +21,8 @@ export default {
         bottom: 30,
         left: 40
     },
-    xAxis: {
-    },
-    yAxis: {
-    },
+    xAxis: {},
+    yAxis: {},
     series: [
         {
             type: 'scatter',
@@ -52,7 +50,7 @@ export default {
                 [12.0, 8.84],
                 [7.08, 5.82],
                 [5.02, 5.68]
-            ],
-        },
+            ]
+        }
     ]
 }

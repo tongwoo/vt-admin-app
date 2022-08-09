@@ -7,28 +7,28 @@
  */
 function assemble(mapFields, payload, only = false) {
     if (typeof payload != 'object') {
-        throw new Error('payload must is a plain object');
+        throw new Error('payload must is a plain object')
     }
-    payload = JSON.parse(JSON.stringify(payload));
+    payload = JSON.parse(JSON.stringify(payload))
     if (only) {
-        let values = Object.values(mapFields);
+        let values = Object.values(mapFields)
         Object.keys(payload).forEach((key) => {
             if (values.indexOf(key) === -1) {
-                delete payload[key];
+                delete payload[key]
             }
         })
     }
     for (let field in mapFields) {
-        let property = mapFields[field];
+        let property = mapFields[field]
         if (payload.hasOwnProperty(property)) {
             if (field === property) {
-                continue;
+                continue
             }
-            payload[field] = payload[property];
-            delete payload[property];
+            payload[field] = payload[property]
+            delete payload[property]
         }
     }
-    return payload;
+    return payload
 }
 
 /**
@@ -40,8 +40,8 @@ function assemble(mapFields, payload, only = false) {
  */
 function batchAssemble(mapFields, payloads, only = false) {
     return payloads.map((payload) => {
-        return assemble(mapFields, payload, only);
-    });
+        return assemble(mapFields, payload, only)
+    })
 }
 
 /**
@@ -53,30 +53,30 @@ function batchAssemble(mapFields, payloads, only = false) {
  */
 function revert(mapFields, payload, only = false) {
     if (typeof payload != 'object') {
-        throw new Error('payload must is a plain object');
+        throw new Error('payload must is a plain object')
     }
-    payload = JSON.parse(JSON.stringify(payload));
+    payload = JSON.parse(JSON.stringify(payload))
     if (only) {
         Object.keys(payload).forEach((key) => {
             if (!mapFields.hasOwnProperty(key)) {
-                delete payload[key];
+                delete payload[key]
             }
         })
     }
     for (let field in mapFields) {
         if (payload.hasOwnProperty(field)) {
             if (field === mapFields[field]) {
-                continue;
+                continue
             }
-            payload[mapFields[field]] = payload[field];
-            delete payload[field];
+            payload[mapFields[field]] = payload[field]
+            delete payload[field]
         }
     }
-    return payload;
+    return payload
 }
 
 export default {
     assemble,
     batchAssemble,
-    revert,
+    revert
 }

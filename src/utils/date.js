@@ -1,42 +1,42 @@
-import moment from "moment";
-import "moment/locale/zh-cn";
+import moment from "moment"
+import "moment/locale/zh-cn"
 
 /**
  * 一分钟的秒数
  * @type {number}
  */
-const ONE_MINUTE = 60;
+const ONE_MINUTE = 60
 
 /**
  * 一小时的秒数
  * @type {number}
  */
-const ONE_HOUR = 3600;
+const ONE_HOUR = 3600
 
 /**
  * 一天的秒数
  * @type {number}
  */
-const ONE_DAY = 86400;
+const ONE_DAY = 86400
 
 /**
  * 一个星期的秒数
  * @type {number}
  */
-const ONE_WEEK = 604800;
+const ONE_WEEK = 604800
 
 /**
  * 一个月的秒数
  * @type {number}
  */
-const ONE_MONTH = 2592000;
+const ONE_MONTH = 2592000
 
 /**
  * 当前格式化好的日期时间
  * @return {string}
  */
 function currentDateText() {
-    return moment().format('YYYY年MM月DD日 HH点mm分ss秒 dddd');
+    return moment().format('YYYY年MM月DD日 HH点mm分ss秒 dddd')
 }
 
 /**
@@ -44,7 +44,7 @@ function currentDateText() {
  * @return {string}
  */
 function currentTimeText() {
-    return moment().format('YYYY-MM-DD HH:mm:ss');
+    return moment().format('YYYY-MM-DD HH:mm:ss')
 }
 
 /**
@@ -54,15 +54,15 @@ function currentTimeText() {
  */
 function dateDays(date) {
     if (date === undefined) {
-        date = new Date();
+        date = new Date()
     } else {
         if (!(date instanceof Date)) {
-            date = new Date(date);
+            date = new Date(date)
         }
     }
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    let days = 0;
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    let days = 0
     switch (month) {
         case 1:
         case 3:
@@ -71,23 +71,23 @@ function dateDays(date) {
         case 8:
         case 10:
         case 12:
-            days = 31;
-            break;
+            days = 31
+            break
         case 2:
-            days = 28;
+            days = 28
             //判断是否闰年
             if (year % 4 === 0) {
-                days = 29;
+                days = 29
             }
-            break;
+            break
         case 4:
         case 6:
         case 9:
         case 11:
-            days = 30;
-            break;
+            days = 30
+            break
     }
-    return days;
+    return days
 }
 
 /**
@@ -97,12 +97,12 @@ function dateDays(date) {
  * @return {Array}
  */
 function dateDayItems(date = new Date(), zero = true) {
-    const days = this.days(date);
-    const items = [];
+    const days = this.days(date)
+    const items = []
     for (let i = 1; i <= days; i++) {
-        items.push(i < 10 ? '0' + i : String(i));
+        items.push(i < 10 ? '0' + i : String(i))
     }
-    return items;
+    return items
 }
 
 /**
@@ -111,22 +111,22 @@ function dateDayItems(date = new Date(), zero = true) {
  * @return {Array}
  */
 function hourItems(interval = 3600) {
-    const day = 86400;
-    const items = [];
-    let current = 0;
+    const day = 86400
+    const items = []
+    let current = 0
     while (current < day) {
-        let hours = Math.floor(current / 3600);
-        let minutes = Math.floor((current - hours * 3600) / 60);
+        let hours = Math.floor(current / 3600)
+        let minutes = Math.floor((current - hours * 3600) / 60)
         if (hours < 10) {
-            hours = '0' + hours;
+            hours = '0' + hours
         }
         if (minutes < 10) {
-            minutes = '0' + minutes;
+            minutes = '0' + minutes
         }
-        items.push(hours + ':' + minutes);
-        current += interval;
+        items.push(hours + ':' + minutes)
+        current += interval
     }
-    return items;
+    return items
 }
 
 /**
@@ -136,18 +136,18 @@ function hourItems(interval = 3600) {
  * @return {Array}
  */
 function monthItems(zero = true, suffix = '') {
-    const records = [];
+    const records = []
     for (let i = 1; i <= 12; i++) {
-        let record = i;
+        let record = i
         if (zero && i < 10) {
-            record = '0' + i;
+            record = '0' + i
         }
         if (suffix) {
-            record = `${record}${suffix}`;
+            record = `${record}${suffix}`
         }
-        records.push(record);
+        records.push(record)
     }
-    return records;
+    return records
 }
 
 /**
@@ -158,19 +158,19 @@ function monthItems(zero = true, suffix = '') {
  * @return {[number]}
  */
 function yearRangeItems(begin = 2016, end = undefined, pair = true) {
-    const current = end === undefined ? (new Date()).getFullYear() : end;
-    const items = [];
+    const current = end === undefined ? (new Date()).getFullYear() : end
+    const items = []
     for (let year = begin; year <= current; year++) {
         if (pair) {
             items.push({
                 label: year,
-                value: year.toString(),
-            });
+                value: year.toString()
+            })
         } else {
-            items.push(year.toString());
+            items.push(year.toString())
         }
     }
-    return items;
+    return items
 }
 
 export {
@@ -185,5 +185,5 @@ export {
     dateDayItems,
     hourItems,
     monthItems,
-    yearRangeItems,
+    yearRangeItems
 }

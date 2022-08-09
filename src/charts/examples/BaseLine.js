@@ -38,19 +38,19 @@ export default {
         {
             name: '明年',
             data: [420, 532, 501, 534, 790, 830, 720],
-            type: 'line',
+            type: 'line'
         },
         {
             data: [420, 532, 501, 534, 790, 830, 720],
-            type: 'line',
+            type: 'line'
         },
         {
             data: [420, 532, 501, 534, 790, 830, 720],
-            type: 'line',
+            type: 'line'
         },
         {
             data: [420, 532, 501, 534, 790, 830, 720],
-            type: 'line',
+            type: 'line'
         }
     ]
 }

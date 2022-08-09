@@ -4,7 +4,7 @@
  * @returns {Object}
  */
 export function cloneObject(target) {
-    return JSON.parse(JSON.stringify(target));
+    return JSON.parse(JSON.stringify(target))
 }
 
 /**
@@ -18,10 +18,10 @@ export function updateObject(source, target) {
         if (source.hasOwnProperty(key)) {
             //如果是 object 且不是数组，则继续更新
             if ((source[key] instanceof Object) && source[key].constructor.name === 'Object' && !Array.isArray(source[key])) {
-                updateObject(source[key], target[key]);
+                updateObject(source[key], target[key])
             } else {
-                source[key] = target[key];
+                source[key] = target[key]
             }
         }
-    });
+    })
 }

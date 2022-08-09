@@ -3,7 +3,7 @@
  * 作者：tongwoo
  * 日期：2022-03-09
  */
-import * as echarts from "echarts";
+import * as echarts from "echarts"
 
 export default {
     tooltip: {
@@ -36,22 +36,22 @@ export default {
             type: 'bar',
             itemStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: '#83bff6' },
-                    { offset: 0.5, color: '#188df0' },
-                    { offset: 1, color: '#188df0' }
+                    {offset: 0, color: '#83bff6'},
+                    {offset: 0.5, color: '#188df0'},
+                    {offset: 1, color: '#188df0'}
                 ])
-            },
+            }
         },
         {
             data: [420, 532, 501, 534, 790, 830, 720],
             type: 'bar',
             itemStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: '#a8ed88' },
-                    { offset: 0.5, color: '#91cc75' },
-                    { offset: 1, color: '#91cc75' }
+                    {offset: 0, color: '#a8ed88'},
+                    {offset: 0.5, color: '#91cc75'},
+                    {offset: 1, color: '#91cc75'}
                 ])
-            },
+            }
         }
     ]
 }

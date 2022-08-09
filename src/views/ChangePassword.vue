@@ -26,24 +26,24 @@
 </template>
 
 <script setup>
-import {ref, reactive} from "vue";
-import {useStore} from "vuex";
-import {ElMessage} from "element-plus";
-import {httpErrorHandler} from "@/utils/error.js";
-import http from "@/utils/http.js";
+import {ref, reactive} from "vue"
+import {useStore} from "vuex"
+import {ElMessage} from "element-plus"
+import {httpErrorHandler} from "@/utils/error.js"
+import http from "@/utils/http.js"
 
-const store = useStore();
+const store = useStore()
 //事件
-const emits = defineEmits(['close']);
+const emits = defineEmits(['close'])
 //加载中
-const loading = ref(false);
+const loading = ref(false)
 //表单
-const form = ref(null);
+const form = ref(null)
 //错误
 const error = reactive({
     show: false,
     message: null
-});
+})
 //模型
 const model = reactive({
     //旧密码
@@ -52,7 +52,7 @@ const model = reactive({
     newPassword: null,
     //确认密码
     confirmPassword: null
-});
+})
 //验证规则
 const rules = {
     oldPassword: [
@@ -75,45 +75,45 @@ const rules = {
             required: true,
             message: '请填写确认密码'
         }
-    ],
+    ]
 }
 
 /**
  * 保存按钮点击
  */
 const saveBtnClick = async () => {
-    error.show = false;
-    error.message = null;
-    const success = await form.value.validate().catch(() => false);
+    error.show = false
+    error.message = null
+    const success = await form.value.validate().catch(() => false)
     if (!success) {
-        return;
+        return
     }
     if (model.newPassword !== model.confirmPassword) {
-        error.show = true;
-        error.message = '两次输入的密码不一致';
-        return;
+        error.show = true
+        error.message = '两次输入的密码不一致'
+        return
     }
     submitUpdate({
         oldPassword: model.oldPassword,
-        newPassword: model.newPassword,
-    });
-};
+        newPassword: model.newPassword
+    })
+}
 
 /**
  * 取消按钮点击
  */
 const cancelBtnClick = () => {
-    emits('close', 'cancel');
-};
+    emits('close', 'cancel')
+}
 
 /**
  * 提交更新密码
  * @param {Object} data 数据
  */
 const submitUpdate = (data) => {
-    error.show = false;
-    error.message = null;
-    loading.value = true;
+    error.show = false
+    error.message = null
+    loading.value = true
     http.get(
         '/user/update-password',
         {
@@ -121,16 +121,16 @@ const submitUpdate = (data) => {
         }
     ).then((response) => {
         if (!response.isOk) {
-            error.show = true;
-            error.message = response.data.message;
+            error.show = true
+            error.message = response.data.message
         } else {
-            ElMessage.success(response.data.message);
-            emits('close');
+            ElMessage.success(response.data.message)
+            emits('close')
         }
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 </script>

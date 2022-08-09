@@ -6,8 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="publish" content="<%= htmlWebpackPlugin.options.publishTime%>"/>
     <title></title>
+    <link rel="stylesheet" href="assets/styles/loading.css">
 </head>
 <body>
-    <div id="app"></div>
+<div id="app"></div>
+<div class="loading-mask">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
 </body>
 </html>

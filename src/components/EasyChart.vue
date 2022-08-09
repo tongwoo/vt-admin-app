@@ -18,17 +18,17 @@
 </template>
 
 <script setup>
-import {ref, reactive, onMounted, watch, onUnmounted, nextTick, computed} from "vue";
-import * as echarts from "echarts";
+import {ref, reactive, onMounted, watch, onUnmounted, nextTick, computed} from "vue"
+import * as echarts from "echarts"
 
 //图表实例
-let instance = null;
+let instance = null
 //图表父容器元素
-let container = null;
+let container = null
 //父容器观察器
-let observer = null;
+let observer = null
 //图表挂载的DOM
-const dom = ref(null);
+const dom = ref(null)
 
 //属性
 const props = defineProps({
@@ -36,15 +36,15 @@ const props = defineProps({
     option: {
         type: Object,
         default() {
-            return {};
-        },
+            return {}
+        }
     },
     //是否显示表格
     showTable: {
         type: Boolean,
-        default: false,
-    },
-});
+        default: false
+    }
+})
 
 //样式
 const style = computed(() => {
@@ -52,38 +52,38 @@ const style = computed(() => {
         top: position.top + 'px',
         right: position.right + 'px',
         bottom: position.bottom + 'px',
-        left: position.left + 'px',
+        left: position.left + 'px'
     }
-});
+})
 
 //位置
 const position = reactive({
     top: 0,
     right: 0,
     bottom: 0,
-    left: 0,
-});
+    left: 0
+})
 
 //表格
 const table = reactive({
     size: 'small',
     columns: [],
     rows: [],
-    height: null,
-});
+    height: null
+})
 
 //在图表选项变化的时候更新图表
 watch(
     () => props.option,
     (v) => {
         if (instance !== null) {
-            renderChart();
+            renderChart()
         }
     },
     {
-        deep: true,
-    },
-);
+        deep: true
+    }
+)
 
 //显示表格监测
 watch(
@@ -91,44 +91,44 @@ watch(
     (v) => {
         nextTick(() => {
             if (props.showTable) {
-                updateTable();
+                updateTable()
             } else {
-                instance.resize();
+                instance.resize()
             }
-        });
-    },
-);
+        })
+    }
+)
 
 /**
  * 渲染图表
  */
 const renderChart = () => {
-    instance.setOption(props.option, true);
-    updateTable();
-};
+    instance.setOption(props.option, true)
+    updateTable()
+}
 
 /**
  * 更新表格
  */
 const updateTable = () => {
-    table.height = container.clientHeight - position.top - position.bottom + 'px';
+    table.height = container.clientHeight - position.top - position.bottom + 'px'
     //组装表格数据
-    const option = instance.getOption();
+    const option = instance.getOption()
     if (option.hasOwnProperty('xAxis') && option.xAxis[0]?.data) {
-        table.columns = ['类型', ...option.xAxis[0].data];
+        table.columns = ['类型', ...option.xAxis[0].data]
     }
-    table.rows.splice(0);
+    table.rows.splice(0)
     option.series.forEach((item) => {
         if (item.type === 'pie') {
-            table.columns = ['类型', '值'];
+            table.columns = ['类型', '值']
             table.rows = item.data.map((i) => {
-                return [i.name, i.value];
-            });
+                return [i.name, i.value]
+            })
         } else if (item.type === 'line' || item.type === 'bar') {
-            table.rows.push([item.name, ...item.data]);
+            table.rows.push([item.name, ...item.data])
         }
-    });
-};
+    })
+}
 
 /**
  * 下载为图片
@@ -137,61 +137,61 @@ const updateTable = () => {
 const downloadAsImage = (name = '图表') => {
     const dataUrl = instance.getDataURL({
         type: 'png',
-        excludeComponents: ['toolbox'],
-    });
-    const a = document.createElement('a');
-    a.href = dataUrl;
-    a.download = name + '.png';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+        excludeComponents: ['toolbox']
+    })
+    const a = document.createElement('a')
+    a.href = dataUrl
+    a.download = name + '.png'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
 }
 
 defineExpose({
     instance,
     container,
-    downloadAsImage,
-});
+    downloadAsImage
+})
 
 onMounted(() => {
-    container = dom.value.parentElement;
+    container = dom.value.parentElement
     if (!container) {
-        throw new Error('没有找到父元素');
+        throw new Error('没有找到父元素')
     }
-    const style = window.getComputedStyle(container);
+    const style = window.getComputedStyle(container)
     //为了简单化，设置图表容器为绝对定位
     if (style.position === 'static') {
-        container.style.position = 'relative';
+        container.style.position = 'relative'
     }
     //检查父元素有没有间距，有的话则修改定位
-    position.top = parseInt(style.paddingTop);
-    position.right = parseInt(style.paddingRight);
-    position.bottom = parseInt(style.paddingBottom);
-    position.left = parseInt(style.paddingLeft);
+    position.top = parseInt(style.paddingTop)
+    position.right = parseInt(style.paddingRight)
+    position.bottom = parseInt(style.paddingBottom)
+    position.left = parseInt(style.paddingLeft)
     nextTick(() => {
         //初始化图表
-        instance = echarts.init(dom.value);
-        renderChart();
+        instance = echarts.init(dom.value)
+        renderChart()
         //尺寸自动处理
         observer = new ResizeObserver(() => {
             const option = {
                 animation: {
-                    duration: 1000,
-                },
-            };
-            if (props.showTable) {
-                updateTable();
-            } else {
-                instance.resize(option);
+                    duration: 1000
+                }
             }
-        });
-        observer.observe(container);
-    });
-});
+            if (props.showTable) {
+                updateTable()
+            } else {
+                instance.resize(option)
+            }
+        })
+        observer.observe(container)
+    })
+})
 
 onUnmounted(() => {
-    observer.unobserve(container);
-});
+    observer.unobserve(container)
+})
 </script>
 
 <style lang="scss" scoped>

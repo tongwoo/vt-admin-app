@@ -2,8 +2,8 @@
  * 功能：设置相关
  * 日期：2022-02-22
  */
-import i18n from "@/languages/index.js";
-import {updateObject} from "@/utils/object.js";
+import i18n from "@/languages/index.js"
+import {updateObject} from "@/utils/object.js"
 
 export default {
     namespaced: true,
@@ -20,7 +20,7 @@ export default {
                 width: {
                     current: null,
                     max: 350,
-                    min: 236,
+                    min: 236
                 }
             }
         }
@@ -33,9 +33,9 @@ export default {
          */
         TOGGLE_NAVIGATOR(state, collapse = null) {
             if (collapse === null) {
-                state.navigator.collapse = !state.navigator.collapse;
+                state.navigator.collapse = !state.navigator.collapse
             } else {
-                state.navigator.collapse = collapse;
+                state.navigator.collapse = collapse
             }
         },
         /**
@@ -44,7 +44,7 @@ export default {
          * @param {number} width 宽度
          */
         UPDATE_WIDTH(state, width) {
-            state.navigator.width.current = width;
+            state.navigator.width.current = width
         },
         /**
          * 更新语言
@@ -53,7 +53,7 @@ export default {
          * @constructor
          */
         UPDATE_LANGUAGE(state, lang) {
-            i18n.global.locale = state.language = lang;
+            i18n.global.locale = state.language = lang
         }
-    },
+    }
 }

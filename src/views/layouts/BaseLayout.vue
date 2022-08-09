@@ -25,30 +25,30 @@
 </template>
 
 <script setup>
-import {computed, defineAsyncComponent, nextTick, onMounted, onUnmounted, reactive, ref} from "vue";
-import {useStore} from "vuex";
-import {useRoute} from "vue-router";
-import mitter from "@/utils/mitter.js";
+import {computed, defineAsyncComponent, nextTick, onMounted, onUnmounted, reactive, ref} from "vue"
+import {useStore} from "vuex"
+import {useRoute} from "vue-router"
+import mitter from "@/utils/mitter.js"
 
-import RouteTabSwitcher from "@/components/RouteTabSwitcher.vue";
+import RouteTabSwitcher from "@/components/RouteTabSwitcher.vue"
 
 //顶栏
-const BaseHeader = defineAsyncComponent(() => import('./BaseHeader.vue'));
+const BaseHeader = defineAsyncComponent(() => import('./BaseHeader.vue'))
 //侧边栏导航
-const BaseNavigator = defineAsyncComponent(() => import('./BaseNavigator.vue'));
+const BaseNavigator = defineAsyncComponent(() => import('./BaseNavigator.vue'))
 
-const store = useStore();
-const route = useRoute();
+const store = useStore()
+const route = useRoute()
 
 //当前路由对应的组件
-const viewComponent = ref(null);
+const viewComponent = ref(null)
 
 /**
  * 导航菜单是否显示
  */
 const navigatorShow = computed(() => {
-    return !store.state.setting.navigator.collapse;
-});
+    return !store.state.setting.navigator.collapse
+})
 
 /**
  * 侧边栏尺寸
@@ -58,10 +58,10 @@ const navigatorWidth = computed(() => {
         store.state.setting.navigator.width.current === null ||
         store.state.setting.navigator.collapse
     ) {
-        return null;
+        return null
     }
-    return store.state.setting.navigator.width.current;
-});
+    return store.state.setting.navigator.width.current
+})
 
 /**
  * 距离侧边栏间距
@@ -69,8 +69,8 @@ const navigatorWidth = computed(() => {
 const navigatorPaddingLeftStyle = computed(() => {
     return navigatorWidth.value ? {
         paddingLeft: navigatorWidth.value + 'px'
-    } : null;
-});
+    } : null
+})
 
 /**
  * 距离侧边栏距离
@@ -78,49 +78,49 @@ const navigatorPaddingLeftStyle = computed(() => {
 const navigatorLeftStyle = computed(() => {
     return navigatorWidth.value ? {
         left: navigatorWidth.value + 'px'
-    } : null;
-});
+    } : null
+})
 
 /**
  * 要缓存的组件名称列表，前提是路由 meta 中存在 cache
  */
 const keepAliveComponents = computed(() => {
-    return store.state.keepalive.componentNames;
-});
+    return store.state.keepalive.componentNames
+})
 
 //检测布局大小设置菜单的显示
-const baseLayout = ref(null);
-let observer = null;
+const baseLayout = ref(null)
+let observer = null
 onMounted(() => {
     observer = new ResizeObserver(() => {
         if (baseLayout.value.clientWidth <= store.state.setting.navigator.size) {
-            store.commit('setting/TOGGLE_NAVIGATOR', true);
+            store.commit('setting/TOGGLE_NAVIGATOR', true)
         }
-    });
-    observer.observe(baseLayout.value);
-});
+    })
+    observer.observe(baseLayout.value)
+})
 onUnmounted(() => {
-    observer.disconnect();
-});
+    observer.disconnect()
+})
 
 //页面刷新处理
-const reload = ref(false);
+const reload = ref(false)
 onMounted(() => {
     mitter.on('page-refresh', () => {
-        const matchedName = route.matched[route.matched.length - 1].components.default.__name;
-        store.commit('keepalive/REMOVE', matchedName);
-        reload.value = true;
+        const matchedName = route.matched[route.matched.length - 1].components.default.__name
+        store.commit('keepalive/REMOVE', matchedName)
+        reload.value = true
         nextTick(() => {
-            reload.value = false;
+            reload.value = false
             if (route?.meta?.cache) {
-                store.commit('keepalive/ADD', matchedName);
+                store.commit('keepalive/ADD', matchedName)
             }
-        });
-    });
-});
+        })
+    })
+})
 onUnmounted(() => {
-    mitter.off('page-refresh');
-});
+    mitter.off('page-refresh')
+})
 </script>
 
 <style lang="scss" scoped>

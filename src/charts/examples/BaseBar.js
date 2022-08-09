@@ -31,11 +31,11 @@ export default {
     series: [
         {
             data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'bar',
+            type: 'bar'
         },
         {
             data: [420, 532, 501, 534, 790, 830, 720],
-            type: 'bar',
+            type: 'bar'
         }
     ]
 }

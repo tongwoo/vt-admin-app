@@ -38,15 +38,15 @@
     </div>
 </template>
 <script setup>
-import {ref, reactive, onMounted, onBeforeMount} from "vue";
-import {ElLoading, ElMessage as messageTip} from "element-plus";
-import {cloneObject, updateObject} from "@/utils/object.js";
-import mapper from "@/utils/mapper.js";
-import {httpErrorHandler} from "@/utils/error.js";
-import moment from "moment";
-import {getUserStates} from "@/constants/user-state.js";
-import {createUser, updateUser, fetchUser} from "@/modules/user.js";
-import {fetchPairRoles} from "@/modules/role.js";
+import {ref, reactive, onMounted, onBeforeMount} from "vue"
+import {ElLoading, ElMessage as messageTip} from "element-plus"
+import {cloneObject, updateObject} from "@/utils/object.js"
+import mapper from "@/utils/mapper.js"
+import {httpErrorHandler} from "@/utils/error.js"
+import moment from "moment"
+import {getUserStates} from "@/constants/user-state.js"
+import {createUser, updateUser, fetchUser} from "@/modules/user.js"
+import {fetchPairRoles} from "@/modules/role.js"
 
 //属性
 const props = defineProps({
@@ -54,30 +54,30 @@ const props = defineProps({
     payload: {
         type: Object
     }
-});
+})
 //事件
-const emits = defineEmits(['close']);
+const emits = defineEmits(['close'])
 //加载中
-const loading = ref(false);
+const loading = ref(false)
 //表单
-const form = ref(null);
+const form = ref(null)
 //错误信息
-const errorMessage = ref(null);
+const errorMessage = ref(null)
 //状态列表
-const states = ref(getUserStates());
+const states = ref(getUserStates())
 //角色列表
-const roles = ref([]);
+const roles = ref([])
 
 /**
  * 载入角色列表
  */
 const loadRoles = async () => {
-    roles.value = await fetchPairRoles();
-};
+    roles.value = await fetchPairRoles()
+}
 
 onMounted(() => {
-    loadRoles();
-});
+    loadRoles()
+})
 
 //模型
 const model = reactive({
@@ -96,8 +96,8 @@ const model = reactive({
     //上次登录时间
     loginTime: null,
     //角色ID列表
-    roleIds: [],
-});
+    roleIds: []
+})
 //规则
 const rules = {
     //用户名
@@ -106,14 +106,14 @@ const rules = {
             type: 'string',
             required: true,
             trigger: 'blur',
-            message: '用户名必须填写',
+            message: '用户名必须填写'
         },
         {
             type: 'string',
             max: 32,
             trigger: 'blur',
-            message: '用户名最多32个字符',
-        },
+            message: '用户名最多32个字符'
+        }
     ],
     //登录密码
     password: [
@@ -121,14 +121,14 @@ const rules = {
             type: 'string',
             required: true,
             trigger: 'blur',
-            message: '登录密码必须填写',
+            message: '登录密码必须填写'
         },
         {
             type: 'string',
             max: 64,
             trigger: 'blur',
-            message: '登录密码最多64个字符',
-        },
+            message: '登录密码最多64个字符'
+        }
     ],
     //姓名
     name: [
@@ -136,14 +136,14 @@ const rules = {
             type: 'string',
             required: true,
             trigger: 'blur',
-            message: '姓名必须填写',
+            message: '姓名必须填写'
         },
         {
             type: 'string',
             max: 32,
             trigger: 'blur',
-            message: '姓名最多32个字符',
-        },
+            message: '姓名最多32个字符'
+        }
     ],
     //状态
     state: [
@@ -151,15 +151,15 @@ const rules = {
             type: 'integer',
             required: false,
             trigger: 'blur',
-            message: '状态必须填写',
+            message: '状态必须填写'
         },
         {
             type: 'integer',
             min: 0,
             max: 255,
             trigger: 'blur',
-            message: '状态必须介于0-255之间',
-        },
+            message: '状态必须介于0-255之间'
+        }
     ],
     //角色
     roleIds: [
@@ -167,41 +167,41 @@ const rules = {
             type: 'array',
             required: true,
             trigger: 'blur',
-            message: '角色必须选择',
-        },
-    ],
-};
+            message: '角色必须选择'
+        }
+    ]
+}
 
 /**
  * 保存按钮点击
  */
 const saveBtnClick = async () => {
-    errorMessage.value = null;
-    const success = await form.value.validate().catch(() => false);
+    errorMessage.value = null
+    const success = await form.value.validate().catch(() => false)
     if (!success) {
-        return;
+        return
     }
     const data = {
         id: model.id, //ID
         username: model.username, //用户名
         password: model.password, //登录密码
         name: model.name, //姓名
-        roleIds: model.roleIds, //角色
+        roleIds: model.roleIds //角色
     }
     //保存
     if (data?.id) {
-        submitUpdate(data);
+        submitUpdate(data)
     } else {
-        submitCreate(data);
+        submitCreate(data)
     }
-};
+}
 
 /**
  * 取消按钮点击
  */
 const cancelBtnClick = () => {
-    emits('close', 'cancel');
-};
+    emits('close', 'cancel')
+}
 
 /**
  * 用户新增
@@ -209,20 +209,20 @@ const cancelBtnClick = () => {
  * @return {Promise}
  */
 const submitCreate = (data) => {
-    loading.value = true;
+    loading.value = true
     return createUser(data).then(({success, message}) => {
         if (!success) {
-            errorMessage.value = message;
-            return;
+            errorMessage.value = message
+            return
         }
-        messageTip.success(message);
-        emits('close', 'save');
+        messageTip.success(message)
+        emits('close', 'save')
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 /**
  * 用户更新
@@ -230,20 +230,20 @@ const submitCreate = (data) => {
  * @return {Promise}
  */
 const submitUpdate = (data) => {
-    loading.value = true;
+    loading.value = true
     return updateUser(data).then(({success, message}) => {
         if (!success) {
-            errorMessage.value = message;
-            return;
+            errorMessage.value = message
+            return
         }
-        messageTip.success(message);
-        emits('close', 'save');
+        messageTip.success(message)
+        emits('close', 'save')
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 /**
  * 用户载入
@@ -251,25 +251,25 @@ const submitUpdate = (data) => {
  * @return {Promise}
  */
 const loadUser = (id) => {
-    loading.value = true;
+    loading.value = true
     return fetchUser(id).then((body) => {
         if (!body.success) {
-            messageTip.error(body.message);
-            return;
+            messageTip.error(body.message)
+            return
         }
-        const data = body.data;
-        updateObject(model, data);
-        model.roleIds = data.roles.map(item => item.id);
+        const data = body.data
+        updateObject(model, data)
+        model.roleIds = data.roles.map(item => item.id)
     }).catch((err) => {
-        httpErrorHandler(err);
+        httpErrorHandler(err)
     }).finally(() => {
-        loading.value = false;
-    });
-};
+        loading.value = false
+    })
+}
 
 onMounted(async () => {
     if (props.payload?.id) {
-        await loadUser(props.payload.id);
+        await loadUser(props.payload.id)
     }
-});
+})
 </script>

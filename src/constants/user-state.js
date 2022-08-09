@@ -8,12 +8,12 @@
  * 启用
  * @type {string|int}
  */
-const USER_STATE_ENABLED = 1;
+const USER_STATE_ENABLED = 1
 /**
  * 禁用
  * @type {string|int}
  */
-const USER_STATE_DISABLED = 0;
+const USER_STATE_DISABLED = 0
 
 /**
  * 状态数据项列表
@@ -23,13 +23,13 @@ function getUserStates() {
     return [
         {
             name: '启用',
-            value: USER_STATE_ENABLED,
+            value: USER_STATE_ENABLED
         },
         {
             name: '禁用',
-            value: USER_STATE_DISABLED,
-        },
-    ];
+            value: USER_STATE_DISABLED
+        }
+    ]
 }
 
 /**
@@ -38,8 +38,8 @@ function getUserStates() {
  * @return {string|null}
  */
 function getUserStateNameByValue(value) {
-    const item = getUserStates().find(item => item.value === value)?.name;
-    return item ? item.name : null;
+    const item = getUserStates().find(item => item.value === value)?.name
+    return item ? item.name : null
 }
 
 /**
@@ -49,11 +49,11 @@ function getUserStateNameByValue(value) {
  */
 function getUserStateClassByValue(value) {
     if (value === USER_STATE_ENABLED) {
-        return 'state-enabled';
+        return 'state-enabled'
     } else if (value === USER_STATE_DISABLED) {
-        return 'state-disabled';
+        return 'state-disabled'
     } else {
-        return null;
+        return null
     }
 }
 
@@ -62,5 +62,5 @@ export {
     USER_STATE_DISABLED,
     getUserStates,
     getUserStateNameByValue,
-    getUserStateClassByValue,
+    getUserStateClassByValue
 }

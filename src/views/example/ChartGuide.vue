@@ -47,18 +47,18 @@
     </div>
 </template>
 <script setup>
-import EasyChart from "@/components/EasyChart.vue";
-import BaseLine from "@/charts/examples/BaseLine.js";
-import BaseBar from "@/charts/examples/BaseBar.js";
-import BasePie from "@/charts/examples/BasePie.js";
-import BaseLinearBar from "@/charts/examples/BaseLinearBar.js";
-import BaseComplexPie from "@/charts/examples/BaseComplexPie.js";
-import BaseRadar from "@/charts/examples/BaseRadar.js";
-import BaseScatter from "@/charts/examples/BaseScatter.js";
-import BaseComplexLine from "@/charts/examples/BaseComplexLine.js";
-import {ref} from "vue";
+import EasyChart from "@/components/EasyChart.vue"
+import BaseLine from "@/charts/examples/BaseLine.js"
+import BaseBar from "@/charts/examples/BaseBar.js"
+import BasePie from "@/charts/examples/BasePie.js"
+import BaseLinearBar from "@/charts/examples/BaseLinearBar.js"
+import BaseComplexPie from "@/charts/examples/BaseComplexPie.js"
+import BaseRadar from "@/charts/examples/BaseRadar.js"
+import BaseScatter from "@/charts/examples/BaseScatter.js"
+import BaseComplexLine from "@/charts/examples/BaseComplexLine.js"
+import {ref} from "vue"
 
-const show = ref(false);
+const show = ref(false)
 </script>
 <style lang="scss" scoped>
 .chart-items {
