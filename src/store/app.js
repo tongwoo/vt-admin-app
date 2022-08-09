@@ -2,7 +2,7 @@
  * 功能：设置相关
  * 日期：2022-02-22
  */
-import i18n from "@/languages/Index.js";
+import i18n from "@/languages/index.js";
 import {updateObject} from "@/common/utils/object.js";
 
 export default {

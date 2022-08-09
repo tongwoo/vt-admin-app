@@ -2,11 +2,11 @@
  * 功能：状态存储
  */
 import {createStore} from "vuex";
-import user from "./UserInfo.js";
-import setting from "./AppSetting.js";
-import keepalive from "./KeepAlive.js";
+import user from "./user.js";
+import setting from "./app.js";
+import keepalive from "./keepalive.js";
 import {readAuthorization} from "@/common/utils/authorize.js";
-import i18n from "@/languages/Index.js";
+import i18n from "@/languages/index.js";
 import {updateObject} from "@/common/utils/object.js";
 
 const store = createStore({

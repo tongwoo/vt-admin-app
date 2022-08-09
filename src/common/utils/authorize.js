@@ -1,4 +1,4 @@
-import store from "@/store/Index.js";
+import store from "@/store/index.js";
 import setting from "@/setting.js";
 import jsCookie from "js-cookie";
 

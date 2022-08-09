@@ -1,11 +1,11 @@
 import {createApp} from 'vue';
-import router from './routes/Index.js';
-import vuex from './store/Index.js';
-import i18n from "@/languages/Index.js";
+import router from './routes/index.js';
+import vuex from './store/index.js';
+import i18n from "@/languages/index.js";
 import App from './App.vue';
 import ElementPlus from 'element-plus';
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import HasPermission from "@/directives/HasPermission.js";
+import HasPermission from "@/directives/v-has.js";
 import 'nprogress/nprogress.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/styles/element.scss';

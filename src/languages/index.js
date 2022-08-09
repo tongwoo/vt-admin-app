@@ -3,8 +3,8 @@
  * 日期：2022-05-30
  */
 import {createI18n} from 'vue-i18n/dist/vue-i18n.cjs.js';
-import zhCN from './zh-CN/Index.js';
-import enUS from './en-US/Index.js';
+import zhCN from './zh-CN/index.js';
+import enUS from './en-US/index.js';
 
 export default createI18n({
     locale: 'zh-CN',

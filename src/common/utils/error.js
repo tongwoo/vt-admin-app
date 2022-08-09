@@ -1,5 +1,5 @@
 import {ElMessage as message, ElMessageBox as messageBox} from "element-plus";
-import router from "@/routes/Index.js";
+import router from "@/routes/index.js";
 
 /**
  * HTTP错误处理

@@ -1,16 +1,10 @@
-import i18n from "@/languages/Index.js";
 import nprogress from 'nprogress';
 import {createRouter, createWebHashHistory} from 'vue-router';
 import setting from "@/setting.js";
-import {checkAccess, checkAccessBeforeEach, readAuthorization, routeExists} from "@/common/utils/authorize.js";
-import store from '@/store/Index.js';
-import BaseRoutes from "@/routes/BaseRoutes.js";
-import BusinessRoutes from "@/routes/BusinessRoutes.js";
-
-//基础路由
-const baseRoutes = BaseRoutes;
-//业务路由
-const businessRoutes = BusinessRoutes;
+import {checkAccess, routeExists} from "@/common/utils/authorize.js";
+import store from '@/store/index.js';
+import baseRoutes from "@/routes/base-routes.js";
+import businessRoutes from "@/routes/business-routes.js";
 
 /**
  * 路由
@@ -69,7 +63,6 @@ router.beforeEach((to) => {
     if (permission === null) {
         return true;
     }
-    //如果没有权限则跳转到无权限的提示页面
     //检测路由权限，检测方式为读取路由的 meta.permission 是否在绑定的权限列表中存在
     //如果没有权限则跳转到无权限的提示页面
     if (!checkAccess(permission)) {

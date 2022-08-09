@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from "@/store/Index.js";
+import store from "@/store/index.js";
 import {isOk} from "@/common/utils/code.js";
 import {API_PATH_DEFAULT} from "@/common/constants/ApiPath.js";
 
