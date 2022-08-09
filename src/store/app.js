@@ -3,7 +3,7 @@
  * 日期：2022-02-22
  */
 import i18n from "@/languages/index.js";
-import {updateObject} from "@/common/utils/object.js";
+import {updateObject} from "@/utils/object.js";
 
 export default {
     namespaced: true,

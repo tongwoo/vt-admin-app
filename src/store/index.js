@@ -5,9 +5,9 @@ import {createStore} from "vuex";
 import user from "./user.js";
 import setting from "./app.js";
 import keepalive from "./keepalive.js";
-import {readAuthorization} from "@/common/utils/authorize.js";
+import {readAuthorization} from "@/utils/authorize.js";
 import i18n from "@/languages/index.js";
-import {updateObject} from "@/common/utils/object.js";
+import {updateObject} from "@/utils/object.js";
 
 const store = createStore({
     state() {

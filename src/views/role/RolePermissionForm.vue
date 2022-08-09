@@ -14,9 +14,9 @@
 
 <script setup>
 import {nextTick, onMounted, reactive, ref} from "vue";
-import http from "@/common/utils/http.js";
+import http from "@/utils/http.js";
 import {ElMessage as messageTip} from "element-plus";
-import {httpErrorHandler} from "@/common/utils/error.js";
+import {httpErrorHandler} from "@/utils/error.js";
 import {fetchPermissionTree} from "@/modules/Permission.js";
 import {fetchRolePermissions} from "@/modules/Role.js";
 

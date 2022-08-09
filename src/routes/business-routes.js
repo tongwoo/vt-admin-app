@@ -1,5 +1,5 @@
 import BaseLayout from "@/views/layouts/BaseLayout.vue";
-import * as Permission from "@/common/constants/Permission.js";
+import * as Permission from "@/constants/permission.js";
 
 export default [
     {

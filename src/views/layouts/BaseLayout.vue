@@ -28,7 +28,7 @@
 import {computed, defineAsyncComponent, nextTick, onMounted, onUnmounted, reactive, ref} from "vue";
 import {useStore} from "vuex";
 import {useRoute} from "vue-router";
-import mitter from "@/common/utils/mitter.js";
+import mitter from "@/utils/mitter.js";
 
 import RouteTabSwitcher from "@/components/RouteTabSwitcher.vue";
 

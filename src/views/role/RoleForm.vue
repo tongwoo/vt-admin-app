@@ -30,11 +30,11 @@
 <script setup>
 import {ref, reactive, onMounted} from "vue";
 import {ElLoading, ElMessage as messageTip} from "element-plus";
-import {updateObject} from "@/common/utils/object.js";
-import mapper from "@/common/utils/mapper.js";
-import {httpErrorHandler} from "@/common/utils/error.js";
+import {updateObject} from "@/utils/object.js";
+import mapper from "@/utils/mapper.js";
+import {httpErrorHandler} from "@/utils/error.js";
 import moment from "moment";
-import {getConfirms} from "@/common/constants/Confirm.js";
+import {getConfirms} from "@/constants/confirm.js";
 import {createRole, updateRole, fetchRole} from "@/modules/Role.js";
 
 //属性

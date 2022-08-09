@@ -2,7 +2,7 @@
  * 功能：用户信息
  * 日期：2021-12-14
  */
-import {updateObject} from "@/common/utils/object.js";
+import {updateObject} from "@/utils/object.js";
 
 export default {
     namespaced: true,

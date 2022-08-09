@@ -1,6 +1,6 @@
 import http from "./http.js";
 import {readAuthorization} from "./authorize.js";
-import {API_PATH_DEFAULT} from "@/common/constants/ApiPath.js";
+import {API_PATH_DEFAULT} from "@/constants/api-path.js";
 
 /**
  * 上传组件绑定的属性(用于elementui上传组件)

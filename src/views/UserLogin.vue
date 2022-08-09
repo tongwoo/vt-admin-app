@@ -50,14 +50,14 @@
 <script setup>
 import {ref, reactive, onMounted} from "vue";
 import {ElLoading, ElMessage} from "element-plus";
-import http from "@/common/utils/http.js";
+import http from "@/utils/http.js";
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
 import defaultAvatar from "@/assets/images/icons/avatar-default.png";
-import {cleanAuthorization, writeAuthorization} from "@/common/utils/authorize.js";
-import {httpErrorHandler} from "@/common/utils/error.js";
+import {cleanAuthorization, writeAuthorization} from "@/utils/authorize.js";
+import {httpErrorHandler} from "@/utils/error.js";
 import setting from "@/setting.js";
-import {API_PATH_DEFAULT} from "@/common/constants/ApiPath.js";
+import {API_PATH_DEFAULT} from "@/constants/api-path.js";
 
 const store = useStore();
 const router = useRouter();

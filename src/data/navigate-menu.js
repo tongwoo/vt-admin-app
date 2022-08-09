@@ -1,7 +1,7 @@
 /**
  * 菜单
  */
-import {checkAccess} from "@/common/utils/authorize.js";
+import {checkAccess} from "@/utils/authorize.js";
 
 /**
  * 获取左侧导航菜单

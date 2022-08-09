@@ -111,10 +111,10 @@ import {ref, reactive, computed, onMounted, defineAsyncComponent} from "vue";
 import {useStore} from "vuex";
 import {useRouter, useRoute} from "vue-router";
 import {ElLoading, ElMessage as messageTip, ElMessageBox as messageBox} from "element-plus";
-import {updateObject, cloneObject} from "@/common/utils/object.js";
-import {httpErrorHandler} from "@/common/utils/error.js";
+import {updateObject, cloneObject} from "@/utils/object.js";
+import {httpErrorHandler} from "@/utils/error.js";
 import setting from "@/setting.js";
-import {getConfirms} from "@/common/constants/Confirm.js";
+import {getConfirms} from "@/constants/confirm.js";
 import {removeRole, fetchPageRoles} from "@/modules/Role.js";
 
 //角色表单

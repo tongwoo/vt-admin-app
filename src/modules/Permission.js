@@ -3,7 +3,7 @@
  * 作者：tongwoo
  * 日期：2022-06-14
  */
-import http from '@/common/utils/http';
+import http from '@/utils/http';
 
 /**
  * 新增权限

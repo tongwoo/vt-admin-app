@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from "@/store/index.js";
-import {isOk} from "@/common/utils/code.js";
-import {API_PATH_DEFAULT} from "@/common/constants/ApiPath.js";
+import {isOk} from "@/utils/code.js";
+import {API_PATH_DEFAULT} from "@/constants/api-path.js";
 
 /**
  * 标准化响应结构

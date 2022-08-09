@@ -1,3 +1,5 @@
+import {AUTH_STORAGE_LOCAL} from '@/constants/auth-storage.js'
+
 export default {
     //系统名称
     name: 'VT-ADMIN',
@@ -6,7 +8,7 @@ export default {
         //启用认证
         enable: true,
         //授权存储方式 本地存储=localstorage Cookie存储=cookie
-        storageMethod: 'localstorage',
+        storageMethod: AUTH_STORAGE_LOCAL,
     },
     //分页相关
     pagination: {

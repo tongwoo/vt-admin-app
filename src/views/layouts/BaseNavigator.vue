@@ -34,7 +34,7 @@
 <script setup>
 import {computed, reactive, ref} from "vue";
 import {useStore} from "vuex";
-import {fetchMenus, fetchNavigateMenus} from '@/common/data/NavigateMenu.js';
+import {fetchMenus, fetchNavigateMenus} from '@/data/navigate-menu.js';
 import MenuItem from '@/components/MenuItem.vue';
 import {useRoute} from "vue-router";
 import VirtualDrag from "@/components/VirtualDrag.vue";

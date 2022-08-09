@@ -1,12 +1,13 @@
-import store from "@/store/index.js";
-import setting from "@/setting.js";
-import jsCookie from "js-cookie";
+import store from "@/store/index.js"
+import setting from "@/setting.js"
+import jsCookie from "js-cookie"
+import {AUTH_STORAGE_COOKIE, AUTH_STORAGE_LOCAL} from '@/constants/auth-storage.js'
 
 /**
  * 授权名称，根据设置存储到cookie或者localStorage中的字段名称
  * @type {string}
  */
-const AUTHORIZATION_NAME = 'authorization';
+const AUTHORIZATION_NAME = 'authorization'
 
 /**
  * 在嵌套路由集合中检测指定的路由是否存在
@@ -17,18 +18,18 @@ const AUTHORIZATION_NAME = 'authorization';
  */
 function routeExists(routes, route, parent = null) {
     for (const item of routes) {
-        const fullPath = parent ? parent.path + '/' + item.path : item.path;
+        const fullPath = parent ? parent.path + '/' + item.path : item.path
         if (fullPath === route.fullPath) {
-            return true;
+            return true
         }
         if (item?.children?.length > 0) {
-            const exists = routeExists(item.children, route, item);
+            const exists = routeExists(item.children, route, item)
             if (exists) {
-                return true;
+                return true
             }
         }
     }
-    return false;
+    return false
 }
 
 /**
@@ -36,21 +37,18 @@ function routeExists(routes, route, parent = null) {
  * @param {string|int} permission 待检测的权限
  * @return {boolean} 有权限=true 无权限=false
  */
-function checkAccess(permission = '') {
-    if (permission === '') {
-        return true;
-    }
+function checkAccess(permission) {
     //本地保存的权限
-    const permissions = store.state.user.permissions;
+    const permissions = store.state.user.permissions
     //如果本地没有则返回无权限
     if (permissions === null || permissions === undefined || permissions.length === 0) {
-        return false;
+        return false
     }
     //是否存在此权限
     const exists = permissions.find((item) => {
         return item === permission
-    });
-    return exists !== undefined;
+    })
+    return exists !== undefined
 }
 
 /**
@@ -58,13 +56,13 @@ function checkAccess(permission = '') {
  * @return {null|string}
  */
 function readAuthorization() {
-    let authorization = null;
-    if (setting.auth.storageMethod === 'localstorage') {
-        authorization = window.localStorage.getItem(AUTHORIZATION_NAME);
-    } else if (setting.auth.storageMethod === 'cookie') {
-        authorization = jsCookie.get(AUTHORIZATION_NAME);
+    let authorization = null
+    if (setting.auth.storageMethod === AUTH_STORAGE_LOCAL) {
+        authorization = window.localStorage.getItem(AUTHORIZATION_NAME)
+    } else if (setting.auth.storageMethod === AUTH_STORAGE_COOKIE) {
+        authorization = jsCookie.get(AUTHORIZATION_NAME)
     }
-    return authorization ?? null;
+    return authorization ?? null
 }
 
 /**
@@ -73,12 +71,12 @@ function readAuthorization() {
  */
 function writeAuthorization(authorization) {
     //根据配置将授权数据存放到不同的位置
-    if (setting.auth.storageMethod === 'localstorage') {
-        window.localStorage.setItem(AUTHORIZATION_NAME, authorization);
-    } else if (setting.auth.storageMethod === 'cookie') {
+    if (setting.auth.storageMethod === AUTH_STORAGE_LOCAL) {
+        window.localStorage.setItem(AUTHORIZATION_NAME, authorization)
+    } else if (setting.auth.storageMethod === AUTH_STORAGE_COOKIE) {
         jsCookie.set(AUTHORIZATION_NAME, authorization, {
             path: '/'
-        });
+        })
     }
 }
 
@@ -86,10 +84,10 @@ function writeAuthorization(authorization) {
  * 清空授权信息
  */
 function cleanAuthorization() {
-    window.localStorage.removeItem(AUTHORIZATION_NAME);
+    window.localStorage.removeItem(AUTHORIZATION_NAME)
     jsCookie.remove(AUTHORIZATION_NAME, {
         path: '/'
-    });
+    })
 }
 
 export {
@@ -97,5 +95,5 @@ export {
     checkAccess,
     readAuthorization,
     writeAuthorization,
-    cleanAuthorization,
+    cleanAuthorization
 }

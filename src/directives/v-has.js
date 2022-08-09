@@ -1,7 +1,7 @@
 /**
  * 是否存在指定权限指令
  */
-import {checkAccess} from "@/common/utils/authorize.js";
+import {checkAccess} from "@/utils/authorize.js";
 
 export default {
     /**

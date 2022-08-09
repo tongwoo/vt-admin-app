@@ -49,8 +49,8 @@ import {VueCropper} from "vue-cropper";
 import {ref, reactive, computed} from "vue";
 import {useStore} from "vuex";
 import {ElMessage as messageTip, ElMessageBox as messageBox} from "element-plus";
-import http from "@/common/utils/http.js";
-import {httpErrorHandler} from "@/common/utils/error.js";
+import http from "@/utils/http.js";
+import {httpErrorHandler} from "@/utils/error.js";
 
 const store = useStore();
 

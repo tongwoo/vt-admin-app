@@ -98,12 +98,12 @@ import {useStore} from "vuex";
 import {computed, reactive, ref} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import {ElLoading, ElMessage} from "element-plus";
-import http from "@/common/utils/http.js";
+import http from "@/utils/http.js";
 import logo from "@/assets/logo.svg";
 import setting from "@/setting.js";
 import ChangePassword from "@/views/ChangePassword.vue";
 import AvatarSetting from "@/views/AvatarSetting.vue";
-import mitter from "@/common/utils/mitter.js";
+import mitter from "@/utils/mitter.js";
 import defaultAvatar from "@/assets/images/icons/avatar-default.png";
 
 

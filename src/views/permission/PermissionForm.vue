@@ -37,9 +37,9 @@
 <script setup>
 import {ref, reactive, onMounted} from "vue";
 import {ElLoading, ElMessage as messageTip} from "element-plus";
-import {cloneObject, updateObject} from "@/common/utils/object.js";
-import mapper from "@/common/utils/mapper.js";
-import {httpErrorHandler} from "@/common/utils/error.js";
+import {cloneObject, updateObject} from "@/utils/object.js";
+import mapper from "@/utils/mapper.js";
+import {httpErrorHandler} from "@/utils/error.js";
 import moment from "moment";
 import {createPermission, updatePermission, fetchPermission, fetchPermissionTree} from "@/modules/Permission.js";
 import {fetchRules} from "@/modules/Rbac.js";

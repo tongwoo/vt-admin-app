@@ -127,10 +127,10 @@
 <script setup>
 import {ref, reactive, computed, onMounted, defineAsyncComponent} from "vue";
 import {ElLoading, ElMessage as messageTip, ElMessageBox as messageBox} from "element-plus";
-import {updateObject, cloneObject} from "@/common/utils/object.js";
-import {httpErrorHandler} from "@/common/utils/error.js";
+import {updateObject, cloneObject} from "@/utils/object.js";
+import {httpErrorHandler} from "@/utils/error.js";
 import setting from "@/setting.js";
-import {getUserStates, getUserStateClassByValue} from "@/common/constants/UserState.js";
+import {getUserStates, getUserStateClassByValue} from "@/constants/user-state.js";
 import {removeUser, fetchPageUsers} from "@/modules/User.js";
 import moment from "moment";
 

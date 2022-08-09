@@ -30,8 +30,8 @@
 import {ref, reactive} from "vue";
 import {useStore} from "vuex";
 import {ElMessage} from "element-plus";
-import {httpErrorHandler} from "@/common/utils/error.js";
-import http from "@/common/utils/http.js";
+import {httpErrorHandler} from "@/utils/error.js";
+import http from "@/utils/http.js";
 
 const store = useStore();
 //事件
