@@ -57,9 +57,9 @@ function checkAccess(permission) {
  */
 function readAuthorization() {
     let authorization = null
-    if (setting.auth.storageMethod === AUTH_STORAGE_LOCAL) {
+    if (setting.auth.storage === AUTH_STORAGE_LOCAL) {
         authorization = window.localStorage.getItem(AUTHORIZATION_NAME)
-    } else if (setting.auth.storageMethod === AUTH_STORAGE_COOKIE) {
+    } else if (setting.auth.storage === AUTH_STORAGE_COOKIE) {
         authorization = jsCookie.get(AUTHORIZATION_NAME)
     }
     return authorization ?? null
@@ -71,9 +71,9 @@ function readAuthorization() {
  */
 function writeAuthorization(authorization) {
     //根据配置将授权数据存放到不同的位置
-    if (setting.auth.storageMethod === AUTH_STORAGE_LOCAL) {
+    if (setting.auth.storage === AUTH_STORAGE_LOCAL) {
         window.localStorage.setItem(AUTHORIZATION_NAME, authorization)
-    } else if (setting.auth.storageMethod === AUTH_STORAGE_COOKIE) {
+    } else if (setting.auth.storage === AUTH_STORAGE_COOKIE) {
         jsCookie.set(AUTHORIZATION_NAME, authorization, {
             path: '/'
         })

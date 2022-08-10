@@ -8,7 +8,7 @@ export default {
         //启用认证
         enable: true,
         //授权存储方式 本地存储=localstorage Cookie存储=cookie
-        storageMethod: AUTH_STORAGE_LOCAL
+        storage: AUTH_STORAGE_LOCAL
     },
     //分页相关
     pagination: {
