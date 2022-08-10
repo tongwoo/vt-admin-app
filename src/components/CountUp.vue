@@ -28,24 +28,24 @@ const props = defineProps({
 
 //默认配置
 const defaultOption = {
-    startVal: 0, // number to start at (0)
-    decimalPlaces: 0, // number of decimal places (0)
-    duration: 3, // animation duration in seconds (2)
-    useGrouping: false, // example: 1,000 vs 1000 (true)
-    useEasing: true, // ease animation (true)
+    startVal: 0, // 起始值
+    decimalPlaces: 0, // 几位小数
+    duration: 2, // 动画时长，秒
+    useGrouping: false, // 是否进行分组，比如千进制逗号分隔
+    useEasing: true, // 是否平滑动画
     smartEasingThreshold: 999, // smooth easing for large numbers above this if useEasing (999)
     smartEasingAmount: 333, // amount to be eased for numbers above threshold (333)
-    separator: ',', // grouping separator (',')
-    decimal: '.', // decimal ('.')
+    separator: ',', // 分组分隔符
+    decimal: '.', // 小数分隔符
     // easingFn: easing function for animation (easeOutExpo)
     //easingFn: (t: number, b: number, c: number, d: number) => number,
     //formattingFn: (n: number) => string, // this function formats result
-    prefix: '', // text prepended to result
-    suffix: '', // text appended to result
+    prefix: '', // 前缀
+    suffix: '', // 后缀
     numerals: [], // numeral glyph substitution
     enableScrollSpy: false, // start animation when target is in view
-    scrollSpyDelay: 0, // delay (ms) after target comes into view
-    scrollSpyOnce: true // run only once
+    scrollSpyDelay: 0, // 滚动条滚动到的时候延迟多少毫秒开始动画
+    scrollSpyOnce: true // 是否运行一次（滚动条）
 }
 
 watch(
@@ -56,8 +56,10 @@ watch(
 )
 
 onMounted(() => {
-    const option = Object.assign(defaultOption, props.option)
-    countUp = new CountUp(el.value, props.modelValue, option)
+    countUp = new CountUp(el.value, props.modelValue, {
+        ...defaultOption,
+        ...props.option
+    })
     countUp.start()
 })
 </script>
