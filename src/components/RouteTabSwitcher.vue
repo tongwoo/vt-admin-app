@@ -5,7 +5,7 @@
 <template>
     <div class="route-tab-switcher-container">
         <transition-group name="tab-complete" tag="ul" class="tab-items">
-            <li class="tab-item" :class="current!==null && item.fullPath===current.fullPath ? 'active' : null" v-for="(item,i) in routes" :key="item.fullPath" @click="tabItemClick(item)">
+            <li class="tab-item" :class="current!==null && item.path===current.path ? 'active' : null" v-for="(item,i) in routes" :key="item.path" @click="tabItemClick(item)">
                 <div class="item-name">{{ item.title }}</div>
                 <div v-if="routes.length>1" class="item-close-btn" @click="closeBtnClick(i,$event)">
                     <i class="bi bi-x"></i>
@@ -31,10 +31,10 @@ const current = ref(null)
 watch(route, (target) => {
     current.value = {
         title: target.meta.title,
-        fullPath: target.fullPath
+        path: target.path
     }
     const index = routes.value.findIndex((item) => {
-        return item.fullPath === target.fullPath
+        return item.path === target.path
     })
     if (index === -1) {
         routes.value.push(current.value)
@@ -46,7 +46,7 @@ watch(route, (target) => {
  * @param {RouteLocationNormalized} route 路由对象
  */
 const tabItemClick = (route) => {
-    router.push(route.fullPath)
+    router.push(route.path)
 }
 
 /**
@@ -59,26 +59,26 @@ const closeBtnClick = (index, event) => {
     const target = routes.value[index]
     routes.value.splice(index, 1)
     //如果删除的tab不是当前页面则直接返回不处理
-    if (target.fullPath !== route.fullPath) {
+    if (target.path !== route.path) {
         return
     }
     //如果后面还有tab则使用后面的tab
     if (routes.value.length > index) {
         current.value = routes.value[index]
-        router.push(current.value.fullPath)
+        router.push(current.value.path)
         return
     }
     //如果前面还有tab则使用前面的tab
     if (routes.value.length > (index - 1)) {
         current.value = routes.value[index - 1]
-        router.push(current.value.fullPath)
+        router.push(current.value.path)
     }
 }
 
 onMounted(() => {
     current.value = {
         title: route.meta.title,
-        fullPath: route.fullPath
+        path: route.path
     }
     routes.value.push(current.value)
 })
