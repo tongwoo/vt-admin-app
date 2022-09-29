@@ -8,11 +8,13 @@ export default {
         //启用认证
         enable: true,
         //授权存储方式 本地存储=localstorage Cookie存储=cookie
-        storage: AUTH_STORAGE_LOCAL
+        storage: AUTH_STORAGE_LOCAL,
     },
+    //是否显示进度条
+    showProgress: false,
     //分页相关
     pagination: {
         //每页记录数
-        size: 10
-    }
+        size: 10,
+    },
 }

@@ -32,8 +32,8 @@
                         </el-form-item>
                         -->
                         <el-collapse-transition>
-                            <div class="error-container" v-if="errorMessage!==null">
-                                <el-alert type="error" title="提示" :description="errorMessage" :closable="false" show-icon></el-alert>
+                            <div class="error-container" v-if="tip!==null">
+                                <el-alert type="error" title="提示" :description="tip" :closable="false" show-icon></el-alert>
                             </div>
                         </el-collapse-transition>
                         <el-button type="primary" round @click="submitLogin" native-type="submit" :loading="loading">登录</el-button>
@@ -49,7 +49,7 @@
 </template>
 <script setup>
 import {ref, reactive, onMounted} from "vue"
-import {ElLoading, ElMessage} from "element-plus"
+import {ElLoading as loadingTip, ElMessage as messageTip} from "element-plus"
 import http from "@/utils/http.js"
 import {useStore} from "vuex"
 import {useRouter} from "vue-router"
@@ -58,6 +58,7 @@ import {cleanAuthorization, writeAuthorization} from "@/utils/authorize.js"
 import {httpErrorHandler} from "@/utils/error.js"
 import setting from "@/setting.js"
 import {API_PATH_DEFAULT} from "@/constants/api-path.js"
+import {fetchProfile, requestLogin} from '@/modules/authorization.js'
 
 const store = useStore()
 const router = useRouter()
@@ -69,7 +70,7 @@ const form = ref(null)
 //验证码
 const captcha = ref(null)
 //错误信息
-const errorMessage = ref(null)
+const tip = ref(null)
 //加载中
 const loading = ref(false)
 //模型
@@ -79,7 +80,7 @@ const model = reactive({
     //密码
     password: null,
     //验证码
-    captcha: null
+    captcha: null,
 })
 //规则
 const rules = {
@@ -88,30 +89,30 @@ const rules = {
         {
             type: 'string',
             required: true,
-            message: ''
-        }
+            message: '',
+        },
     ],
     //密码
     password: [
         {
             type: 'string',
             required: true,
-            message: ''
-        }
+            message: '',
+        },
     ],
     //验证码
     captcha: [
         {
             type: 'string',
             required: false,
-            message: '验证码必须填写'
+            message: '验证码必须填写',
         },
         {
             type: 'string',
             len: 4,
-            message: '验证码必须是4位'
-        }
-    ]
+            message: '验证码必须是4位',
+        },
+    ],
 }
 
 /**
@@ -125,7 +126,7 @@ const refreshCaptcha = () => {
  * 提交登录
  */
 const submitLogin = async () => {
-    errorMessage.value = null
+    tip.value = null
     //表单是否有效
     const success = await form.value.validate().catch(() => false)
     if (!success) {
@@ -135,19 +136,14 @@ const submitLogin = async () => {
     const params = {
         username: model.username,
         password: model.password,
-        captcha: model.captcha
+        captcha: model.captcha,
     }
     loading.value = true
-    http.post(
-        '/login',
-        params
-    ).then((response) => {
-        const body = response.data
-        if (!response.isOk) {
-            errorMessage.value = body.message ?? '网络错误'
+    requestLogin(params).then(({success, message, data}) => {
+        if (!success) {
+            tip.value = message ?? '网络错误'
             return false
         }
-        const data = body.data
         //授权数据
         const authorization = data.token
         //保存授权数据
@@ -157,10 +153,10 @@ const submitLogin = async () => {
             authorization: authorization,
             nickname: data.name,
             avatar: data.avatar ?? defaultAvatar,
-            permissions: data.permissions
+            permissions: data.permissions,
         })
         //加载用户数据（如果需要额外调用接口的话）
-        //loadUser();
+        //loadProfile();
         router.push('/').catch((err) => {
             console.error('跳转出现异常：', err)
         })
@@ -172,23 +168,20 @@ const submitLogin = async () => {
 /**
  * 载入用户信息
  */
-const loadUser = () => {
-    const loading = ElLoading.service({
+const loadProfile = () => {
+    const loading = loadingTip.service({
         lock: true,
-        text: '初始化中'
+        text: '初始化中',
     })
-    http.get(
-        '/user/info'
-    ).then((response) => {
-        if (!response.isOk) {
-            errorMessage.value = response.message
+    fetchProfile().then(({success, message, data}) => {
+        if (!success) {
+            tip.value = message
             return false
         }
-        const data = response.data.data
         store.commit('user/UPDATE', {
             nickname: data.name,
             avatar: defaultAvatar,
-            permissions: []
+            permissions: [],
         })
         router.push('/').catch((err) => {
             console.error('跳转出现异常：', err)
@@ -214,7 +207,7 @@ const mockLogin = () => {
             authorization: authorization,
             nickname: '超级管理员',
             avatar: defaultAvatar,
-            permissions: []
+            permissions: [],
         })
         router.push('/').catch((err) => {
             console.error('跳转出现异常：', err)

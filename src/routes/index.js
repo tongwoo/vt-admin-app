@@ -1,7 +1,7 @@
 import nprogress from 'nprogress'
 import {createRouter, createWebHashHistory} from 'vue-router'
 import setting from "@/setting.js"
-import {checkAccess, routeExists} from "@/utils/authorize.js"
+import {checkAccess} from "@/utils/authorize.js"
 import store from '@/store/index.js'
 import baseRoutes from "@/routes/base-routes.js"
 import businessRoutes from "@/routes/business-routes.js"
@@ -13,14 +13,16 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes: [
         ...baseRoutes,
-        ...businessRoutes
-    ]
+        ...businessRoutes,
+    ],
 })
 
 
 //前置守卫 - 进度条开始
 router.beforeEach(() => {
-    nprogress.start()
+    if (setting.showProgress) {
+        nprogress.start()
+    }
     return true
 })
 
@@ -37,7 +39,7 @@ router.beforeEach(() => {
 router.beforeEach((to) => {
     if (to.matched.length === 0) {
         return {
-            path: '/error/not-found'
+            path: '/error/not-found',
         }
     }
     return true
@@ -56,7 +58,7 @@ router.beforeEach((to) => {
     //没有认证信息
     if (store.state.user.authorization === null) {
         return {
-            path: '/login'
+            path: '/login',
         }
     }
     //路由是否需要权限
@@ -68,7 +70,7 @@ router.beforeEach((to) => {
     //如果没有权限则跳转到无权限的提示页面
     if (!checkAccess(permission)) {
         return {
-            path: '/error/forbidden'
+            path: '/error/forbidden',
         }
     }
     return true
@@ -93,7 +95,9 @@ router.afterEach((to) => {
 
 //后置守卫 - 进度条关闭
 router.afterEach(() => {
-    nprogress.done()
+    if (setting.showProgress) {
+        nprogress.done()
+    }
 })
 
 export default router

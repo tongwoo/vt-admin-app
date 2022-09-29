@@ -50,11 +50,26 @@
             </el-dropdown>
         </div>
         <!--消息未读-->
-        <div class="header-col header-col-btn">
-            <el-badge v-if="messageUnread>0" :value="messageUnread" class="item">
-                <i class="bi bi-chat-dots btn-icon-text"></i>
-            </el-badge>
-            <i v-else class="bi bi-chat-dots btn-icon-text"></i>
+        <div class="header-col header-col-btn message-col">
+            <el-dropdown @command="messageCommand">
+                <div>
+                    <el-badge v-if="messageUnread>0" :value="messageUnread" class="item">
+                        <i class="bi bi-chat-dots btn-icon-text"></i>
+                    </el-badge>
+                    <i v-else class="bi bi-chat-dots btn-icon-text"></i>
+                </div>
+                <template v-slot:dropdown>
+                    <div v-if="messages.length>0">
+                        <el-dropdown-menu>
+                            <el-dropdown-item v-for="(item,i) in messages" :key="i" :command="item.id">{{ item.title }}</el-dropdown-item>
+                        </el-dropdown-menu>
+                        <div class="message-more">
+                            <el-button size="small" type="default">查看更多<i class="bi bi-box-arrow-right el-icon--right"></i></el-button>
+                        </div>
+                    </div>
+                    <div v-else class="pall-20">没有消息</div>
+                </template>
+            </el-dropdown>
         </div>
         <!--全屏-->
         <div class="header-col header-col-btn" @click="toggleFullScreenBtnClick">
@@ -123,6 +138,11 @@ const isCollapsed = computed(() => {
 const messageUnread = computed(() => {
     return store.state.message.unread
 })
+//消息列表
+const messages = computed(() => {
+    return store.state.message.items
+})
+
 /**
  * 面包屑列表
  * @type {ComputedRef<*[]>}
@@ -161,7 +181,7 @@ const navigatorWidth = computed(() => {
         return null
     }
     return {
-        flexBasis: store.state.setting.navigator.width.current + 'px'
+        flexBasis: store.state.setting.navigator.width.current + 'px',
     }
 })
 
@@ -208,8 +228,8 @@ const userDropdownCommand = (command) => {
 //密码配置
 const password = reactive({
     dialog: {
-        show: false
-    }
+        show: false,
+    },
 })
 
 /**
@@ -218,11 +238,11 @@ const password = reactive({
 const exitSystem = () => {
     const loading = ElLoading.service({
         lock: true,
-        text: '退出中'
+        text: '退出中',
     })
     //调用失败也退出
     http.post(
-        '/system/logout'
+        '/system/logout',
     ).finally(() => {
         loading.close()
         store.commit('CLEANUP')
@@ -239,8 +259,8 @@ const avatar = {
     //弹框
     dialog: reactive({
         show: false,
-        title: null
-    })
+        title: null,
+    }),
 }
 
 /**
@@ -256,6 +276,13 @@ const avatarError = (error) => {
  */
 const languageChange = (lang) => {
     store.commit('setting/UPDATE_LANGUAGE', lang)
+}
+
+/**
+ * 消息跳转
+ */
+const messageCommand = (command) => {
+
 }
 </script>
 <style lang="scss" scoped>
@@ -286,7 +313,7 @@ const languageChange = (lang) => {
             cursor: pointer;
 
             &:hover {
-                background-color: #f4f5f7;
+                //background-color: #f4f5f7;
             }
         }
     }
@@ -331,6 +358,9 @@ const languageChange = (lang) => {
         }
     }
 
+    .message-col {
+    }
+
     .user-panel {
         display: flex;
         align-items: center;
@@ -361,6 +391,12 @@ const languageChange = (lang) => {
 
 .navigator-toggle {
     cursor: pointer;
+}
+
+.message-more {
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #eee;
 }
 
 .btn-icon-text {

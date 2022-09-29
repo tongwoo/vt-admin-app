@@ -19,8 +19,10 @@ const store = createStore({
                 //未读数
                 unread: 3,
                 //总数
-                total: 0
-            }
+                total: 0,
+                //消息列表
+                items: [],
+            },
         }
     },
     getters: {
@@ -31,7 +33,7 @@ const store = createStore({
          */
         isLogin(state) {
             return state.user.authorization !== null
-        }
+        },
     },
     mutations: {
         /**
@@ -41,6 +43,14 @@ const store = createStore({
          */
         MESSAGE_UPDATE_UNREAD(state, number) {
             state.message.unread = number
+        },
+        /**
+         * 更新消息列表
+         * @param state
+         * @param {Array<{id:number,title:string}>} items 消息列表
+         */
+        MESSAGE_UPDATE_ITEMS(state, items) {
+            state.message.items = items
         },
         /**
          * 读取本地存储的信息同步到Store
@@ -78,13 +88,13 @@ const store = createStore({
             state.user.permissions = []
             //组件缓存
             state.keepalive.componentNames = []
-        }
+        },
     },
     modules: {
         user,
         setting,
-        keepalive
-    }
+        keepalive,
+    },
 })
 
 /**
@@ -94,7 +104,7 @@ store.subscribe((mutation, state) => {
     //忽略的Mutation列表，有些Mutation是不需要处理的
     const ignoreMutations = [
         'LOCAL_SYNC',
-        'CLEANUP'
+        'CLEANUP',
     ]
     if (ignoreMutations.indexOf(mutation.type) !== -1) {
         return

@@ -1,34 +1,29 @@
-/**
+/*
  * 功能：确认
- * 日期：2022-06-13
+ * 作者：wutong
+ * 日期：2022-09-29
  */
 
-/**
- * 是
- * @type {string|int}
- */
-const CONFIRM_YES = 1
+//否
+export const CONFIRM_NO = 0
 
-/**
- * 否
- * @type {string|int}
- */
-const CONFIRM_NO = 0
+//是
+export const CONFIRM_YES = 1
 
 /**
  * 确认数据项列表
  * @return {Array<{name:string,value:string|int}>}
  */
-function getConfirms() {
+export function getConfirms() {
     return [
         {
-            name: '是',
-            value: CONFIRM_YES
+            name: '否',
+            value: CONFIRM_NO,
         },
         {
-            name: '否',
-            value: CONFIRM_NO
-        }
+            name: '是',
+            value: CONFIRM_YES,
+        },
     ]
 }
 
@@ -37,9 +32,8 @@ function getConfirms() {
  * @param {string|int} value 要获得名称的值
  * @return {string|null}
  */
-function getConfirmNameByValue(value) {
-    const item = getConfirms().find(item => item.value === value)
-    return item ? item.name : null
+export function getConfirmName(value) {
+    return getConfirms().find(item => item.value === value)?.name ?? null
 }
 
 /**
@@ -47,20 +41,12 @@ function getConfirmNameByValue(value) {
  * @param {string|int} value 值
  * @return {string|null}
  */
-function getConfirmClassByValue(value) {
-    if (value === CONFIRM_YES) {
-        return 'confirm-yes'
-    } else if (value === CONFIRM_NO) {
+export function getConfirmClass(value) {
+    if (value === CONFIRM_NO) {
         return 'confirm-no'
+    } else if (value === CONFIRM_YES) {
+        return 'confirm-yes'
     } else {
         return null
     }
-}
-
-export {
-    CONFIRM_YES,
-    CONFIRM_NO,
-    getConfirms,
-    getConfirmNameByValue,
-    getConfirmClassByValue
 }
