@@ -3,11 +3,12 @@
 日期：2022-03-09
 变更：
      2022-04-17 模块切换图表消失问题、配置参数不使用合并行为
-     2022-05-08 增加显示表格、下载图片功能
+     2022-05-08 增加显示表格（折线图、柱形图、饼图)、下载图片功能
      2022-07-20 修复在使用其他类型series无法重置尺寸的问题
+     2022-09-30 重构部分代码
 -->
 <template>
-    <div v-show="showTable===false" class="chart-container" ref="dom" :style="style"></div>
+    <div v-show="!showTable" class="chart-container" ref="dom" :style="style"></div>
     <div v-show="showTable" class="chart-table" :style="style">
         <el-table border :size="table.size" row-key="id" :data="table.rows" :max-height="table.height">
             <el-table-column v-for="(column,i) in table.columns" :key="column+'-'+i" :label="column" :fixed="i===0" align="center" show-overflow-tooltip>
@@ -27,6 +28,8 @@ let instance = null
 let container = null
 //父容器观察器
 let observer = null
+//是否已经初始化了
+let initialized = false
 //图表挂载的DOM
 const dom = ref(null)
 
@@ -37,13 +40,13 @@ const props = defineProps({
         type: Object,
         default() {
             return {}
-        }
+        },
     },
     //是否显示表格
     showTable: {
         type: Boolean,
-        default: false
-    }
+        default: false,
+    },
 })
 
 //样式
@@ -52,7 +55,7 @@ const style = computed(() => {
         top: position.top + 'px',
         right: position.right + 'px',
         bottom: position.bottom + 'px',
-        left: position.left + 'px'
+        left: position.left + 'px',
     }
 })
 
@@ -61,7 +64,7 @@ const position = reactive({
     top: 0,
     right: 0,
     bottom: 0,
-    left: 0
+    left: 0,
 })
 
 //表格
@@ -69,53 +72,62 @@ const table = reactive({
     size: 'small',
     columns: [],
     rows: [],
-    height: null
+    height: null,
 })
 
 //在图表选项变化的时候更新图表
 watch(
     () => props.option,
-    (v) => {
-        if (instance !== null) {
-            renderChart()
-        }
+    () => {
+        render()
     },
     {
-        deep: true
-    }
+        deep: true,
+    },
 )
 
 //显示表格监测
 watch(
     () => props.showTable,
-    (v) => {
-        nextTick(() => {
-            if (props.showTable) {
-                updateTable()
-            } else {
-                instance.resize()
-            }
-        })
-    }
+    () => {
+        nextTick(render)
+    },
 )
+
+/**
+ * 渲染
+ */
+const render = () => {
+    props.showTable ? renderTable() : renderChart()
+}
 
 /**
  * 渲染图表
  */
 const renderChart = () => {
+    if (!initialized) {
+        //初始化图表
+        instance = echarts.init(dom.value)
+        initialized = true
+    }
     instance.setOption(props.option, true)
-    updateTable()
+    chartResize()
 }
 
 /**
- * 更新表格
+ * 渲染表格
  */
-const updateTable = () => {
-    table.height = container.clientHeight - position.top - position.bottom + 'px'
+const renderTable = () => {
     //组装表格数据
-    const option = instance.getOption()
-    if (option.hasOwnProperty('xAxis') && option.xAxis[0]?.data) {
-        table.columns = ['类型', ...option.xAxis[0].data]
+    const option = props.option
+    if (option.hasOwnProperty('xAxis')) {
+        let xAxisData = []
+        if (Array.isArray(option.xAxis)) {
+            xAxisData = option.xAxis[0].data
+        } else {
+            xAxisData = option.xAxis.data
+        }
+        table.columns = ['类型', ...xAxisData]
     }
     table.rows.splice(0)
     option.series.forEach((item) => {
@@ -128,6 +140,32 @@ const updateTable = () => {
             table.rows.push([item.name, ...item.data])
         }
     })
+    tableResize()
+}
+
+/**
+ * 重置尺寸
+ */
+const resize = () => {
+    props.showTable ? tableResize() : chartResize()
+}
+
+/**
+ * 图表重置尺寸
+ */
+const chartResize = () => {
+    instance.resize({
+        animation: {
+            duration: 1000,
+        },
+    })
+}
+
+/**
+ * 表格重置尺寸
+ */
+const tableResize = () => {
+    table.height = container.clientHeight - position.top - position.bottom + 'px'
 }
 
 /**
@@ -137,7 +175,7 @@ const updateTable = () => {
 const downloadAsImage = (name = '图表') => {
     const dataUrl = instance.getDataURL({
         type: 'png',
-        excludeComponents: ['toolbox']
+        excludeComponents: ['toolbox'],
     })
     const a = document.createElement('a')
     a.href = dataUrl
@@ -150,7 +188,7 @@ const downloadAsImage = (name = '图表') => {
 defineExpose({
     instance,
     container,
-    downloadAsImage
+    downloadAsImage,
 })
 
 onMounted(() => {
@@ -169,28 +207,15 @@ onMounted(() => {
     position.bottom = parseInt(style.paddingBottom)
     position.left = parseInt(style.paddingLeft)
     nextTick(() => {
-        //初始化图表
-        instance = echarts.init(dom.value)
-        renderChart()
+        render()
         //尺寸自动处理
-        observer = new ResizeObserver(() => {
-            const option = {
-                animation: {
-                    duration: 1000
-                }
-            }
-            if (props.showTable) {
-                updateTable()
-            } else {
-                instance.resize(option)
-            }
-        })
+        observer = new ResizeObserver(resize)
         observer.observe(container)
     })
 })
 
 onUnmounted(() => {
-    observer.unobserve(container)
+    observer.disconnect()
 })
 </script>
 
