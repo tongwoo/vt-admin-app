@@ -42,6 +42,11 @@ const props = defineProps({
             return {}
         },
     },
+    //重置图表尺寸是否使用动画
+    resizeAnimation: {
+        type: Boolean,
+        default: false,
+    },
     //是否显示表格
     showTable: {
         type: Boolean,
@@ -154,11 +159,15 @@ const resize = () => {
  * 图表重置尺寸
  */
 const chartResize = () => {
-    instance.resize({
-        animation: {
-            duration: 1000,
-        },
-    })
+    if (props.resizeAnimation) {
+        instance.resize({
+            animation: {
+                duration: 1000,
+            },
+        })
+    } else {
+        instance.resize()
+    }
 }
 
 /**

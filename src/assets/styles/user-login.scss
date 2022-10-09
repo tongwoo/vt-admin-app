@@ -1,0 +1,117 @@
+
+.login-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("../images/login-bg.webp") no-repeat;
+    background-size: 100% 120%;
+
+    .login-brand {
+        position: absolute;
+        top: 30px;
+        left: 50px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 22px;
+        user-select: none;
+
+        img {
+            height: 20px;
+        }
+    }
+
+    .login-box {
+        display: flex;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        overflow: hidden;
+
+        .login-welcome {
+            width: 500px;
+            box-sizing: border-box;
+            padding: 60px;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, .1);
+            background: #2F53EB url("../images/login-welcome.svg") center 180px no-repeat;
+            background-size: 470px auto;
+            user-select: none;
+
+            h1 {
+                margin-top: 0;
+                font-size: 30px;
+            }
+
+            .content {
+                font-size: 14px;
+                margin: 5px 0;
+                letter-spacing: 2px;
+            }
+        }
+
+        .login-panel {
+            width: 300px;
+            background-color: white;
+            overflow: hidden;
+            padding: 50px;
+
+            .panel-header {
+                font-size: 20px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .panel-body {
+                margin-top: 20px;
+
+                .captcha-container {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    :deep(.el-input) {
+                        flex: 1;
+                    }
+
+                    img {
+                        width: 80px;
+                        height: 38px;
+                        border: 1px solid #dcdfe6;
+                        cursor: pointer;
+                    }
+                }
+
+                :deep(.el-button) {
+                    width: 100%;
+                }
+
+                .separator {
+                    border-bottom: 1px solid #ddd;
+                    font-size: 0;
+                    text-align: center;
+                    margin: 20px 0;
+                    line-height: 0;
+
+
+                    .text {
+                        background-color: white;
+                        font-size: 12px;
+                        color: #c2c2c2;
+                        position: relative;
+                        bottom: -6px;
+                        padding: 0 20px;
+                    }
+                }
+
+                .form-item-button {
+                    margin-bottom: 0;
+                }
+            }
+
+            .error-container {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

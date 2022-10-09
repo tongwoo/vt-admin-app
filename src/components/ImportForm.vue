@@ -14,8 +14,8 @@
                     </div>
                 </div>
             </el-form-item>
-            <div class="error-container" v-if="error.show">
-                <el-alert type="error" :description="error.message" :closable="false" show-icon></el-alert>
+            <div class="error-container" v-if="tip!==null">
+                <el-alert type="error" :description="tip" :closable="false" show-icon></el-alert>
             </div>
             <div class="footer-container">
                 <el-button type="default" @click="cancelBtnClick"><i class="bi bi-x-circle-fill el-icon--left"></i>取消</el-button>
@@ -38,18 +38,18 @@ const props = defineProps({
     //提交地址
     url: {
         type: String,
-        default: '/common/upload'
+        default: '/common/upload',
     },
     //模板路径
     templatePath: {
         type: String,
-        default: null
+        default: null,
     },
     //上传表单名
     inputName: {
         type: String,
-        default: 'file'
-    }
+        default: 'file',
+    },
 })
 //相关事件
 const emits = defineEmits(['close'])
@@ -68,15 +68,12 @@ const form = ref(null)
 //上传框DOM
 const fileInput = ref(null)
 //错误
-const error = reactive({
-    show: false,
-    message: null
-})
+const tip = ref(null)
 //表单数据
 const formData = new FormData()
 //模型
 const model = reactive({
-    fileName: null
+    fileName: null,
 })
 //规则
 const rules = {
@@ -84,9 +81,9 @@ const rules = {
         {
             type: 'string',
             required: true,
-            message: '请选择文件'
-        }
-    ]
+            message: '请选择文件',
+        },
+    ],
 }
 
 /**
@@ -100,8 +97,7 @@ const chooseFile = () => {
  * 导入按钮点击
  */
 const importBtnClick = async () => {
-    error.show = false
-    error.message = null
+    tip.value = null
     const success = await form.value.validate().catch(() => false)
     if (!success) {
         return
@@ -121,22 +117,19 @@ const cancelBtnClick = () => {
  * @param {Event} event 事件
  */
 const fileChange = (event) => {
-    error.show = false
-    error.message = null
+    tip.value = null
     const files = event.target.files
     if (files.length === 0) {
         return
     }
     const file = files[0]
     if (file.size === 0) {
-        error.show = true
-        error.message = '文件大小不能为0'
+        tip.value = '文件大小不能为0'
         return
     }
     //最大10M
     if (file.size > 1024 * 1024 * 10) {
-        error.show = true
-        error.message = '文件体积过大'
+        tip.value = '文件体积过大'
         return
     }
     formData.set(props.inputName, file, file.name)
@@ -150,18 +143,16 @@ const submitImport = () => {
     loading.value = true
     http.post(
         props.url,
-        formData
+        formData,
     ).then((response) => {
         if (!response.isOk) {
-            error.show = true
-            error.message = response.data.message
+            tip.value = response.data.message
         } else {
             ElMessage.success(response.data.message)
             emits('close')
         }
     }).catch((err) => {
-        error.show = true
-        error.message = err.toString()
+        tip.value = err.toString()
     }).finally(() => {
         loading.value = false
     })
