@@ -149,7 +149,7 @@ const submitLogin = async () => {
         //保存授权数据
         writeAuthorization(authorization)
         //填充用户信息
-        store.commit('user/UPDATE', {
+        store.commit('user/update', {
             authorization: authorization,
             nickname: data.name,
             avatar: data.avatar ?? defaultAvatar,
@@ -178,7 +178,7 @@ const loadProfile = () => {
             tip.value = message
             return false
         }
-        store.commit('user/UPDATE', {
+        store.commit('user/update', {
             nickname: data.name,
             avatar: defaultAvatar,
             permissions: [],
@@ -203,7 +203,7 @@ const mockLogin = () => {
         //保存授权数据
         writeAuthorization(authorization)
         //填充用户信息
-        store.commit('user/UPDATE', {
+        store.commit('user/update', {
             authorization: authorization,
             nickname: '超级管理员',
             avatar: defaultAvatar,
@@ -216,7 +216,7 @@ const mockLogin = () => {
 }
 
 onMounted(() => {
-    store.commit('CLEANUP')
+    store.commit('cleanup')
     cleanAuthorization()
     //refreshCaptcha();
 })

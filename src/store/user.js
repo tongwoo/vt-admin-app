@@ -24,7 +24,7 @@ export default {
          * @param {Object} state
          * @param {Object} payload 用户信息，state中出现的相关字段
          */
-        UPDATE(state, payload) {
+        update(state, payload) {
             updateObject(state, payload)
         }
     }

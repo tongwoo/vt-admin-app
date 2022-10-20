@@ -125,7 +125,7 @@ const saveAvatar = () => {
                 formData
             ).then((response) => {
                 if (response.isOk) {
-                    store.commit('user/UPDATE', {
+                    store.commit('user/update', {
                         avatar: response.data.data.url
                     })
                     emits('close')

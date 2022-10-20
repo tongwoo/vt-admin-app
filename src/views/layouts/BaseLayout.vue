@@ -94,7 +94,7 @@ let observer = null
 onMounted(() => {
     observer = new ResizeObserver(() => {
         if (baseLayout.value.clientWidth <= store.state.setting.navigator.size) {
-            store.commit('setting/TOGGLE_NAVIGATOR', true)
+            store.commit('setting/toggleNavigator', true)
         }
     })
     observer.observe(baseLayout.value)
@@ -108,12 +108,12 @@ const reload = ref(false)
 onMounted(() => {
     mitter.on('page-refresh', () => {
         const matchedName = route.matched[route.matched.length - 1].components.default.__name
-        store.commit('keepalive/REMOVE', matchedName)
+        store.commit('keepalive/remove', matchedName)
         reload.value = true
         nextTick(() => {
             reload.value = false
             if (route?.meta?.cache) {
-                store.commit('keepalive/ADD', matchedName)
+                store.commit('keepalive/add', matchedName)
             }
         })
     })

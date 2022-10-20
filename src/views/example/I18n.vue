@@ -72,7 +72,7 @@ const model = reactive({
  * 语言改变
  */
 const languageChange = (lang) => {
-    store.commit('setting/UPDATE_LANGUAGE', {
+    store.commit('setting/updateLanguage', {
         language: lang
     })
 }

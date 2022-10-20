@@ -35,7 +35,7 @@ const props = defineProps({
 })
 
 //数据是否数值
-const isNumber = computed(()=>{
+const isNumber = computed(() => {
     return /^[\d\.]+$/g.test(String(props.modelValue))
 })
 
@@ -91,20 +91,19 @@ watch(
  * 初始化跳动实例
  */
 const initCountUp = () => {
-    if (props.isJump) {
-        countUp = new CountUp(el.value, props.modelValue, {
-            ...defaultJumpOption,
-            ...props.jumpOption,
-        })
-        countUp.start()
-    }
+    countUp = new CountUp(el.value, props.modelValue, {
+        ...defaultJumpOption,
+        ...props.jumpOption,
+    })
+    countUp.start()
 }
 
 /**
  * 更新跳动实例
  */
 const updateCountUp = () => {
-    if (!props.isJump) {
+    if (!props.isJump || !isNumber.value) {
+        countUp = null
         return
     }
     if (countUp === null) {

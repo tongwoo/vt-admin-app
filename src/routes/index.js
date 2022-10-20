@@ -31,7 +31,7 @@ router.beforeEach(() => {
     if (store.state.synced) {
         return true
     }
-    store.commit('LOCAL_SYNC')
+    store.commit('localSync')
     return true
 })
 
@@ -82,7 +82,7 @@ router.afterEach((to) => {
     if (cache) {
         const name = to.matched[to.matched.length - 1].components.default.__name
         if (name) {
-            store.commit('keepalive/ADD', name)
+            store.commit('keepalive/add', name)
         }
     }
     return true

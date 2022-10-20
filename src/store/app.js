@@ -3,7 +3,6 @@
  * 日期：2022-02-22
  */
 import i18n from "@/languages/index.js"
-import {updateObject} from "@/utils/object.js"
 
 export default {
     namespaced: true,
@@ -31,7 +30,7 @@ export default {
          * @param {Object} state 状态
          * @param {boolean|null} collapse 是否折叠
          */
-        TOGGLE_NAVIGATOR(state, collapse = null) {
+        toggleNavigator(state, collapse = null) {
             if (collapse === null) {
                 state.navigator.collapse = !state.navigator.collapse
             } else {
@@ -43,7 +42,7 @@ export default {
          * @param state
          * @param {number} width 宽度
          */
-        UPDATE_WIDTH(state, width) {
+        updateWidth(state, width) {
             state.navigator.width.current = width
         },
         /**
@@ -52,7 +51,7 @@ export default {
          * @param lang
          * @constructor
          */
-        UPDATE_LANGUAGE(state, lang) {
+        updateLanguage(state, lang) {
             i18n.global.locale = state.language = lang
         }
     }

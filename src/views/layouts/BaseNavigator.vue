@@ -62,7 +62,7 @@ const avatarError = (error) => {
  * 导航切换按钮点击
  */
 const toggleNavigatorBtnClick = () => {
-    store.commit('setting/TOGGLE_NAVIGATOR')
+    store.commit('setting/toggleNavigator')
 }
 
 /**
@@ -105,7 +105,7 @@ const dragMove = (offset) => {
     } else if (newWidth <= store.state.setting.navigator.width.min) {
         newWidth = store.state.setting.navigator.width.min
     }
-    store.commit('setting/UPDATE_WIDTH', newWidth)
+    store.commit('setting/updateWidth', newWidth)
 }
 
 /**

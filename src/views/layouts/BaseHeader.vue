@@ -167,7 +167,7 @@ const toggleNavigatorBtnClass = computed(() => {
  * 导航切换按钮点击
  */
 const toggleNavigatorBtnClick = () => {
-    store.commit('setting/TOGGLE_NAVIGATOR')
+    store.commit('setting/toggleNavigator')
 }
 
 /**
@@ -245,7 +245,7 @@ const exitSystem = () => {
         '/system/logout',
     ).finally(() => {
         loading.close()
-        store.commit('CLEANUP')
+        store.commit('cleanup')
         router.replace('/login')
     })
 }
@@ -275,7 +275,7 @@ const avatarError = (error) => {
  * 语言改变
  */
 const languageChange = (lang) => {
-    store.commit('setting/UPDATE_LANGUAGE', lang)
+    store.commit('setting/updateLanguage', lang)
 }
 
 /**

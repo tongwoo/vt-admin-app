@@ -41,7 +41,7 @@ const store = createStore({
          * @param state
          * @param {int} number 未读数量
          */
-        MESSAGE_UPDATE_UNREAD(state, number) {
+        messageUpdateUnread(state, number) {
             state.message.unread = number
         },
         /**
@@ -49,14 +49,14 @@ const store = createStore({
          * @param state
          * @param {Array<{id:number,title:string}>} items 消息列表
          */
-        MESSAGE_UPDATE_ITEMS(state, items) {
+        messageUpdateItems(state, items) {
             state.message.items = items
         },
         /**
          * 读取本地存储的信息同步到Store
          * @param state
          */
-        LOCAL_SYNC(state) {
+        localSync(state) {
             //设置为已同步，路由守卫不会再次进行同步处理
             state.synced = true
             //本地信息
@@ -79,7 +79,7 @@ const store = createStore({
          * 清空
          * @param {Object} state
          */
-        CLEANUP(state) {
+        cleanup(state) {
             localStorage.removeItem('localStore')
             //用户
             state.user.authorization = null
@@ -103,8 +103,8 @@ const store = createStore({
 store.subscribe((mutation, state) => {
     //忽略的Mutation列表，有些Mutation是不需要处理的
     const ignoreMutations = [
-        'LOCAL_SYNC',
-        'CLEANUP',
+        'localSync',
+        'cleanup',
     ]
     if (ignoreMutations.indexOf(mutation.type) !== -1) {
         return

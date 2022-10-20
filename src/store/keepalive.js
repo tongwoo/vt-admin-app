@@ -16,7 +16,7 @@ export default {
          * @param state
          * @param {string} name 组件名
          */
-        ADD(state, name) {
+        add(state, name) {
             if (state.componentNames.indexOf(name) !== -1) {
                 return
             }
@@ -27,7 +27,7 @@ export default {
          * @param state
          * @param {string} name 组件名
          */
-        REMOVE(state, name) {
+        remove(state, name) {
             const index = state.componentNames.indexOf(name)
             if (index !== -1) {
                 state.componentNames.splice(index, 1)
