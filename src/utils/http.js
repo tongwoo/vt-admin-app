@@ -9,8 +9,8 @@ const http = axios.create({
     timeout: 30000,
     headers: {
         'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache'
-    }
+        'Pragma': 'no-cache',
+    },
 })
 
 //请求拦截器
@@ -39,7 +39,7 @@ http.interceptors.response.use(
             throw error
         }
         return normalize(error.response)
-    }
+    },
 )
 
 /**
@@ -48,8 +48,9 @@ http.interceptors.response.use(
  * @return {Object}
  */
 function normalize(response) {
-    response.isOk = isOk(response.data.code)
+    response.isOk = response.status === 200
     if (typeof response.data === 'object') {
+        response.isOk = isOk(response.data?.code)
         if (response.data?.msg !== undefined) {
             response.data.message = response.data.msg
             delete response.data.msg
