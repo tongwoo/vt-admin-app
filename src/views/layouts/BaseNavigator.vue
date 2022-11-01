@@ -34,17 +34,17 @@
 <script setup>
 import {computed, reactive, ref} from "vue"
 import {useStore} from "vuex"
-import {fetchMenus, fetchNavigateMenus} from '@/data/navigate-menu.js'
 import MenuItem from '@/components/MenuItem.vue'
 import {useRoute} from "vue-router"
 import VirtualDrag from "@/components/VirtualDrag.vue"
 import defaultAvatar from "@/assets/images/icons/avatar-default.png"
+import {filterAuthMenus, navigateMenus} from '@/data/menu.js'
 
 const store = useStore()
 const route = useRoute()
 
 //菜单列表
-const menus = fetchMenus(fetchNavigateMenus())
+const menus = filterAuthMenus(navigateMenus)
 
 //菜单是否折叠
 const isCollapsed = computed(() => {
