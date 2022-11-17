@@ -1,4 +1,4 @@
-import http from '@/utils/http.js'
+import {http} from '@/utils/http.js'
 
 /**
  * 提交登录

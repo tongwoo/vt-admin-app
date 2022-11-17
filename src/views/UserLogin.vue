@@ -50,7 +50,7 @@
 <script setup>
 import {ref, reactive, onMounted} from "vue"
 import {ElLoading as loadingTip, ElMessage as messageTip} from "element-plus"
-import http from "@/utils/http.js"
+import {http} from "@/utils/http.js"
 import {useStore} from "vuex"
 import {useRouter} from "vue-router"
 import defaultAvatar from "@/assets/images/icons/avatar-default.png"

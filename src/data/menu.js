@@ -100,3 +100,28 @@ export function filterAuthMenus(menus) {
     }
     return items
 }
+
+/**
+ * 提供路由路径从菜单列表中查找出现此路径的根菜单索引
+ * @param {Array} menus 菜单列表
+ * @param {string} path 菜单链接路径
+ * @param {boolean} isRoot 是否是根节点
+ * @param {number|null} index 外层索引
+ */
+export function findRootMenuIndex(menus, path, isRoot = true, index = null) {
+    for (let i = 0; i < menus.length; i++) {
+        if (isRoot) {
+            index = i
+        }
+        if (menus[i].path === path) {
+            return index
+        }
+        if (menus[i]?.children && menus[i].children.length > 0) {
+            const childIndex = findRootMenuIndex(menus[i].children, path, false, index)
+            if (Number.isInteger(childIndex)) {
+                return childIndex
+            }
+        }
+    }
+    return null
+}

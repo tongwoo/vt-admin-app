@@ -1,4 +1,4 @@
-import http from "./http.js"
+import {http} from "./http.js"
 import {readAuthorization} from "./authorize.js"
 import {API_PATH_DEFAULT} from "@/constants/api-path.js"
 

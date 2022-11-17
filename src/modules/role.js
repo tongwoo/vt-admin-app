@@ -2,14 +2,14 @@
  * 功能：角色
  * 日期：2022-03-17
  */
-import http from '@/utils/http'
+import {http} from '@/utils/http'
 
 /**
  * 新增角色
  * @param {Object} data 数据
  * @return {Promise<{success:boolean,message:string}>}
  */
-function createRole(data) {
+export function createRole(data) {
     return http.post(
         '/role/create',
         data
@@ -26,7 +26,7 @@ function createRole(data) {
  * @param {Object} data 数据
  * @return {Promise<{success:boolean,message:string}>}
  */
-function updateRole(data) {
+export function updateRole(data) {
     return http.post(
         '/role/update',
         data
@@ -43,7 +43,7 @@ function updateRole(data) {
  * @param {string|string[]|int|int[]} ids 数据ID,可为单个数值或数值数组
  * @return {Promise<{success:boolean,message:string}>}
  */
-function removeRole(ids) {
+export function removeRole(ids) {
     return http.post(
         '/role/delete',
         {
@@ -62,7 +62,7 @@ function removeRole(ids) {
  * @param {string|int} id 主键ID
  * @return {Promise<{success:boolean,message:string,data:Object}>}
  */
-function fetchRole(id) {
+export function fetchRole(id) {
     return http.get(
         '/role/detail?id=' + id
     ).then((body) => {
@@ -79,7 +79,7 @@ function fetchRole(id) {
  * @param {Object} params 参数
  * @return {Promise<Array>}
  */
-function fetchRoles(params = {}) {
+export function fetchRoles(params = {}) {
     return http.get(
         '/role/items',
         {
@@ -95,7 +95,7 @@ function fetchRoles(params = {}) {
  * @param {Object} params 参数
  * @return {Promise<{records:Array,total:int}>}
  */
-function fetchPageRoles(params = {}) {
+export function fetchPageRoles(params = {}) {
     return http.get(
         '/role/page-items',
         {
@@ -119,7 +119,7 @@ function fetchPageRoles(params = {}) {
  * @param {Object} params 参数
  * @return {Promise<Array<{name:string,value:string|int,origin:Object}>>}
  */
-function fetchPairRoles(params = {}) {
+export function fetchPairRoles(params = {}) {
     return fetchRoles(params).then((items) => {
         return items.map((item) => {
             return {
@@ -136,7 +136,7 @@ function fetchPairRoles(params = {}) {
  * @param {int} roleId 角色ID
  * @returns {Promise<Array>}
  */
-function fetchRolePermissions(roleId) {
+export function fetchRolePermissions(roleId) {
     return http.get(
         '/role/permissions?id=' + roleId
     ).then((response) => {
@@ -145,15 +145,4 @@ function fetchRolePermissions(roleId) {
         }
         return response.data.data.items
     })
-}
-
-export {
-    createRole,
-    updateRole,
-    removeRole,
-    fetchRole,
-    fetchRoles,
-    fetchPageRoles,
-    fetchPairRoles,
-    fetchRolePermissions
 }

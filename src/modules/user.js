@@ -2,14 +2,14 @@
  * 功能：用户
  * 日期：2022-06-14
  */
-import http from '@/utils/http'
+import {http} from '@/utils/http'
 
 /**
  * 新增用户
  * @param {Object} data 数据
  * @return {Promise<{success:boolean,message:string}>}
  */
-function createUser(data) {
+export function createUser(data) {
     return http.post(
         '/user/create',
         data
@@ -27,7 +27,7 @@ function createUser(data) {
  * @param {Object} data 数据
  * @return {Promise<{success:boolean,message:string}>}
  */
-function updateUser(data) {
+export function updateUser(data) {
     return http.post(
         '/user/update',
         data
@@ -45,7 +45,7 @@ function updateUser(data) {
  * @param {string|string[]|int|int[]} ids 数据ID,可为单个数值或数值数组
  * @return {Promise<{success:boolean,message:string}>}
  */
-function removeUser(ids) {
+export function removeUser(ids) {
     return http.post(
         '/user/delete',
         {
@@ -65,7 +65,7 @@ function removeUser(ids) {
  * @param {string|int} id 主键ID
  * @return {Promise<{success:boolean,message:string,data:Object}>}
  */
-function fetchUser(id) {
+export function fetchUser(id) {
     return http.get(
         '/user/detail?id=' + id
     ).then((response) => {
@@ -83,7 +83,7 @@ function fetchUser(id) {
  * @param {Object} params 参数
  * @return {Promise<Array>}
  */
-function fetchUsers(params = {}) {
+export function fetchUsers(params = {}) {
     return http.get(
         '/user/items',
         {
@@ -100,7 +100,7 @@ function fetchUsers(params = {}) {
  * @param {Object} params 参数
  * @return {Promise<{items:Array,total:int}>}
  */
-function fetchPageUsers(params = {}) {
+export function fetchPageUsers(params = {}) {
     return http.get(
         '/user/page-items',
         {
@@ -125,7 +125,7 @@ function fetchPageUsers(params = {}) {
  * @param {Object} params 参数
  * @return {Promise<Array<{name:string,value:string|int,origin:Object}>>}
  */
-function fetchPairUsers(params = {}) {
+export function fetchPairUsers(params = {}) {
     return fetchUsers(params).then((items) => {
         return items.map((item) => {
             return {
@@ -135,15 +135,4 @@ function fetchPairUsers(params = {}) {
             }
         })
     })
-}
-
-
-export {
-    createUser,
-    updateUser,
-    removeUser,
-    fetchUser,
-    fetchUsers,
-    fetchPageUsers,
-    fetchPairUsers
 }

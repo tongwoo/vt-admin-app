@@ -30,7 +30,7 @@
 <script setup>
 import {httpErrorHandler} from "@/utils/error.js"
 import {computed, reactive, ref} from "vue"
-import http from "@/utils/http.js"
+import {http} from "@/utils/http.js"
 import {ElMessage} from "element-plus"
 
 //相关属性

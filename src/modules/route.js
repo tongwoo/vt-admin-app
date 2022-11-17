@@ -2,14 +2,14 @@
  * 功能：路由
  * 日期：2022-06-16
  */
-import http from '@/utils/http'
+import {http} from '@/utils/http'
 
 /**
  * 新增路由
  * @param {Object} data 数据
  * @return {Promise<{success:boolean,message:string}>}
  */
-function createRoute(data) {
+export function createRoute(data) {
     return http.post(
         '/route/create',
         data
@@ -27,7 +27,7 @@ function createRoute(data) {
  * @param {Object} data 数据
  * @return {Promise<{success:boolean,message:string}>}
  */
-function updateRoute(data) {
+export function updateRoute(data) {
     return http.post(
         '/route/update',
         data
@@ -45,7 +45,7 @@ function updateRoute(data) {
  * @param {string|string[]|int|int[]} ids 数据ID,可为单个数值或数值数组
  * @return {Promise<{success:boolean,message:string}>}
  */
-function removeRoute(ids) {
+export function removeRoute(ids) {
     return http.post(
         '/route/delete',
         {
@@ -65,7 +65,7 @@ function removeRoute(ids) {
  * @param {string|int} id 主键ID
  * @return {Promise<{success:boolean,message:string,data:Object}>}
  */
-function fetchRoute(id) {
+export function fetchRoute(id) {
     return http.get(
         '/route/detail?id=' + id
     ).then((response) => {
@@ -83,7 +83,7 @@ function fetchRoute(id) {
  * @param {Object} params 参数
  * @return {Promise<Array>}
  */
-function fetchRoutes(params = {}) {
+export function fetchRoutes(params = {}) {
     return http.get(
         '/route/items',
         {
@@ -100,7 +100,7 @@ function fetchRoutes(params = {}) {
  * @param {Object} params 参数
  * @return {Promise<{items:Array,total:int}>}
  */
-function fetchPageRoutes(params = {}) {
+export function fetchPageRoutes(params = {}) {
     return http.get(
         '/route/page-items',
         {
@@ -125,7 +125,7 @@ function fetchPageRoutes(params = {}) {
  * @param {Object} params 参数
  * @return {Promise<Array<{name:string,value:string|int,origin:Object}>>}
  */
-function fetchPairRoutes(params = {}) {
+export function fetchPairRoutes(params = {}) {
     return fetchRoutes(params).then((items) => {
         return items.map((item) => {
             return {
@@ -141,7 +141,7 @@ function fetchPairRoutes(params = {}) {
  * 清空路由
  * @return {Promise}
  */
-function truncateRoutes() {
+export function truncateRoutes() {
     return http.get(
         '/route/truncate'
     ).then((response) => {
@@ -153,22 +153,10 @@ function truncateRoutes() {
  * 生成路由
  * @return {Promise}
  */
-function generateRoutes() {
+export function generateRoutes() {
     return http.get(
         '/route/generate'
     ).then((response) => {
         return response.isOk
     })
-}
-
-export {
-    createRoute,
-    updateRoute,
-    removeRoute,
-    fetchRoute,
-    fetchRoutes,
-    fetchPageRoutes,
-    fetchPairRoutes,
-    truncateRoutes,
-    generateRoutes
 }
