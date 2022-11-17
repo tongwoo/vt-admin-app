@@ -14,11 +14,11 @@
     },
     "dependencies": {
         "axios": "^0.24.0",
-        "bootstrap-icons": "^1.9.1",
-        "core-js": "^3.25.5",
+        "bootstrap-icons": "^1.10.2",
+        "core-js": "^3.26.1",
         "countup.js": "^2.3.2",
         "echarts": "^5.4.0",
-        "element-plus": "^2.2.18",
+        "element-plus": "^2.2.21",
         "js-cookie": "^3.0.1",
         "lodash": "^4.17.21",
         "mathjs": "^10.6.4",
@@ -27,10 +27,10 @@
         "nprogress": "^0.2.0",
         "qs": "^6.11.0",
         "register-service-worker": "^1.7.1",
-        "vue": "^3.2.41",
+        "vue": "^3.2.45",
         "vue-cropper": "^1.0.5",
         "vue-i18n": "^9.2.2",
-        "vue-router": "^4.1.5",
+        "vue-router": "^4.1.6",
         "vuex": "^4.1.0"
     },
     "devDependencies": {
@@ -39,7 +39,7 @@
         "@vue/cli-plugin-router": "^4.5.19",
         "@vue/cli-plugin-vuex": "^4.5.19",
         "@vue/cli-service": "^4.5.19",
-        "@vue/compiler-sfc": "^3.2.41",
+        "@vue/compiler-sfc": "^3.2.45",
         "@vue/eslint-config-standard": "^5.1.2",
         "babel-eslint": "^10.1.0",
         "eslint": "^6.7.2",
@@ -49,7 +49,7 @@
         "eslint-plugin-standard": "^4.0.0",
         "eslint-plugin-vue": "^7.0.0",
         "node-sass": "^4.12.0",
-        "sass": "^1.55.0",
+        "sass": "^1.56.1",
         "sass-loader": "^8.0.2"
     }
 }
