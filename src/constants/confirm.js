@@ -1,9 +1,3 @@
-/*
- * 功能：确认
- * 作者：wutong
- * 日期：2022-09-29
- */
-
 //否
 export const CONFIRM_NO = 0
 
