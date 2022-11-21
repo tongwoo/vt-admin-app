@@ -24,8 +24,8 @@
                 <el-checkbox v-model="model.include">额外创建「增删改查」子权限</el-checkbox>
             </el-form-item>
 
-            <div class="error-container" v-if="errorMessage!==null">
-                <el-alert type="error" :description="errorMessage" :closable="false" show-icon></el-alert>
+            <div class="error-container" v-if="tip">
+                <el-alert type="error" :description="tip" :closable="false" show-icon></el-alert>
             </div>
             <div class="footer-container">
                 <el-button type="default" @click="cancelBtnClick"><i class="bi bi-x-circle-fill el-icon--left"></i>取消</el-button>
@@ -58,7 +58,7 @@ const loading = ref(false)
 //表单
 const form = ref(null)
 //错误信息
-const errorMessage = ref(null)
+const tip = ref(null)
 
 //模型
 const model = reactive({
@@ -169,7 +169,7 @@ onMounted(async () => {
  * 保存按钮点击
  */
 const saveBtnClick = async () => {
-    errorMessage.value = null
+    tip.value = null
     const success = await form.value.validate().catch(() => false)
     if (!success) {
         return
@@ -206,7 +206,7 @@ const submitCreate = (data) => {
     loading.value = true
     return createPermission(data).then(({success, message}) => {
         if (!success) {
-            errorMessage.value = message
+            tip.value = message
             return
         }
         messageTip.success(message)
@@ -227,7 +227,7 @@ const submitUpdate = (data) => {
     loading.value = true
     return updatePermission(data).then(({success, message}) => {
         if (!success) {
-            errorMessage.value = message
+            tip.value = message
             return
         }
         messageTip.success(message)

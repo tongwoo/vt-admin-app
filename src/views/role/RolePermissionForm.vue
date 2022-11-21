@@ -2,8 +2,8 @@
     <div class="form-container" v-loading="loading">
         <el-tree class="permission-box" v-if="permissions.length>0" ref="tree" :props="treeProps" node-key="id" :data="permissions" show-checkbox accordion></el-tree>
         <el-empty v-else></el-empty>
-        <div class="error-container" v-if="errorMessage!==null">
-            <el-alert type="error" :description="errorMessage" :closable="false" show-icon></el-alert>
+        <div class="error-container" v-if="tip">
+            <el-alert type="error" :description="tip" :closable="false" show-icon></el-alert>
         </div>
         <div class="footer-container" v-if="permissions.length>0">
             <el-button type="default" @click="cancelBtnClick"><i class="bi bi-x-circle-fill el-icon--left"></i>取消</el-button>
@@ -34,7 +34,7 @@ const loading = ref(false)
 //权限树
 const tree = ref(null)
 //错误
-const errorMessage = ref(null)
+const tip = ref(null)
 //权限集合
 const permissions = ref([])
 //权限树选项
@@ -95,14 +95,14 @@ const loadRolePermissions = () => {
  * 提交保存
  */
 const submitSave = (data) => {
-    errorMessage.value = null
+    tip.value = null
     loading.value = true
     return http.post(
         '/role/bind',
         data
     ).then((response) => {
         if (!response.isOk) {
-            errorMessage.value = response.data.message
+            tip.value = response.data.message
         } else {
             messageTip.success(response.data.message)
             emits('close')
@@ -141,7 +141,5 @@ const cancelBtnClick = () => {
 .permission-box {
     border: 1px solid #eee;
     margin-bottom: 10px;
-    max-height: 300px;
-    overflow: auto
 }
 </style>

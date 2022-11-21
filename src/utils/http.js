@@ -51,6 +51,16 @@ function normalize(response) {
     response.isOk = response.status === 200
     if (typeof response.data === 'object') {
         response.isOk = isOk(response.data?.code)
+        if (!response.isOk) {
+            //页面不存在、未登录、无权限直接抛出异常
+            const codes = [401, 403, 404]
+            if (codes.indexOf(response.data.code) !== -1) {
+                response.status = response.data.code
+                throw {
+                    response,
+                }
+            }
+        }
         if (response.data?.msg !== undefined) {
             response.data.message = response.data.msg
             delete response.data.msg
