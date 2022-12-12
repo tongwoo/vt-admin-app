@@ -3,6 +3,7 @@
 日期：2022-03-09
 变更：
      2022-09-30 增加跳动选项
+     2022-12-12 修复初始化问题
 -->
 <template>
     <span v-if="props.isJump && isNumber" ref="el" key="count"></span>
@@ -10,7 +11,7 @@
 </template>
 
 <script setup>
-import {computed, onMounted, ref, watch} from "vue"
+import {computed, nextTick, onMounted, ref, watch} from "vue"
 import {CountUp} from 'countup.js'
 
 const props = defineProps({
@@ -18,7 +19,7 @@ const props = defineProps({
     //值不符合规则显示的替换文本，默认为 "-"
     text: {
         type: [String, Number],
-        default: '-',
+        default: '--',
     },
     //是否跳动
     isJump: {
@@ -91,11 +92,13 @@ watch(
  * 初始化跳动实例
  */
 const initCountUp = () => {
-    countUp = new CountUp(el.value, props.modelValue, {
-        ...defaultJumpOption,
-        ...props.jumpOption,
+    nextTick(() => {
+        countUp = new CountUp(el.value, props.modelValue, {
+            ...defaultJumpOption,
+            ...props.jumpOption,
+        })
+        countUp.start()
     })
-    countUp.start()
 }
 
 /**
@@ -108,11 +111,14 @@ const updateCountUp = () => {
     }
     if (countUp === null) {
         initCountUp()
+    } else {
+        countUp.update(props.modelValue)
     }
-    countUp.update(props.modelValue)
 }
 
 onMounted(() => {
-    initCountUp()
+    if (props.isJump && isNumber.value) {
+        initCountUp()
+    }
 })
 </script>
